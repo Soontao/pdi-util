@@ -6,8 +6,18 @@ import (
 	"sort"
 
 	"github.com/Soontao/pdi-util/client"
+
 	"github.com/urfave/cli"
 )
+
+// PDIAction wrapper
+func PDIAction(action func(pdiClient *client.PDIClient)) func(c *cli.Context) error {
+	return func(c *cli.Context) error {
+		pdiClient := client.NewPDIClient(c.String("username"), c.String("password"), c.String("hostname"))
+		action(pdiClient)
+		return nil
+	}
+}
 
 func main() {
 	app := cli.NewApp()
@@ -62,11 +72,9 @@ func main() {
 				{
 					Name:  "list",
 					Usage: "list all solutions",
-					Action: func(c *cli.Context) error {
-						pdiClient := client.NewPDIClient(c.String("username"), c.String("password"), c.String("hostname"))
+					Action: PDIAction(func(pdiClient *client.PDIClient) {
 						pdiClient.ListSolutions()
-						return nil
-					},
+					}),
 				},
 			},
 		},
