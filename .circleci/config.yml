@@ -15,5 +15,6 @@ jobs:
       - run: go get -v -t -d ./...
       - run: go test -v ./...
       - run: bash ./build.sh
+      - run: mv ./build /build
       - store_artifacts:
-          path: /go/src/github.com/Soontao/pdi-util/build
+          path: /build
