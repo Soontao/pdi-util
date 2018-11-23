@@ -5,7 +5,7 @@ import (
 	"os"
 	"sort"
 
-	"./client"
+	"github.com/Soontao/pdi-util/client"
 	"github.com/urfave/cli"
 )
 
