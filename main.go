@@ -10,8 +10,8 @@ import (
 	"github.com/urfave/cli"
 )
 
-// Version string
-var Version string
+// Version string, in release version, this variable will be overwrite by complier
+var Version = "SNAPSHOT"
 
 // PDIAction wrapper
 func PDIAction(action func(pdiClient *client.PDIClient, c *cli.Context)) func(c *cli.Context) error {
