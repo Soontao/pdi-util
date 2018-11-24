@@ -74,3 +74,7 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
  1226 / 1226 [===================================================================================] 100.00% 34s
 2018/11/24 21:21:26 Done
 ```
+
+## [CHNAGELOG](./CHANGELOG.md)
+
+## [LICENSE](./LICENSE)
