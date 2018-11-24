@@ -50,6 +50,25 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list
 ## download source from repo
 
 ```bash
+bash> pdi-util source download -h
+NAME:
+   PDI Util source download - download all files in a solution
+
+USAGE:
+   PDI Util source download [command options] [arguments...]
+
+OPTIONS:
+   --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
+   --output value, -o value      Output directory (default: "output") [$OUTPUT]
+   --concurrent value, -c value  concurrent goroutine number when download from remote (default: 35) [$DOWNLOAD_CONCURRENT]
+   
+```
+
+Extremely fast, download with `35` goroutines defaultly. 
+
+(PDI download project files one by one in a single thread).
+
+```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download -s SOLUTION_NAME 
 2018/11/24 12:59:36 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
 2018/11/24 13:00:05 Done
