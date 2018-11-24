@@ -64,16 +64,21 @@ func main() {
 						cli.StringFlag{
 							Name:   "output, o",
 							EnvVar: "OUTPUT",
+							Value:  "output",
 							Usage:  "Output directory",
+						},
+						cli.IntFlag{
+							Name:   "concurrent, c",
+							EnvVar: "DOWNLOAD_CONCURRENT",
+							Value:  35,
+							Usage:  "concurrent goroutine number when download from remote",
 						},
 					},
 					Action: PDIAction(func(pdiClient *client.PDIClient, context *cli.Context) {
 						solutionName := context.String("solution")
 						output := context.String("output")
-						if output == "" {
-							output = "output"
-						}
-						pdiClient.DownloadAllSourceTo(solutionName, output)
+						concurrent := context.Int("concurrent")
+						pdiClient.DownloadAllSourceTo(solutionName, output, concurrent)
 					}),
 				},
 			},

@@ -12,15 +12,13 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+// XrepDownloadTask is download & write task
 type XrepDownloadTask struct {
 	xrepPath  string
 	localPath string
 }
 
-func (c *PDIClient) downloadAndWrite() {
-
-}
-
+// DownloadFileSource will return the remote file content
 func (c *PDIClient) DownloadFileSource(xrepPath string) []byte {
 
 	url := c.xrepPath()
@@ -46,7 +44,7 @@ func (c *PDIClient) DownloadFileSource(xrepPath string) []byte {
 }
 
 // DownloadAllSourceTo directory
-func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string) {
+func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurrent int) {
 	// > process output target
 	ensure(targetPath, "targetPath")
 	output := ""
@@ -76,7 +74,7 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string) {
 	log.Printf("Will download %d files to %s\n", len(downloadList), output)
 	// > request and download
 	asyncResponses := make([]chan bool, len(downloadList))
-	parallexController := make(chan bool, 35)
+	parallexController := make(chan bool, concurrent)
 	for idx, task := range downloadList {
 		asyncResponses[idx] = make(chan bool, 1)
 		parallexController <- true
