@@ -10,6 +10,9 @@ import (
 	"github.com/urfave/cli"
 )
 
+// Version string
+var Version string
+
 // PDIAction wrapper
 func PDIAction(action func(pdiClient *client.PDIClient, c *cli.Context)) func(c *cli.Context) error {
 	return func(c *cli.Context) error {
@@ -21,7 +24,7 @@ func PDIAction(action func(pdiClient *client.PDIClient, c *cli.Context)) func(c 
 
 func main() {
 	app := cli.NewApp()
-	app.Version = "v1-alpha"
+	app.Version = Version
 	app.Name = "PDI Util"
 	app.Usage = "A cli util for SAP PDI"
 	app.EnableBashCompletion = true
