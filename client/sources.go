@@ -76,7 +76,7 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string) {
 	log.Printf("Will download %d files to %s\n", len(downloadList), output)
 	// > request and download
 	asyncResponses := make([]chan bool, len(downloadList))
-	parallexController := make(chan bool, 20)
+	parallexController := make(chan bool, 35)
 	for idx, task := range downloadList {
 		asyncResponses[idx] = make(chan bool, 1)
 		parallexController <- true

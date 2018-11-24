@@ -1,8 +1,12 @@
-# pdi-util
+# SAP PDI Util Tools
 
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
 
 Cli for SAP PDI
+
+## Latest Build
+
+Just download latest binary files from [Github Release](https://github.com/Soontao/pdi-util/releases) Page
 
 ## Help
 
@@ -34,7 +38,7 @@ GLOBAL OPTIONS:
 ## list all solutions
 
 ```bash
-bash> pdi-util -u DEV_USER -p DEV_PASSWORD -t myxxxxx.c4c.saphybriscloud.com solution list 
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list 
 +----------+----------------+----------------+------------+----------+-------+
 |    ID    |   DESCRIPTION  |     STATUS     |  CUSTOMER  |  CONTACT | EMAIL |
 +----------+----------------+----------------+------------+----------+-------+
@@ -46,7 +50,7 @@ bash> pdi-util -u DEV_USER -p DEV_PASSWORD -t myxxxxx.c4c.saphybriscloud.com sol
 ## download source from repo
 
 ```bash
-bash> pdi-util -u DEV_USER -p DEV_PASSWORD -t myxxxxx.c4c.saphybriscloud.com source download -s SOLUTION_NAME 
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download -s SOLUTION_NAME 
 2018/11/24 12:59:36 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
 2018/11/24 13:00:05 Done
 ```
