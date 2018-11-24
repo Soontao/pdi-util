@@ -24,7 +24,7 @@ COMMANDS:
      help, h   Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --user value, -u value      The PDI Development User [$PDI_USER]
+   --username value, -u value  The PDI Development User [$PDI_USER]
    --password value, -p value  The PDI Development User Password [$PDI_PASSWORD]
    --hostname value, -t value  The PDI Tenant host [$PDI_TENANT_HOST]
    --help, -h                  show help
@@ -35,12 +35,12 @@ GLOBAL OPTIONS:
 
 ```bash
 bash> ./pdi-util -u ys1004 -p Welcome002 -t my500507.c4c.saphybriscloud.cn solution list 
-+----------+----------------+----------------+------------------------+----------+-------------------+
-|    ID    |   DESCRIPTION  |     STATUS     |         CUSTOMER       |  CONTACT |        EMAIL      |
-+----------+----------------+----------------+------------------------+----------+-------------------+
-| Removed  | Removed        | Deployed       | Removed                | Removed  | Removed           |
-| Removed  | Removed        | In Development | Removed                | Removed  | Removed           |
-+----------+----------------+----------------+------------------------+----------+-------------------+
++----------+----------------+----------------+------------+----------+-------+
+|    ID    |   DESCRIPTION  |     STATUS     |  CUSTOMER  |  CONTACT | EMAIL |
++----------+----------------+----------------+------------+----------+-------+
+| Removed  | Removed        | Deployed       |            | Removed  |       |
+| Removed  | Removed        | In Development |            | Removed  |       |
++----------+----------------+----------------+------------+----------+-------+
 ```
 
 ## download source from repo
