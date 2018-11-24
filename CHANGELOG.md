@@ -1,4 +1,17 @@
 
+<a name="v1.0.11"></a>
+## [v1.0.11](https://github.com/Soontao/pdi-util/compare/v1.0.10...v1.0.11) (2018-11-24)
+
+### Chore
+
+* **release:** update CHANGELOG
+* **remove:** unused build PLATFORMS
+
+### Fix
+
+* **build:** version
+
+
 <a name="v1.0.10"></a>
 ## [v1.0.10](https://github.com/Soontao/pdi-util/compare/v1.0.9-snapshot...v1.0.10) (2018-11-24)
 
