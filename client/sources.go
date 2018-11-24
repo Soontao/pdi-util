@@ -10,6 +10,7 @@ import (
 
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
+	pb "gopkg.in/cheggaaa/pb.v1"
 )
 
 // XrepDownloadTask is download & write task
@@ -72,8 +73,11 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 		}
 	}
 	log.Printf("Will download %d files to %s\n", len(downloadList), output)
+	fileCount := len(downloadList)
+	// > progress ui support
+	bar := pb.StartNew(fileCount)
 	// > request and download
-	asyncResponses := make([]chan bool, len(downloadList))
+	asyncResponses := make([]chan bool, fileCount)
 	parallexController := make(chan bool, concurrent)
 	for idx, task := range downloadList {
 		asyncResponses[idx] = make(chan bool, 1)
@@ -91,6 +95,7 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 			if err := ioutil.WriteFile(task.localPath, source, 0644); err != nil {
 				panic(err)
 			}
+			bar.Increment()
 			done <- true
 			<-parallexController
 		}(task, asyncResponses[idx])
@@ -99,6 +104,6 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	for _, response := range asyncResponses {
 		<-response // ensure all goroutines finished
 	}
-
+	bar.Finish()
 	log.Println("Done")
 }

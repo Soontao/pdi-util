@@ -60,7 +60,7 @@ USAGE:
 OPTIONS:
    --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
    --output value, -o value      Output directory (default: "output") [$OUTPUT]
-   --concurrent value, -c value  concurrent goroutine number when download from remote (default: 35) [$DOWNLOAD_CONCURRENT]
+   --concurrent value, -c value  concurrent goroutine number (default: 35) [$DOWNLOAD_CONCURRENT]
    
 ```
 
@@ -70,6 +70,7 @@ Extremely fast, download with `35` goroutines defaultly.
 
 ```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download -s SOLUTION_NAME 
-2018/11/24 12:59:36 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
-2018/11/24 13:00:05 Done
+2018/11/24 21:20:52 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
+ 1226 / 1226 [===================================================================================] 100.00% 34s
+2018/11/24 21:21:26 Done
 ```
