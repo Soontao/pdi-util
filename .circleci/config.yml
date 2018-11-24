@@ -27,7 +27,7 @@ jobs:
       - run: bash ./build.sh
       - store_artifacts:
           path: /go/src/github.com/Soontao/pdi-util/build
-          destination: ~/artifacts
+          destination: artifacts
 
   publish-github-release:
     docker:
