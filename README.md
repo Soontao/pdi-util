@@ -34,7 +34,7 @@ GLOBAL OPTIONS:
 ## list all solutions
 
 ```bash
-bash> ./pdi-util -u ys1004 -p Welcome002 -t my500507.c4c.saphybriscloud.cn solution list 
+bash> pdi-util -u DEV_USER -p DEV_PASSWORD -t myxxxxx.c4c.saphybriscloud.com solution list 
 +----------+----------------+----------------+------------+----------+-------+
 |    ID    |   DESCRIPTION  |     STATUS     |  CUSTOMER  |  CONTACT | EMAIL |
 +----------+----------------+----------------+------------+----------+-------+
