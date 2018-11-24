@@ -22,12 +22,14 @@ jobs:
     working_directory: /go/src/github.com/Soontao/pdi-util
     steps:
       - checkout
+      - attach_workspace:
+	        at: ~/artifacts
       - run: go get -v -t -d ./...
       - run: go test -v ./...
       - run: bash ./build.sh
-      - store_artifacts:
-          path: /go/src/github.com/Soontao/pdi-util/build
-          destination: artifacts
+      - persist_to_workspace:
+          root: .
+          paths: build
 
   publish-github-release:
     docker:
