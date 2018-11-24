@@ -40,7 +40,6 @@ func (c *PDIClient) query(fm string) req.QueryParam {
 func (c *PDIClient) login() *PDIClient {
 	url := c.path("/sap/ap/ui/login")
 	// > fetch cookie & client infomartions
-	req.SetProxyUrl("http://localhost:18888")
 	query := req.QueryParam{"saml2": "disabled"}
 	resp, err := req.Get(url, query)
 	if err != nil {
@@ -96,7 +95,7 @@ func (c *PDIClient) getIvUser() *PDIClient {
 }
 
 func ensure(v interface{}, name string) {
-	if v == nil {
+	if v == "" {
 		panic(fmt.Sprintf("You must give out the %s!", name))
 	}
 }

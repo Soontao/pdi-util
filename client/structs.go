@@ -73,3 +73,58 @@ type IvUserImporting struct {
 type IvAlias struct {
 	Useralias string `json:"USERALIAS"`
 }
+
+// Project struct for pdi project xml
+type Project struct {
+	XMLName        xml.Name `xml:"Project"`
+	Text           string   `xml:",chardata"`
+	DefaultTargets string   `xml:"DefaultTargets,attr"`
+	Xmlns          string   `xml:"xmlns,attr"`
+	PropertyGroup  []struct {
+		Text          string `xml:",chardata"`
+		Condition     string `xml:"Condition,attr"`
+		SchemaVersion string `xml:"SchemaVersion"`
+		ProjectGUID   string `xml:"ProjectGuid"`
+		ProjectType   string `xml:"ProjectType"`
+		Configuration struct {
+			Text      string `xml:",chardata"`
+			Condition string `xml:"Condition,attr"`
+		} `xml:"Configuration"`
+		Name                      string `xml:"Name"`
+		RootNamespace             string `xml:"RootNamespace"`
+		RepositoryNamespace       string `xml:"RepositoryNamespace"`
+		RuntimeNamespacePrefix    string `xml:"RuntimeNamespacePrefix"`
+		RepositoryRootFolder      string `xml:"RepositoryRootFolder"`
+		DefaultProcessComponent   string `xml:"DefaultProcessComponent"`
+		DevelopmentPackage        string `xml:"DevelopmentPackage"`
+		XRepSolution              string `xml:"XRepSolution"`
+		BCSourceFolderInXRep      string `xml:"BCSourceFolderInXRep"`
+		ProjectSourceFolderinXRep string `xml:"ProjectSourceFolderinXRep"`
+		DeploymentUnit            string `xml:"DeploymentUnit"`
+		CompilerVersion           string `xml:"CompilerVersion"`
+		OutputPath                string `xml:"OutputPath"`
+	} `xml:"PropertyGroup"`
+	ItemGroup []struct {
+		Text   string `xml:",chardata"`
+		Folder []struct {
+			Text    string `xml:",chardata"`
+			Include string `xml:"Include,attr"`
+		} `xml:"Folder"`
+		BCSet []struct {
+			Text    string `xml:",chardata"`
+			Include string `xml:"Include,attr"`
+			SubType string `xml:"SubType"`
+		} `xml:"BCSet"`
+		Content []struct {
+			Text          string `xml:",chardata"`
+			Include       string `xml:"Include,attr"`
+			DependentUpon string `xml:"DependentUpon"`
+			SubType       string `xml:"SubType"`
+			IsHidden      string `xml:"IsHidden"`
+		} `xml:"Content"`
+	} `xml:"ItemGroup"`
+	Import struct {
+		Text    string `xml:",chardata"`
+		Project string `xml:"Project,attr"`
+	} `xml:"Import"`
+}

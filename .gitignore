@@ -14,3 +14,5 @@
 # binary
 pdi-util*
 build
+test
+output
