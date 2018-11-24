@@ -40,7 +40,7 @@ GLOBAL OPTIONS:
 ```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list 
 +----------+----------------+----------------+------------+----------+-------+
-|    ID    |   DESCRIPTION  |     STATUS     |  CUSTOMER  |  CONTACT | EMAIL |
+|   NAME   |   DESCRIPTION  |     STATUS     |  CUSTOMER  |  CONTACT | EMAIL |
 +----------+----------------+----------------+------------+----------+-------+
 | Removed  | Removed        | Deployed       |            | Removed  |       |
 | Removed  | Removed        | In Development |            | Removed  |       |
@@ -69,7 +69,7 @@ Extremely fast, download with `35` goroutines defaultly.
 (PDI download project files one by one in a single thread).
 
 ```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download -s SOLUTION_NAME 
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download -s YQABCDEFG_ 
 2018/11/24 21:20:52 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
 1226 / 1226 [=============================================================================] 100.00% 34s
 2018/11/24 21:21:26 Done

@@ -108,7 +108,7 @@ func (c *PDIClient) ListSolutions() *PDIClient {
 
 	// > output table
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"ID", "Description", "Status", "Customer", "Contact", "Email"})
+	table.SetHeader([]string{"NAME", "Description", "Status", "Customer", "Contact", "Email"})
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 	table.AppendBulk(solutionTable)
 	table.Render()
