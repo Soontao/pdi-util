@@ -1,4 +1,29 @@
 
+<a name="v1.0.10"></a>
+## [v1.0.10](https://github.com/Soontao/pdi-util/compare/v1.0.9-snapshot...v1.0.10) (2018-11-24)
+
+### Chore
+
+* **release:** new version
+
+
+<a name="v1.0.9-snapshot"></a>
+## [v1.0.9-snapshot](https://github.com/Soontao/pdi-util/compare/v1.0.8-alpha...v1.0.9-snapshot) (2018-11-24)
+
+### Chore
+
+* **document:** update
+* **release:** new version
+
+### Feat
+
+* **build:** add default build in normal commit
+* **default:** version
+* **source:** support define concurrent number
+* **source:** increase default concurrent number, update doc
+* **version:** auto management
+
+
 <a name="v1.0.8-alpha"></a>
 ## [v1.0.8-alpha](https://github.com/Soontao/pdi-util/compare/v1.0.7-alpha...v1.0.8-alpha) (2018-11-24)
 
