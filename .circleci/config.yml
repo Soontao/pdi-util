@@ -27,7 +27,7 @@ jobs:
           at: ~/artifacts
       - run: go get -v -t -d ./...
       - run: go test -v ./...
-      - run: bash ./build.sh
+      - run: VERSION=${CIRCLE_TAG} bash ./build.sh
       - persist_to_workspace:
           root: .
           paths: build
