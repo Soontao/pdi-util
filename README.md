@@ -78,7 +78,7 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
 2018/11/24 21:21:26 Done
 ```
 
-## check copy right header
+## copyright header check
 
 ```bash
 bash> pdi-util check header -h
@@ -97,7 +97,7 @@ make sure all absl & bo have copyright header with following format:
 
 OPTIONS:
    --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
-   --concurrent value, -c value  concurrent goroutine number when download from remote (default: 35) [$DOWNLOAD_CONCURRENT]
+   --concurrent value, -c value  concurrent goroutine number (default: 35) [$DOWNLOAD_CONCURRENT]
 ```
 
 example

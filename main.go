@@ -99,7 +99,7 @@ func main() {
 		},
 		{
 			Name:  "check",
-			Usage: "code static check",
+			Usage: "static check",
 			Subcommands: []cli.Command{
 				{
 					Name:      "header",
@@ -115,7 +115,7 @@ func main() {
 							Name:   "concurrent, c",
 							EnvVar: "DOWNLOAD_CONCURRENT",
 							Value:  35,
-							Usage:  "concurrent goroutine number when download from remote",
+							Usage:  "concurrent goroutine number",
 						},
 					},
 					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
