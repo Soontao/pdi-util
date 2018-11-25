@@ -36,6 +36,8 @@ GLOBAL OPTIONS:
    --version, -v               print the version
 ```
 
+Almost all options can be configured in the system environment variables.
+
 ## list all solutions
 
 ```bash
@@ -72,7 +74,7 @@ Extremely fast, download with `35` goroutines defaultly.
 ```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download -s YQABCDEFG_ 
 2018/11/24 21:20:52 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
-1226 / 1226 [=============================================================================] 100.00% 34s
+1226 / 1226  100.00% 34s
 2018/11/24 21:21:26 Done
 ```
 

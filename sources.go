@@ -89,7 +89,9 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	fileCount := len(downloadList)
 	log.Printf("Will download %d files to %s\n", fileCount, output)
 	// > progress ui support
-	bar := pb.StartNew(fileCount)
+	bar := pb.New(fileCount)
+	bar.ShowBar = false
+	bar.Start()
 	// > request and download
 	asyncResponses := make([]chan bool, fileCount)
 	parallexController := make(chan bool, concurrent)
