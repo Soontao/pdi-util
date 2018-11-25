@@ -5,8 +5,6 @@ import (
 	"os"
 	"sort"
 
-	"github.com/Soontao/pdi-util/client"
-
 	"github.com/urfave/cli"
 )
 
@@ -14,9 +12,9 @@ import (
 var Version = "SNAPSHOT"
 
 // PDIAction wrapper
-func PDIAction(action func(pdiClient *client.PDIClient, c *cli.Context)) func(c *cli.Context) error {
+func PDIAction(action func(pdiClient *PDIClient, c *cli.Context)) func(c *cli.Context) error {
 	return func(c *cli.Context) error {
-		pdiClient := client.NewPDIClient(c.GlobalString("username"), c.GlobalString("password"), c.GlobalString("hostname"))
+		pdiClient := NewPDIClient(c.GlobalString("username"), c.GlobalString("password"), c.GlobalString("hostname"))
 		action(pdiClient, c)
 		return nil
 	}
@@ -74,7 +72,7 @@ func main() {
 							Usage:  "concurrent goroutine number when download from remote",
 						},
 					},
-					Action: PDIAction(func(pdiClient *client.PDIClient, context *cli.Context) {
+					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 						solutionName := context.String("solution")
 						output := context.String("output")
 						concurrent := context.Int("concurrent")
@@ -103,7 +101,7 @@ func main() {
 				{
 					Name:  "list",
 					Usage: "list all solutions",
-					Action: PDIAction(func(pdiClient *client.PDIClient, context *cli.Context) {
+					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 						pdiClient.ListSolutions()
 					}),
 				},
@@ -117,7 +115,7 @@ func main() {
 							Usage:  "The PDI Solution Name",
 						},
 					},
-					Action: PDIAction(func(pdiClient *client.PDIClient, context *cli.Context) {
+					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 						solutionName := context.String("solution")
 						pdiClient.ListSolutionAllFiles(solutionName)
 					}),
