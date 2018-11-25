@@ -72,5 +72,5 @@ func (c *PDIClient) CheckSolutionCopyrightHeader(solutionName string, concurrent
 	for _, file := range lostList {
 		log.Printf("Not found copyright header in: %s", strings.TrimPrefix(file, sourceXrepPrefix))
 	}
-	log.Printf("Totally %d file (of %d) lost copyright header", len(lostList), fileCount)
+	log.Printf("Totally %d files (of %d) lost copyright header", len(lostList), fileCount)
 }

@@ -97,7 +97,7 @@ make sure all absl & bo have copyright header with following format:
 
 OPTIONS:
    --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
-   --concurrent value, -c value  concurrent goroutine number (default: 35) [$DOWNLOAD_CONCURRENT]
+   --concurrent value, -c value  concurrent goroutine number (default: 35) [$CHECK_CONCURRENT]
 ```
 
 example
@@ -109,7 +109,7 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s
 2018/11/25 16:13:14 Not found copyright header in: /API/XXXXXXX.absl
 ... 
 ...
-2018/11/25 16:16:34 Totally 247 file (of 532) lost copyright header
+2018/11/25 16:13:14 Totally 247 files (of 532) lost copyright header
 ```
 
 ## [CHNAGELOG](./CHANGELOG.md)
