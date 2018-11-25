@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strings"
 
 	"github.com/urfave/cli"
 )
@@ -14,7 +15,11 @@ var Version = "SNAPSHOT"
 // PDIAction wrapper
 func PDIAction(action func(pdiClient *PDIClient, c *cli.Context)) func(c *cli.Context) error {
 	return func(c *cli.Context) error {
-		pdiClient := NewPDIClient(c.GlobalString("username"), c.GlobalString("password"), c.GlobalString("hostname"))
+		username := c.GlobalString("username")
+		password := c.GlobalString("password")
+		hostname := c.GlobalString("hostname")
+		hostname = strings.TrimPrefix(hostname, "https://") // remove hostname schema
+		pdiClient := NewPDIClient(username, password, hostname)
 		action(pdiClient, c)
 		return nil
 	}
@@ -69,7 +74,7 @@ func main() {
 							Name:   "concurrent, c",
 							EnvVar: "DOWNLOAD_CONCURRENT",
 							Value:  35,
-							Usage:  "concurrent goroutine number when download from remote",
+							Usage:  "concurrent goroutines number",
 						},
 					},
 					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
@@ -113,9 +118,9 @@ func main() {
 						},
 						cli.IntFlag{
 							Name:   "concurrent, c",
-							EnvVar: "DOWNLOAD_CONCURRENT",
+							EnvVar: "CHECK_CONCURRENT",
 							Value:  35,
-							Usage:  "concurrent goroutine number",
+							Usage:  "concurrent goroutines number",
 						},
 					},
 					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
