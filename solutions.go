@@ -12,6 +12,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+// TrimSuffix string
 func TrimSuffix(s, suffix string) string {
 	rt := s
 	if strings.HasSuffix(s, suffix) {
@@ -20,6 +21,7 @@ func TrimSuffix(s, suffix string) string {
 	return rt
 }
 
+// GetSolutionFileList from vs project file
 func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
 	url := c.xrepPath()
 	query := c.query("00163E0115B01DDFB194EC88B8EDEC9B")
@@ -36,6 +38,9 @@ func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
 		panic(nil)
 	}
 	respBody, _ := resp.ToString()
+	if success := gjson.Get(respBody, "EXPORTING.EV_SUCCESS").String(); success != "X" {
+		panic(fmt.Sprintf("Not fount project : %s", solutionName))
+	}
 	projectFileBase64 := gjson.Get(respBody, "EXPORTING.EV_CONTENT").String()
 	projectContent, err := base64.StdEncoding.DecodeString(projectFileBase64)
 	if err != nil {

@@ -88,9 +88,41 @@ func main() {
 				{
 					Name:  "list",
 					Usage: "list all sessions",
-					Action: func(c *cli.Context) error {
-						return nil
+					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+						solutionName := context.String("solution")
+						output := context.String("output")
+						concurrent := context.Int("concurrent")
+						pdiClient.DownloadAllSourceTo(solutionName, output, concurrent)
+					}),
+				},
+			},
+		},
+		{
+			Name:  "check",
+			Usage: "code static check",
+			Subcommands: []cli.Command{
+				{
+					Name:      "header",
+					Usage:     "check copyright header",
+					UsageText: "\nmake sure all absl & bo have copyright header with following format:\n\n/*\n\tFunction: make sure all absl & bo have copyright header\n\tAuthor: Theo Sun\n\tCopyright: ?\n*/",
+					Flags: []cli.Flag{
+						cli.StringFlag{
+							Name:   "solution, s",
+							EnvVar: "SOLUTION_NAME",
+							Usage:  "The PDI Solution Name",
+						},
+						cli.IntFlag{
+							Name:   "concurrent, c",
+							EnvVar: "DOWNLOAD_CONCURRENT",
+							Value:  35,
+							Usage:  "concurrent goroutine number when download from remote",
+						},
 					},
+					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+						solutionName := context.String("solution")
+						concurrent := context.Int("concurrent")
+						pdiClient.CheckSolutionCopyrightHeader(solutionName, concurrent)
+					}),
 				},
 			},
 		},

@@ -19,9 +19,10 @@ USAGE:
    pdi-util [global options] command [command options] [arguments...]
 
 VERSION:
-   v1-alpha
+   SNAPSHOT
 
 COMMANDS:
+     check     code static check
      session   session related operations
      solution  solution related operations
      source    source code related operations
@@ -73,6 +74,40 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
 2018/11/24 21:20:52 Will download 1226 files to /Users/theosun/go/src/github.com/Soontao/pdi-util/output
 1226 / 1226 [=============================================================================] 100.00% 34s
 2018/11/24 21:21:26 Done
+```
+
+## check copy right header
+
+```bash
+bash> pdi-util check header -h
+NAME:
+   PDI Util check header - check copyright header
+
+USAGE:
+   
+make sure all absl & bo have copyright header with following format:
+
+/*
+  Function: make sure all absl & bo have copyright header
+  Author: Theo Sun
+  Copyright: ?
+*/
+
+OPTIONS:
+   --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
+   --concurrent value, -c value  concurrent goroutine number when download from remote (default: 35) [$DOWNLOAD_CONCURRENT]
+```
+
+example
+
+```bash
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s YQABCDEFG_
+2018/11/25 16:13:08 Will check 532 ABSL/BO/XBO Defination
+ 532 / 532  100.00% 5s
+2018/11/25 16:13:14 Not found copyright header in: /API/XXXXXXX.absl
+... 
+...
+2018/11/25 16:16:34 Totally 247 file (of 532) lost copyright header
 ```
 
 ## [CHNAGELOG](./CHANGELOG.md)

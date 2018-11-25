@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/base64"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -60,20 +61,33 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	project := c.GetSolutionFileList(solutionName)
 	downloadList := []XrepDownloadTask{}
 	xrepPrefix := ""
+	bcPrefix := ""
 	for _, property := range project.PropertyGroup {
 		if property.ProjectSourceFolderinXRep != "" {
 			xrepPrefix = property.ProjectSourceFolderinXRep
 		}
+		if property.BCSourceFolderInXRep != "" {
+			bcPrefix = property.BCSourceFolderInXRep
+		}
 	}
 	for _, group := range project.ItemGroup {
+		// Bussiness Configuration Files
+		for _, bc := range group.BCSet {
+			realPath := strings.TrimPrefix(bc.Include, fmt.Sprintf("..\\%sBC\\", solutionName))
+			xrepPath := strings.Replace(filepath.Join(bcPrefix, realPath), "\\", "/", -1)
+			localPath := strings.Replace(filepath.Join(output, realPath), "\\", "/", -1)
+			downloadList = append(downloadList, XrepDownloadTask{xrepPath, localPath})
+		}
+		// Common Files
 		for _, content := range group.Content {
 			xrepPath := strings.Replace(filepath.Join(xrepPrefix, content.Include), "\\", "/", -1)
 			localPath := strings.Replace(filepath.Join(output, content.Include), "\\", "/", -1)
 			downloadList = append(downloadList, XrepDownloadTask{xrepPath, localPath})
 		}
 	}
-	log.Printf("Will download %d files to %s\n", len(downloadList), output)
+
 	fileCount := len(downloadList)
+	log.Printf("Will download %d files to %s\n", fileCount, output)
 	// > progress ui support
 	bar := pb.StartNew(fileCount)
 	// > request and download
