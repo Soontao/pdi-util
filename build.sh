@@ -8,7 +8,7 @@ PLATFORMS="$PLATFORMS linux/mips64 linux/mips64le" # experimental in go1.6
 PLATFORMS="$PLATFORMS freebsd/amd64"
 PLATFORMS="$PLATFORMS openbsd/amd64" # amd64 only as of go1.6
 PLATFORMS="$PLATFORMS solaris/amd64" # as of go1.3
-PLATFORMS_ARM="linux freebsd netbsd"
+PLATFORMS_ARM="linux freebsd"
 
 type setopt >/dev/null 2>&1
 
