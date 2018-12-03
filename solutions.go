@@ -106,14 +106,18 @@ func (c *PDIClient) ListSolutions() *PDIClient {
 		email := product.Get("EMAIL").String()
 
 		solutionStatus := detail.Get("PV_OVERALL_STATUS").String()
+		patchSolution := "false"
+		if detail.Get("PV_1O_PATCH_SOLUTION").String() == "P" {
+			patchSolution = "true"
+		}
 		solutionDescription := detail.Get("PRODUCT_VERSION_TEXTS.0.DDTEXT").String()
-		row := []string{solutionID, solutionDescription, solutionStatus, customer, contact, email}
+		row := []string{solutionID, solutionDescription, patchSolution, solutionStatus, customer, contact, email}
 		solutionTable = append(solutionTable, row)
 	}
 
 	// > output table
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"NAME", "Description", "Status", "Customer", "Contact", "Email"})
+	table.SetHeader([]string{"NAME", "Description", "Patch", "Status", "Customer", "Contact", "Email"})
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 	table.AppendBulk(solutionTable)
 	table.Render()

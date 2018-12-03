@@ -11,7 +11,7 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 ## Help
 
 ```bash
-bash> pdi-util 
+bash> pdi-util
 NAME:
    PDI Util - A cli util for SAP PDI
 
@@ -64,10 +64,10 @@ OPTIONS:
    --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
    --output value, -o value      Output directory (default: "output") [$OUTPUT]
    --concurrent value, -c value  concurrent goroutine number (default: 35) [$DOWNLOAD_CONCURRENT]
-   
+
 ```
 
-Extremely fast, download with `35` goroutines defaultly. 
+Extremely fast, download with `35` goroutines defaultly.
 
 (PDI download project files one by one in a single thread).
 
@@ -86,7 +86,7 @@ NAME:
    PDI Util check header - check copyright header
 
 USAGE:
-   
+
 make sure all absl & bo have copyright header with following format:
 
 /*
@@ -107,9 +107,22 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s
 2018/11/25 16:13:08 Will check 532 ABSL/BO/XBO Defination
  532 / 532  100.00% 5s
 2018/11/25 16:13:14 Not found copyright header in: /API/XXXXXXX.absl
-... 
+...
 ...
 2018/11/25 16:13:14 Totally 247 files (of 532) lost copyright header
+```
+
+## name convension check
+
+check name convension of source code filename
+
+```bash
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check name -s YQABCDEFG_
+2018/12/03 20:13:50 Name Convension BPM\CSD_BPMSystem.csd: filename should be CS_BPMSystem.csd
+2018/12/03 20:13:50 Name Convension HCM\EWSI_CH_USER_ID.csd: filename should be CS_CH_USER_ID.csd
+2018/12/03 20:13:50 Name Convension _Common\DT_MDRInputData.bo: filename should be BO_MDRInputData.bo
+2018/12/03 20:13:50 Name Convension _EXT\EBO_ServiceRequest.xbo: filename should be BOE_ServiceRequest.xbo
+2018/12/03 20:13:50 finished
 ```
 
 ## [CHNAGELOG](./CHANGELOG.md)

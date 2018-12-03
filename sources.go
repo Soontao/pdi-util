@@ -20,8 +20,22 @@ type XrepDownloadTask struct {
 	localPath string
 }
 
+// XrepFile type
+type XrepFile struct {
+	XrepPath   string
+	Source     []byte
+	Attributes map[string]string
+}
+
+// ListAllLockedFile list all checked out files name
+func (c *PDIClient) ListAllLockedFile(solutionName string) []string {
+	rt := []string{}
+	// to do
+	return rt
+}
+
 // DownloadFileSource will return the remote file content
-func (c *PDIClient) DownloadFileSource(xrepPath string) []byte {
+func (c *PDIClient) DownloadFileSource(xrepPath string) *XrepFile {
 
 	url := c.xrepPath()
 	query := c.query("00163E0115B01DDFB194EC88B8EDEC9B")
@@ -37,12 +51,17 @@ func (c *PDIClient) DownloadFileSource(xrepPath string) []byte {
 		panic(nil)
 	}
 	respBody, _ := resp.ToString()
+	attrs := map[string]string{}
+	attrsList := gjson.Get(respBody, "EXPORTING.ET_ATTR").Array()
+	for _, attr := range attrsList {
+		attrs[attr.Get("NAME").String()] = attr.Get("VALUE").String()
+	}
 	base64Content := gjson.Get(respBody, "EXPORTING.EV_CONTENT").String()
 	fileContent, err := base64.StdEncoding.DecodeString(base64Content)
 	if err != nil {
 		panic(err)
 	}
-	return fileContent
+	return &XrepFile{xrepPath, fileContent, attrs}
 }
 
 // DownloadAllSourceTo directory
@@ -108,7 +127,7 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 				}
 				f.Close()
 			}
-			if err := ioutil.WriteFile(task.localPath, source, 0644); err != nil {
+			if err := ioutil.WriteFile(task.localPath, source.Source, 0644); err != nil {
 				panic(err)
 			}
 			bar.Increment()

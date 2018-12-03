@@ -72,12 +72,13 @@ func (c *PDIClient) CheckNameConvention(solution string) {
 
 		}
 	}
+	log.Println("finished")
 }
 
 // CheckSolutionCopyrightHeader content
 func (c *PDIClient) CheckSolutionCopyrightHeader(solutionName string, concurrent int) {
 	checkList := []string{}
-	lostList := []string{}
+	lostList := []*XrepFile{}
 	project := c.GetSolutionFileList(solutionName)
 	sourceXrepPrefix := ""
 	for _, property := range project.PropertyGroup {
@@ -100,28 +101,29 @@ func (c *PDIClient) CheckSolutionCopyrightHeader(solutionName string, concurrent
 	bar := pb.New(fileCount)
 	bar.ShowBar = false
 	// > request and download
-	asyncResponses := make([]chan bool, fileCount)
+	asyncResponses := make([]chan *XrepFile, fileCount)
 	parallexController := make(chan bool, concurrent)
 	bar.Start()
 	for idx, task := range checkList {
-		asyncResponses[idx] = make(chan bool, 1)
+		asyncResponses[idx] = make(chan *XrepFile, 1)
 		parallexController <- true
-		go func(task string, done chan bool) {
+		go func(task string, done chan *XrepFile) {
 			source := c.DownloadFileSource(task)
-			done <- c.checkCopyrightHeader(source)
+			done <- source
 			<-parallexController
 			bar.Increment()
 		}(task, asyncResponses[idx])
 	}
-	for idx, response := range asyncResponses {
-		haveHeader := <-response // ensure all goroutines finished
-		if !haveHeader {
-			lostList = append(lostList, checkList[idx])
+	for _, response := range asyncResponses {
+		file := <-response // ensure all goroutines finished
+		if !c.checkCopyrightHeader(file.Source) {
+			lostList = append(lostList, file)
 		}
 	}
 	bar.Finish()
+	log.Println("Not found copyright header in: (CreatedBy,ChangedBy:FilePath)")
 	for _, file := range lostList {
-		log.Printf("Not found copyright header in: %s", strings.TrimPrefix(file, sourceXrepPrefix))
+		log.Printf("%s,%s:%s", file.Attributes["~CREATED_BY"], file.Attributes["~LAST_CHANGED_BY"], strings.TrimPrefix(file.XrepPath, sourceXrepPrefix))
 	}
 	log.Printf("Totally %d files (of %d) lost copyright header", len(lostList), fileCount)
 }
