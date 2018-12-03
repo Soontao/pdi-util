@@ -1,4 +1,21 @@
 
+<a name="v1.0.13"></a>
+## [v1.0.13](https://github.com/Soontao/pdi-util/compare/v1.0.12...v1.0.13) (2018-12-03)
+
+### Common
+
+* **cli:** messagge refine
+* **doc:** update
+* **doc:** update
+* **doc:** bar view type update
+* **release:** new version
+
+### Features
+
+* **check:** name convension check
+* **name:** name convension check
+
+
 <a name="v1.0.12"></a>
 ## [v1.0.12](https://github.com/Soontao/pdi-util/compare/v1.0.11...v1.0.12) (2018-11-25)
 
