@@ -9,7 +9,8 @@ else
   git-chglog -o CHANGELOG.md >/dev/null
   git add -A >/dev/null
   git commit -m "chore(release): new version" >/dev/null
-  git push --follow-tags >/dev/null
+  git push >/dev/null
+  git push --tags >/dev/null
   echo "new version $1 released"
 fi
 
