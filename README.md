@@ -52,21 +52,6 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list
 
 ## download source from repo
 
-```bash
-bash> pdi-util source download -h
-NAME:
-   PDI Util source download - download all files in a solution
-
-USAGE:
-   PDI Util source download [command options] [arguments...]
-
-OPTIONS:
-   --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
-   --output value, -o value      Output directory (default: "output") [$OUTPUT]
-   --concurrent value, -c value  concurrent goroutine number (default: 35) [$DOWNLOAD_CONCURRENT]
-
-```
-
 Extremely fast, download with `35` goroutines defaultly.
 
 (PDI download project files one by one in a single thread).
@@ -79,28 +64,6 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
 ```
 
 ## copyright header check
-
-```bash
-bash> pdi-util check header -h
-NAME:
-   PDI Util check header - check copyright header
-
-USAGE:
-
-make sure all absl & bo have copyright header with following format:
-
-/*
-  Function: make sure all absl & bo have copyright header
-  Author: Theo Sun
-  Copyright: ?
-*/
-
-OPTIONS:
-   --solution value, -s value    The PDI Solution Name [$SOLUTION_NAME]
-   --concurrent value, -c value  concurrent goroutine number (default: 35) [$CHECK_CONCURRENT]
-```
-
-example
 
 ```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s YQABCDEFG_

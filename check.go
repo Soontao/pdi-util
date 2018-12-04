@@ -11,6 +11,20 @@ import (
 
 var reg = regexp.MustCompile(`/\*([^*]|[\r\n]|(\*([^/]|[\r\n])))*(Function|Author)([^*]|[\r\n]|(\*([^/]|[\r\n])))*\*/`)
 
+// maybe these rules can be loaded by external
+var rules = map[string]string{
+	// extension: prefix
+	"xbo":              "BOE",
+	"bo":               "BO",
+	"csd":              "CS",
+	"bco":              "BCO",
+	"codelist":         "CLDT",
+	"EC.uicomponent":   "EC",
+	"WCF.uiwoc":        "UI",
+	"WCVIEW.uiwocview": "UI",
+	"library":          "RL",
+}
+
 // checkCopyrightHeader
 // make sure all absl & bo have copyright header
 // with follow format
@@ -30,30 +44,23 @@ func ensureFileNameConvention(filePath string) (bool, string) {
 
 	legal := true
 	correctFileName := fileName
-	fileExtension := filepath.Ext(fileName)
-	fileNameSlice := strings.SplitN(fileName, "_", 2)
+	fileExtensionArray := strings.SplitN(fileName, ".", 2)
+	fileNameWithoutExtension := fileExtensionArray[0]
+	fileExtension := fileExtensionArray[1]
+	fileNameSlice := strings.SplitN(fileNameWithoutExtension, "_", 2)
 	fileNamePrefix := ""
-	fileNameWithoutPrefix := fileName
+	fileNameWithoutPrefix := fileNameWithoutExtension
 
 	if len(fileNameSlice) == 2 {
 		fileNamePrefix = fileNameSlice[0]
 		fileNameWithoutPrefix = fileNameSlice[1]
 	}
 
-	// maybe these rules can be loaded by external
-	rules := map[string]string{
-		".xbo":      "BOE",
-		".bo":       "BO",
-		".csd":      "CS",
-		".bco":      "BCO",
-		".codelist": "CLDT",
-	}
-
 	correctPrefix := rules[fileExtension]
 
 	if correctPrefix != "" && fileNamePrefix != correctPrefix {
 		legal = false
-		correctFileName = correctPrefix + "_" + fileNameWithoutPrefix
+		correctFileName = correctPrefix + "_" + fileNameWithoutPrefix + "." + fileExtension
 	}
 
 	return legal, correctFileName
@@ -61,18 +68,28 @@ func ensureFileNameConvention(filePath string) (bool, string) {
 
 // CheckNameConvention of the solution
 func (c *PDIClient) CheckNameConvention(solution string) {
+	count := 0
 	project := c.GetSolutionFileList(solution)
 	for _, group := range project.ItemGroup {
+		for _, bcset := range group.BCSet {
+			includePath := strings.SplitN(bcset.Include, "\\", 3)[2]
+			correct, correcetName := ensureFileNameConvention(includePath)
+			if !correct {
+				count = count + 1
+				log.Printf("The name of file %s should be %s\n", includePath, correcetName)
+			}
+		}
 		for _, content := range group.Content {
 			includePath := content.Include
 			correct, correcetName := ensureFileNameConvention(includePath)
 			if !correct {
-				log.Printf("Name Convension %s: filename should be %s\n", includePath, correcetName)
+				count = count + 1
+				log.Printf("The name of file %s should be %s\n", includePath, correcetName)
 			}
 
 		}
 	}
-	log.Println("finished")
+	log.Printf("finished, name convension error count: %d", count)
 }
 
 // CheckSolutionCopyrightHeader content
@@ -121,9 +138,14 @@ func (c *PDIClient) CheckSolutionCopyrightHeader(solutionName string, concurrent
 		}
 	}
 	bar.Finish()
-	log.Println("Not found copyright header in: (CreatedBy,ChangedBy:FilePath)")
-	for _, file := range lostList {
-		log.Printf("%s,%s:%s", file.Attributes["~CREATED_BY"], file.Attributes["~LAST_CHANGED_BY"], strings.TrimPrefix(file.XrepPath, sourceXrepPrefix))
+	if len(lostList) > 0 {
+		log.Println("Not found copyright header in: (CreatedBy,ChangedBy:FilePath)")
+		for _, file := range lostList {
+			log.Printf("%s,%s:%s", file.Attributes["~CREATED_BY"], file.Attributes["~LAST_CHANGED_BY"], strings.TrimPrefix(file.XrepPath, sourceXrepPrefix))
+		}
+		log.Printf("Totally %d files (of %d) lost copyright header", len(lostList), fileCount)
+	} else {
+		log.Println("Congratulation, all source code have copyright header")
 	}
-	log.Printf("Totally %d files (of %d) lost copyright header", len(lostList), fileCount)
+
 }
