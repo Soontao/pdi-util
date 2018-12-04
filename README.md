@@ -88,6 +88,36 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check name -s Y
 2018/12/03 20:13:50 finished
 ```
 
+## backend check
+
+execute runtime check on backend
+
+support follow files now
+
+```json
+{
+  	".absl": "ABSL",
+	".bo":   "BUSINESS_OBJECT",
+	".qry":  "QUERYDEF",
+	".xbo":  "EXTENSION_ENTITY",
+	".bco":  "BCO",
+	".bcc":  "BCSET"
+}
+```
+
+extremely fast !
+
+
+```
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check backend -s YQABCDEFG_
+ 133 / 133  100.00% 1s
+2018/12/04 22:27:08 [W] CustomBO.bo(8 ,26 ): Use of data type 'Description' is not supported in queries
+2018/12/04 22:27:08 [W] CustomBO.bo(8 ,26 ): Do not store external document data in unrestricted data type 'Description'. Recommendation is to use Attachment Folder (refer SDK Help Documentation Section 7.2.2.12). Please refer blog "Text Types Usage" in Community Forum for more on text data types.
+...
+...
+2018/12/04 22:28:32 Finished
+```
+
 ## [CHNAGELOG](./CHANGELOG.md)
 
 ## [LICENSE](./LICENSE)

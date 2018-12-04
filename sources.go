@@ -64,6 +64,37 @@ func (c *PDIClient) DownloadFileSource(xrepPath string) *XrepFile {
 	return &XrepFile{xrepPath, fileContent, attrs}
 }
 
+// GetSolutionFileList in xrep
+func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
+	rt := []string{}
+	project := c.GetSolutionFileList(solutionName)
+	xrepPrefix := ""
+	bcPrefix := ""
+	for _, property := range project.PropertyGroup {
+		if property.ProjectSourceFolderinXRep != "" {
+			xrepPrefix = property.ProjectSourceFolderinXRep
+		}
+		if property.BCSourceFolderInXRep != "" {
+			bcPrefix = property.BCSourceFolderInXRep
+		}
+	}
+	for _, group := range project.ItemGroup {
+		// Bussiness Configuration Files
+		for _, bc := range group.BCSet {
+			realPath := strings.TrimPrefix(bc.Include, fmt.Sprintf("..\\%sBC\\", solutionName))
+			xrepPath := strings.Replace(filepath.Join(bcPrefix, realPath), "\\", "/", -1)
+			rt = append(rt, xrepPath)
+		}
+		// Common Files
+		for _, content := range group.Content {
+			xrepPath := strings.Replace(filepath.Join(xrepPrefix, content.Include), "\\", "/", -1)
+			rt = append(rt, xrepPath)
+		}
+	}
+
+	return rt
+}
+
 // DownloadAllSourceTo directory
 func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurrent int) {
 	// > process output target
