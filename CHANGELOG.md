@@ -1,4 +1,18 @@
 
+<a name="v1.0.14"></a>
+## [v1.0.14](https://github.com/Soontao/pdi-util/compare/v1.0.13...v1.0.14) (2018-12-04)
+
+### Common
+
+* **release:** script update
+* **release:** new version
+
+### Features
+
+* backend check support
+* enhance name convension check
+
+
 <a name="v1.0.13"></a>
 ## [v1.0.13](https://github.com/Soontao/pdi-util/compare/v1.0.12...v1.0.13) (2018-12-03)
 
