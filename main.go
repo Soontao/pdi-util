@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"sort"
@@ -20,7 +21,11 @@ func PDIAction(action func(pdiClient *PDIClient, c *cli.Context)) func(c *cli.Co
 		hostname := c.GlobalString("hostname")
 		hostname = strings.TrimPrefix(hostname, "https://") // remove hostname schema
 		pdiClient := NewPDIClient(username, password, hostname)
-		action(pdiClient, c)
+		action(pdiClient, c) // do process
+		if pdiClient.exitCode > 0 {
+			// if error happened, change exit code
+			return fmt.Errorf("finished %s with error", c.Command.FullName())
+		}
 		return nil
 	}
 }

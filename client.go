@@ -20,6 +20,8 @@ type PDIClient struct {
 	sapClient string
 	// tech user id
 	ivUser string
+	// exit Code
+	exitCode int
 }
 
 func (c *PDIClient) path(path string) string {
@@ -121,7 +123,7 @@ func NewPDIClient(username, password, hostname string) *PDIClient {
 	ensure(username, "username")
 	ensure(password, "password")
 	ensure(hostname, "hostname")
-	rt := &PDIClient{username: username, password: password, hostname: hostname}
+	rt := &PDIClient{username: username, password: password, hostname: hostname, exitCode: 0}
 	rt.login()
 	return rt
 }
