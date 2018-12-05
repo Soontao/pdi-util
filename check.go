@@ -4,9 +4,9 @@ import (
 	"log"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 
-	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
 	pb "gopkg.in/cheggaaa/pb.v1"
 )
@@ -40,12 +40,13 @@ func (c *PDIClient) checkCopyrightHeader(code []byte) bool {
 }
 
 var contentTypeMapping = map[string]string{
-	".absl": "ABSL",
-	".bo":   "BUSINESS_OBJECT",
-	".qry":  "QUERYDEF",
-	".xbo":  "EXTENSION_ENTITY",
-	".bco":  "BCO",
-	".bcc":  "BCSET",
+	".absl":        "ABSL",
+	".bo":          "BUSINESS_OBJECT",
+	".qry":         "QUERYDEF",
+	".xbo":         "EXTENSION_ENTITY",
+	".bco":         "BCO",
+	".bcc":         "BCSET",
+	".uicomponent": "UICOMPONENT",
 }
 
 // CheckMessage is backend check result
@@ -57,6 +58,32 @@ type CheckMessage struct {
 	Message  string
 }
 
+// GetMessageLevel formatted level
+// Warning or Error
+func (m CheckMessage) GetMessageLevel() string {
+	rt := "UNKNOWN"
+	switch m.Severity {
+	case "W":
+		rt = "Warning"
+	case "E":
+		rt = "Error"
+	}
+	return rt
+}
+
+// TranslationStatus message
+type TranslationStatus struct {
+	FileName     string
+	AllTextCount string
+	Info         map[string]TranslationStatusInfo
+}
+
+// TranslationStatusInfo detail
+type TranslationStatusInfo struct {
+	Language        string
+	TranslatedCount string
+}
+
 func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 	canCheck, msgLst := false, []CheckMessage{}
 
@@ -64,19 +91,14 @@ func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 
 	if contentType != "" {
 		canCheck = true
-		url := c.xrepPath()
-		query := c.query("00163E0115B01DDFB194EC88B8EE8C9B")
 		payload := map[string]interface{}{
 			"IMPORTING": map[string]interface{}{
 				"IV_CONTENT_TYPE": contentType,
 				"IT_XREP_PATH":    []string{xrepPath},
 			},
 		}
-		resp, err := req.Post(url, req.BodyJSON(payload), query)
-		if err != nil {
-			panic(nil)
-		}
-		respBody, _ := resp.ToString()
+
+		respBody := c.xrepRequest("00163E0115B01DDFB194EC88B8EE8C9B", payload)
 		msgList := gjson.Get(respBody, "EXPORTING.ET_MSG_LIST").Array()
 		for _, msg := range msgList {
 			checkMessage := CheckMessage{
@@ -91,6 +113,41 @@ func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 	}
 
 	return canCheck, &msgLst
+}
+
+var translationCheckList = map[string]bool{
+	".uicomponent": true, ".bo": true, ".codelist": true,
+}
+
+func (c *PDIClient) translationInformation(xrepPath string) (bool, *TranslationStatus) {
+	canCheck := translationCheckList[filepath.Ext(xrepPath)]
+	rt := &TranslationStatus{
+		FileName: xrepPath,
+		Info:     map[string]TranslationStatusInfo{},
+	}
+
+	payload := map[string]interface{}{
+		"IMPORTING": map[string]interface{}{
+			"IT_PATH": []string{xrepPath},
+		},
+	}
+
+	if canCheck {
+		respBody := c.xrepRequest("00163E01138A1EE0AFEA287164321C26", payload)
+		textCount := strings.TrimSpace(gjson.Get(respBody, "EXPORTING.EV_NUMBER_OF_TEXTS").String())
+		rt.AllTextCount = textCount
+		checkInfoList := gjson.Get(respBody, "EXPORTING.ET_CHECK_INFO").Array()
+		for _, jsonInfo := range checkInfoList {
+			info := TranslationStatusInfo{}
+			info.Language = jsonInfo.Get("LANGUAGE").String()
+			info.TranslatedCount = strings.TrimSpace(jsonInfo.Get("TEXTCOUNT").String())
+
+			rt.Info[info.Language] = info
+		}
+
+	}
+
+	return canCheck, rt
 }
 
 func ensureFileNameConvention(filePath string) (bool, string) {
@@ -122,8 +179,78 @@ func ensureFileNameConvention(filePath string) (bool, string) {
 	return legal, correctFileName
 }
 
-// CheckBackendMessage information
-func (c *PDIClient) CheckBackendMessage(solution string, concurrent int) {
+// CheckTranslationAPI used for programming
+func (c *PDIClient) CheckTranslationAPI(solution string, concurrent int) []TranslationStatus {
+	files := c.GetSolutionXrepFileList(solution)
+	fileCount := len(files)
+
+	responses := []TranslationStatus{}
+
+	asyncResponses := make([]chan *TranslationStatus, fileCount)
+	parallexController := make(chan bool, concurrent)
+
+	bar := pb.New(fileCount)
+	bar.ShowBar = false
+	bar.Start()
+	for idx, file := range files {
+		asyncResponses[idx] = make(chan *TranslationStatus, 1)
+		parallexController <- true
+		go func(file string, done chan *TranslationStatus) {
+			canCheck, checkMessage := c.translationInformation(file)
+			if canCheck {
+				done <- checkMessage
+			} else {
+				done <- nil
+			}
+			<-parallexController
+			bar.Increment()
+		}(file, asyncResponses[idx])
+	}
+
+	for _, response := range asyncResponses {
+		r := (<-response)
+		if r != nil {
+			responses = append(responses, *r)
+		}
+	}
+	bar.Finish()
+
+	return responses
+
+}
+
+// CheckTranslation information
+func (c *PDIClient) CheckTranslation(solution string, concurrent int, language string) {
+
+	responses := c.CheckTranslationAPI(solution, concurrent)
+
+	for _, r := range responses {
+		_, filename := filepath.Split(r.FileName)
+		targetCount, err := strconv.Atoi(r.AllTextCount)
+
+		if err != nil {
+			panic(err)
+		}
+
+		translatedInfo := r.Info[language]
+		translatedCount, err := strconv.Atoi(translatedInfo.TranslatedCount)
+		if err != nil {
+			panic(err)
+		}
+		if translatedCount < targetCount {
+			log.Printf("For language %s, translated %d text of %d, file(%s)\n", language, translatedCount, targetCount, filename)
+		} else {
+			log.Printf("For language %s, full translated, file(%s)\n", language, filename)
+		}
+
+	}
+
+	log.Println("Finished")
+
+}
+
+// CheckBackendMessageAPI information
+func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []CheckMessage {
 	files := c.GetSolutionXrepFileList(solution)
 	fileCount := len(files)
 
@@ -152,9 +279,18 @@ func (c *PDIClient) CheckBackendMessage(solution string, concurrent int) {
 	}
 	bar.Finish()
 
+	return responses
+
+}
+
+// CheckBackendMessage information
+func (c *PDIClient) CheckBackendMessage(solution string, concurrent int) {
+
+	responses := c.CheckBackendMessageAPI(solution, concurrent)
+
 	for _, r := range responses {
 		_, filename := filepath.Split(r.FileName)
-		log.Printf("[%s] %s(%s,%s): %s\n", r.Severity, filename, r.Row, r.Column, r.Message)
+		log.Printf("[%s]\t%s(%s,%s): %s\n", r.GetMessageLevel(), filename, r.Row, r.Column, r.Message)
 	}
 
 	log.Println("Finished")

@@ -37,6 +37,22 @@ func (c *PDIClient) query(fm string) req.QueryParam {
 	return req.QueryParam{"stateful": "0", "sap-client": c.sapClient, "fm": fm}
 }
 
+func (c *PDIClient) xrepRequest(code string, payload interface{}) string {
+	url := c.xrepPath()
+	query := c.query(code)
+	resp, err := req.Post(url, req.BodyJSON(payload), query)
+	if err != nil {
+		panic(nil)
+	}
+	respBody, _ := resp.ToString()
+	success := gjson.Get(respBody, "EXPORTING.EV_SUCCESS").String() == "X"
+	if !success {
+		message := gjson.Get(respBody, "EXPORTING.ET_MESSAGES").String()
+		panic(message)
+	}
+	return respBody
+}
+
 func (c *PDIClient) login() *PDIClient {
 	url := c.path("/sap/ap/ui/login")
 	// > fetch cookie & client infomartions

@@ -96,19 +96,19 @@ support follow files now
 
 ```json
 {
-  	".absl": "ABSL",
-	".bo":   "BUSINESS_OBJECT",
-	".qry":  "QUERYDEF",
-	".xbo":  "EXTENSION_ENTITY",
-	".bco":  "BCO",
-	".bcc":  "BCSET"
+  ".absl": "ABSL",
+  ".bo":   "BUSINESS_OBJECT",
+  ".qry":  "QUERYDEF",
+  ".xbo":  "EXTENSION_ENTITY",
+  ".bco":  "BCO",
+  ".bcc":  "BCSET",
+  ".uicomponent": "UICOMPONENT"
 }
 ```
 
 extremely fast !
 
-
-```
+```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check backend -s YQABCDEFG_
  133 / 133  100.00% 1s
 2018/12/04 22:27:08 [W] CustomBO.bo(8 ,26 ): Use of data type 'Description' is not supported in queries
@@ -116,6 +116,24 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check backend -
 ...
 ...
 2018/12/04 22:28:32 Finished
+```
+
+## translation check
+
+check translation status for specific language
+
+```bash
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check translation -s YQABCDEFG_
+ 39 / 39  100.00% 0s
+2018/12/05 20:35:12 For language Chinese, full translated, file(BOXXX.bo)
+2018/12/05 20:35:12 For language Chinese, translated 0 text of 15, file(XXXX.bo)
+2018/12/05 20:35:12 For language Chinese, full translated, file(XXXX.bo)
+2018/12/05 20:35:12 For language Chinese, translated 0 text of 14, file(XXXXX.OIF.uicomponent)
+2018/12/05 20:35:12 For language Chinese, translated 0 text of 17, file(XXXXX.OWL.uicomponent)
+2018/12/05 20:35:12 For language Chinese, full translated, file(XXXXX.PTP.uicomponent)
+2018/12/05 20:35:12 For language Chinese, translated 0 text of 11, file(XXXXX.QA.uicomponent)
+2018/12/05 20:35:12 For language Chinese, full translated, file(BO_House.bo)
+2018/12/05 20:35:12 Finished
 ```
 
 ## [CHNAGELOG](./CHANGELOG.md)
