@@ -1,4 +1,20 @@
 
+<a name="v1.0.15"></a>
+## [v1.0.15](https://github.com/Soontao/pdi-util/compare/v1.0.14...v1.0.15) (2018-12-05)
+
+### Bug Fixes
+
+* release scirpt not push tags
+
+### Common
+
+* **release:** new version
+
+### Features
+
+* translation check feature
+
+
 <a name="v1.0.14"></a>
 ## [v1.0.14](https://github.com/Soontao/pdi-util/compare/v1.0.13...v1.0.14) (2018-12-04)
 
