@@ -44,7 +44,7 @@ func (c *PDIClient) xrepRequest(code string, payload interface{}) string {
 	query := c.query(code)
 	resp, err := req.Post(url, req.BodyJSON(payload), query)
 	if err != nil {
-		panic(nil)
+		panic(err)
 	}
 	respBody, _ := resp.ToString()
 	success := gjson.Get(respBody, "EXPORTING.EV_SUCCESS").String() == "X"
