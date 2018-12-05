@@ -76,7 +76,7 @@ func (c *PDIClient) CheckNameConvention(solution string) {
 			correct, correcetName := ensureFileNameConvention(includePath)
 			if !correct {
 				count = count + 1
-				log.Printf("The name of file %s should be %s\n", shortenPath(includePath), correcetName)
+				log.Printf("The name should be %s of file %s\n", correcetName, shortenPath(includePath))
 			}
 		}
 		for _, content := range group.Content {
@@ -84,7 +84,7 @@ func (c *PDIClient) CheckNameConvention(solution string) {
 			correct, correcetName := ensureFileNameConvention(includePath)
 			if !correct {
 				count = count + 1
-				log.Printf("The name of file %s should be %s\n", shortenPath(includePath), correcetName)
+				log.Printf("The name should be %s of file %s\n", correcetName, shortenPath(includePath))
 			}
 
 		}
