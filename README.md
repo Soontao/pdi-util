@@ -38,7 +38,9 @@ GLOBAL OPTIONS:
 
 Almost all options can be configured in the system environment variables.
 
-## list all solutions
+## Solution Operations
+
+### list all solutions
 
 ```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list 
@@ -50,7 +52,9 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list
 +----------+----------------+----------------+------------+----------+-------+
 ```
 
-## download source from repo
+## Source Operations
+
+### download source from repo
 
 Extremely fast, download with `35` goroutines defaultly.
 
@@ -63,7 +67,9 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
 2018/11/24 21:21:26 Done
 ```
 
-## copyright header check
+## Static Check
+
+### copyright header check
 
 ```bash
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s YQABCDEFG_
@@ -75,7 +81,7 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s
 2018/11/25 16:13:14 Totally 247 files (of 532) lost copyright header
 ```
 
-## name convension check
+### name convension check
 
 check name convension of source code filename
 
@@ -88,7 +94,7 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check name -s Y
 2018/12/03 20:13:50 finished
 ```
 
-## backend check
+### backend check
 
 execute runtime check on backend
 
@@ -118,7 +124,7 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check backend -
 2018/12/04 22:28:32 Finished
 ```
 
-## translation check
+### translation check
 
 check translation status for specific language
 
