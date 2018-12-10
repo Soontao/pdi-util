@@ -1,7 +1,3 @@
-# Golang CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-go/ for more details
-
 version: 2
 jobs:
 
@@ -25,9 +21,15 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/artifacts
-      - run: go get -v -t -d ./...
-      - run: go test -v ./...
-      - run: VERSION=${CIRCLE_TAG} bash ./build.sh
+      - run: 
+          name: install golang deps
+          command: go get -v -t -d ./...
+      - run: 
+          name: unit tests
+          command: go test -v ./...
+      - run: 
+          name: build multi platform excutable file
+          command: VERSION=${CIRCLE_TAG} bash ./build.sh
       - persist_to_workspace:
           root: .
           paths: build

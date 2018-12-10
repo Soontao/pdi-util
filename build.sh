@@ -3,7 +3,6 @@
 PLATFORMS="darwin/amd64" # amd64 only as of go1.5
 PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
 PLATFORMS="$PLATFORMS linux/amd64 linux/386"
-PLATFORMS="$PLATFORMS freebsd/amd64"
 PLATFORMS_ARM="linux"
 
 type setopt >/dev/null 2>&1
@@ -23,14 +22,20 @@ for PLATFORM in $PLATFORMS; do
   CMD="GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
+  zip "${BIN_FILENAME}.zip" ${BIN_FILENAME}
+  rm ${BIN_FILENAME}
 done
 
 # ARM builds
 if [[ $PLATFORMS_ARM == *"linux"* ]]; then 
-  CMD="GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o ${OUTPUT}-linux-arm64 $@"
+  BIN_FILENAME="${OUTPUT}-linux-arm64"
+  CMD="GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
+  zip "${BIN_FILENAME}.zip" ${BIN_FILENAME}
+  rm ${BIN_FILENAME}
 fi
+
 for GOOS in $PLATFORMS_ARM; do
   GOARCH="arm"
   # build for each ARM version
@@ -38,7 +43,9 @@ for GOOS in $PLATFORMS_ARM; do
     BIN_FILENAME="${OUTPUT}-${GOOS}-${GOARCH}${GOARM}"
     CMD="GOARM=${GOARM} GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
     echo "${CMD}"
-    eval "${CMD}" || FAILURES="${FAILURES} ${GOOS}/${GOARCH}${GOARM}" 
+    eval "${CMD}" || FAILURES="${FAILURES} ${GOOS}/${GOARCH}${GOARM}"
+    zip "${BIN_FILENAME}.zip" ${BIN_FILENAME}
+    rm ${BIN_FILENAME}
   done
 done
 
