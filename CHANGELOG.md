@@ -1,4 +1,28 @@
 
+<a name="v1.0.16"></a>
+## [v1.0.16](https://github.com/Soontao/pdi-util/compare/v1.0.15...v1.0.16) (2018-12-10)
+
+### Bug Fixes
+
+* panic logic
+
+### Code Refactoring
+
+* proj structure
+
+### Common
+
+* remove unusual platform
+* reformat message
+* **doc:** update
+* **release:** new version
+
+### Features
+
+* file output support
+* split file & shorten path
+
+
 <a name="v1.0.15"></a>
 ## [v1.0.15](https://github.com/Soontao/pdi-util/compare/v1.0.14...v1.0.15) (2018-12-05)
 
