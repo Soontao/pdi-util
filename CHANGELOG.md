@@ -1,4 +1,20 @@
 
+<a name="v1.0.17"></a>
+## [v1.0.17](https://github.com/Soontao/pdi-util/compare/v1.0.16...v1.0.17) (2018-12-10)
+
+### Code Refactoring
+
+* reducing binary size
+
+### Common
+
+* **release:** new version
+
+### Script
+
+* remove unusually platform
+
+
 <a name="v1.0.16"></a>
 ## [v1.0.16](https://github.com/Soontao/pdi-util/compare/v1.0.15...v1.0.16) (2018-12-10)
 
