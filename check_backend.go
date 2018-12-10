@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/urfave/cli"
+
 	"baliance.com/gooxml/spreadsheet"
 	"github.com/tidwall/gjson"
 	pb "gopkg.in/cheggaaa/pb.v1"
@@ -134,7 +136,7 @@ func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, o
 
 	header := sheet.AddRow()
 
-	headerSs := []string{"Level", "Location", "Message", "FileName"}
+	headerSs := []string{"Level", "Location", "Message"}
 
 	for _, h := range headerSs {
 		c := header.AddCell()
@@ -151,9 +153,8 @@ func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, o
 
 		row.SetHeightAuto()
 		row.AddCell().SetString(r.GetMessageLevel())
-		row.AddCell().SetString(fmt.Sprintf("%s, %s", r.Row, r.Column))
+		row.AddCell().SetString(fmt.Sprintf("%s (%s,%s)", shortenPath2(r.FileName), r.Row, r.Column))
 		row.AddCell().SetString(r.Message)
-		row.AddCell().SetString(r.FileName)
 
 	}
 	ss.SaveToFile(output)
@@ -175,4 +176,32 @@ func (c *PDIClient) CheckBackendMessage(solution string, concurrent int) {
 		log.Printf("[%s]\t%s(%s,%s): %s\n", r.GetMessageLevel(), filename, r.Row, r.Column, r.Message)
 	}
 
+}
+
+var commandCheckBackend = cli.Command{
+	Name:  "backend",
+	Usage: "do backend check",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:   "solution, s",
+			EnvVar: "SOLUTION_NAME",
+			Usage:  "The PDI Solution Name",
+		},
+		cli.IntFlag{
+			Name:   "concurrent, c",
+			EnvVar: "CHECK_CONCURRENT",
+			Value:  35,
+			Usage:  "concurrent goroutines number",
+		},
+	},
+	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+		solutionName := context.String("solution")
+		concurrent := context.Int("concurrent")
+		output := context.GlobalString("output")
+		if output == "" {
+			pdiClient.CheckBackendMessage(solutionName, concurrent)
+		} else {
+			pdiClient.CheckBackendMessageToFile(solutionName, concurrent, output)
+		}
+	}),
 }

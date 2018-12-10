@@ -19,6 +19,24 @@ var rules = map[string]string{
 	"library":          "RL",
 }
 
+func shortenPath2(path string) string {
+	rt := path
+	pathArray := strings.Split(path, "/")
+	pathArrayLen := len(pathArray)
+
+	if pathArrayLen > 1 {
+		for idx := 0; idx < pathArrayLen-1; idx++ {
+			if pathArray[idx] != ".." && pathArray[idx] != "" {
+				// pick first char
+				pathArray[idx] = pathArray[idx][0:1]
+			}
+		}
+		rt = strings.Join(pathArray, "/")
+	}
+
+	return rt
+}
+
 func shortenPath(path string) string {
 	rt := path
 	pathArray := strings.Split(path, "\\")
@@ -26,7 +44,7 @@ func shortenPath(path string) string {
 
 	if pathArrayLen > 1 {
 		for idx := 0; idx < pathArrayLen-1; idx++ {
-			if pathArray[idx] != ".." {
+			if pathArray[idx] != ".." && pathArray[idx] != "" {
 				// pick first char
 				pathArray[idx] = pathArray[idx][0:1]
 			}
