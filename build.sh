@@ -4,8 +4,7 @@ PLATFORMS="darwin/amd64" # amd64 only as of go1.5
 PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
 PLATFORMS="$PLATFORMS linux/amd64 linux/386"
 PLATFORMS="$PLATFORMS freebsd/amd64"
-PLATFORMS="$PLATFORMS openbsd/amd64" # amd64 only as of go1.6
-PLATFORMS_ARM="linux freebsd"
+PLATFORMS_ARM="linux"
 
 type setopt >/dev/null 2>&1
 
