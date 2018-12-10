@@ -53,6 +53,11 @@ func main() {
 			EnvVar: "PDI_TENANT_HOST",
 			Usage:  "The PDI Tenant host",
 		},
+		cli.StringFlag{
+			Name:   "output,o",
+			EnvVar: "OUPUT",
+			Usage:  "output file name",
+		},
 	}
 
 	app.Commands = []cli.Command{
@@ -153,7 +158,12 @@ func main() {
 					Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 						solutionName := context.String("solution")
 						concurrent := context.Int("concurrent")
-						pdiClient.CheckBackendMessage(solutionName, concurrent)
+						output := context.GlobalString("output")
+						if output == "" {
+							pdiClient.CheckBackendMessage(solutionName, concurrent)
+						} else {
+							pdiClient.CheckBackendMessageToFile(solutionName, concurrent, output)
+						}
 					}),
 				},
 				{

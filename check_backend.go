@@ -1,12 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"path/filepath"
 	"strings"
 
+	"baliance.com/gooxml/spreadsheet"
 	"github.com/tidwall/gjson"
 	pb "gopkg.in/cheggaaa/pb.v1"
+)
+
+type MessageCategory string
+
+const (
+	CategoryQueryNotSupported MessageCategory = "Query not support"
+	CategoryCutOffWarning     MessageCategory = "Cut off warning"
+	CategoryDontUseWarning    MessageCategory = "Not recommand type"
 )
 
 var contentTypeMapping = map[string]string{
@@ -104,6 +114,49 @@ func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []Ch
 
 	return responses
 
+}
+
+// CheckBackendMessageToFile to output result file
+func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, output string) {
+
+	responses := c.CheckBackendMessageAPI(solution, concurrent)
+
+	ss := spreadsheet.New()
+
+	sheet := ss.AddSheet()
+
+	fs := ss.StyleSheet.AddFont()
+	fs.SetBold(true)
+	cs := ss.StyleSheet.AddCellStyle()
+	cs.SetFont(fs)
+
+	sheet.SetName("Backend Check Result")
+
+	header := sheet.AddRow()
+
+	headerSs := []string{"Level", "Location", "Message", "FileName"}
+
+	for _, h := range headerSs {
+		c := header.AddCell()
+		c.SetString(h)
+		c.SetStyle(cs)
+	}
+
+	for _, r := range responses {
+		if r.Severity == "E" {
+			// any error will cause exit not as zero
+			c.exitCode = c.exitCode + 1
+		}
+		row := sheet.AddRow()
+
+		row.SetHeightAuto()
+		row.AddCell().SetString(r.GetMessageLevel())
+		row.AddCell().SetString(fmt.Sprintf("%s, %s", r.Row, r.Column))
+		row.AddCell().SetString(r.Message)
+		row.AddCell().SetString(r.FileName)
+
+	}
+	ss.SaveToFile(output)
 }
 
 // CheckBackendMessage information
