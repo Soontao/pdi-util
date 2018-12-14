@@ -1,4 +1,16 @@
 
+<a name="v1.0.18"></a>
+## [v1.0.18](https://github.com/Soontao/pdi-util/compare/v1.0.17...v1.0.18) (2018-12-14)
+
+### Common
+
+* **release:** new version
+
+### Features
+
+* backend category enhance
+
+
 <a name="v1.0.17"></a>
 ## [v1.0.17](https://github.com/Soontao/pdi-util/compare/v1.0.16...v1.0.17) (2018-12-10)
 
