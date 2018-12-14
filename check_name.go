@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 	"strings"
+
+	"github.com/urfave/cli"
 )
 
 // maybe these rules can be loaded by external
@@ -109,4 +111,21 @@ func (c *PDIClient) CheckNameConvention(solution string) {
 	}
 	c.exitCode = count
 	log.Printf("name convension error count: %d", count)
+}
+
+var commandCheckNameConvention = cli.Command{
+	Name:      "name",
+	Usage:     "check name convension",
+	UsageText: "check the name convension of source code",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:   "solution, s",
+			EnvVar: "SOLUTION_NAME",
+			Usage:  "The PDI Solution Name",
+		},
+	},
+	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+		solutionName := context.String("solution")
+		pdiClient.CheckNameConvention(solutionName)
+	}),
 }

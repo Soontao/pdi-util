@@ -7,6 +7,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/urfave/cli"
+
 	"github.com/imroc/req"
 	"github.com/olekukonko/tablewriter"
 	"github.com/tidwall/gjson"
@@ -123,4 +125,33 @@ func (c *PDIClient) ListSolutions() *PDIClient {
 	table.Render()
 
 	return c
+}
+
+var commandSolution = cli.Command{
+	Name:  "solution",
+	Usage: "solution related operations",
+	Subcommands: []cli.Command{
+		{
+			Name:  "list",
+			Usage: "list all solutions",
+			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+				pdiClient.ListSolutions()
+			}),
+		},
+		{
+			Name:  "files",
+			Usage: "list all files in a solution",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:   "solution, s",
+					EnvVar: "SOLUTION_NAME",
+					Usage:  "The PDI Solution Name",
+				},
+			},
+			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+				solutionName := context.String("solution")
+				pdiClient.ListSolutionAllFiles(solutionName)
+			}),
+		},
+	},
 }

@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/urfave/cli"
+
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
 	pb "gopkg.in/cheggaaa/pb.v1"
@@ -172,4 +174,40 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	}
 	bar.Finish()
 	log.Println("Done")
+}
+
+var commandSource = cli.Command{
+	Name:  "source",
+	Usage: "source code related operations",
+	Subcommands: []cli.Command{
+		{
+			Name:  "download",
+			Usage: "download all files in a solution",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:   "solution, s",
+					EnvVar: "SOLUTION_NAME",
+					Usage:  "The PDI Solution Name",
+				},
+				cli.StringFlag{
+					Name:   "output, o",
+					EnvVar: "OUTPUT",
+					Value:  "output",
+					Usage:  "Output directory",
+				},
+				cli.IntFlag{
+					Name:   "concurrent, c",
+					EnvVar: "DOWNLOAD_CONCURRENT",
+					Value:  35,
+					Usage:  "concurrent goroutines number",
+				},
+			},
+			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+				solutionName := context.String("solution")
+				output := context.String("output")
+				concurrent := context.Int("concurrent")
+				pdiClient.DownloadAllSourceTo(solutionName, output, concurrent)
+			}),
+		},
+	},
 }

@@ -4,21 +4,16 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
+	"regexp"
 	"strings"
+
+	"baliance.com/gooxml/measurement"
 
 	"github.com/urfave/cli"
 
 	"baliance.com/gooxml/spreadsheet"
 	"github.com/tidwall/gjson"
 	pb "gopkg.in/cheggaaa/pb.v1"
-)
-
-type MessageCategory string
-
-const (
-	CategoryQueryNotSupported MessageCategory = "Query not support"
-	CategoryCutOffWarning     MessageCategory = "Cut off warning"
-	CategoryDontUseWarning    MessageCategory = "Not recommand type"
 )
 
 var contentTypeMapping = map[string]string{
@@ -31,6 +26,15 @@ var contentTypeMapping = map[string]string{
 	".uicomponent": "UICOMPONENT",
 }
 
+var checkMessageCategoryReg = map[string]*regexp.Regexp{
+	"Type Assignment Error":       regexp.MustCompile("Assignment of the type '.*?' to the type '.*?' is not possible."),
+	"String Exceed Warning":       regexp.MustCompile("Please ensure that the value doesn’t exceed [\\d]+ characters, otherwise it will be cut off at runtime."),
+	"Query Not Supported Warning": regexp.MustCompile("Use of data type '.*?' is not supported in queries"),
+	"Type Recommendation":         regexp.MustCompile("Do not store external document data in unrestricted data type '.*?'. Recommendation .*?$"),
+	"Performation Warning":        regexp.MustCompile("Performance Alert: .*?$"),
+	"Database Length Warning":     regexp.MustCompile("Length of data type '.*?' is restricted to [\\d]+ characters in the data base"),
+}
+
 // CheckMessage is backend check result
 type CheckMessage struct {
 	Column   string
@@ -40,10 +44,21 @@ type CheckMessage struct {
 	Message  string
 }
 
+// GetMessageCategory string
+func (m CheckMessage) GetMessageCategory() string {
+	rt := "Unknown"
+	for k, r := range checkMessageCategoryReg {
+		if r.MatchString(m.Message) {
+			return k
+		}
+	}
+	return rt
+}
+
 // GetMessageLevel formatted level
 // Warning or Error
 func (m CheckMessage) GetMessageLevel() string {
-	rt := "UNKNOWN"
+	rt := "Unknown"
 	switch m.Severity {
 	case "W":
 		rt = "Warning"
@@ -136,7 +151,7 @@ func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, o
 
 	header := sheet.AddRow()
 
-	headerSs := []string{"Level", "Location", "Message"}
+	headerSs := []string{"Level", "Category", "Location", "Message"}
 
 	for _, h := range headerSs {
 		c := header.AddCell()
@@ -153,10 +168,15 @@ func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, o
 
 		row.SetHeightAuto()
 		row.AddCell().SetString(r.GetMessageLevel())
+		row.AddCell().SetString(r.GetMessageCategory())
 		row.AddCell().SetString(fmt.Sprintf("%s (%s,%s)", shortenPath2(r.FileName), r.Row, r.Column))
 		row.AddCell().SetString(r.Message)
 
 	}
+
+	sheet.Column(2).SetWidth(measurement.Pixel72 * 350)
+	sheet.Column(3).SetWidth(measurement.Pixel72 * 650)
+	sheet.Column(4).SetWidth(measurement.Pixel72 * 1370)
 	ss.SaveToFile(output)
 }
 
@@ -193,11 +213,16 @@ var commandCheckBackend = cli.Command{
 			Value:  35,
 			Usage:  "concurrent goroutines number",
 		},
+		cli.StringFlag{
+			Name:   "fileoutput, f",
+			EnvVar: "FILENAME_OUTPUT",
+			Usage:  "output file name",
+		},
 	},
 	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 		solutionName := context.String("solution")
 		concurrent := context.Int("concurrent")
-		output := context.GlobalString("output")
+		output := context.String("fileoutput")
 		if output == "" {
 			pdiClient.CheckBackendMessage(solutionName, concurrent)
 		} else {
