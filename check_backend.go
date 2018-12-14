@@ -27,12 +27,15 @@ var contentTypeMapping = map[string]string{
 }
 
 var checkMessageCategoryReg = map[string]*regexp.Regexp{
-	"Type Assignment Error":       regexp.MustCompile("Assignment of the type '.*?' to the type '.*?' is not possible."),
-	"String Exceed Warning":       regexp.MustCompile("Please ensure that the value doesn’t exceed [\\d]+ characters, otherwise it will be cut off at runtime."),
-	"Query Not Supported Warning": regexp.MustCompile("Use of data type '.*?' is not supported in queries"),
-	"Type Recommendation":         regexp.MustCompile("Do not store external document data in unrestricted data type '.*?'. Recommendation .*?$"),
-	"Performation Warning":        regexp.MustCompile("Performance Alert: .*?$"),
-	"Database Length Warning":     regexp.MustCompile("Length of data type '.*?' is restricted to [\\d]+ characters in the data base"),
+	"Type Assignment Error":   regexp.MustCompile("Assignment of the type '.*?' to the type '.*?' is not possible."),
+	"String Exceed Warning":   regexp.MustCompile("Please ensure that the value doesn’t exceed [\\d]+ characters, otherwise it will be cut off at runtime."),
+	"Query Type Warning":      regexp.MustCompile("Use of data type '.*?' is not supported in queries"),
+	"Type Recommendation":     regexp.MustCompile("Do not store external document data in unrestricted data type '.*?'. Recommendation .*?$"),
+	"Performation Warning":    regexp.MustCompile("Performance Alert: .*?$"),
+	"Database Length Warning": regexp.MustCompile("Length of data type '.*?' is restricted to [\\d]+ characters in the data base"),
+	"Query Warning":           regexp.MustCompile("Query is not using any selection parameters, which may lead to a long runtime."),
+	"Defination Warning":      regexp.MustCompile("Definition of value '.*?' not found; Default value can not be verified."),
+	"Namespace Warning":       regexp.MustCompile("Namespace '.*?' already imported"),
 }
 
 // CheckMessage is backend check result
@@ -174,7 +177,7 @@ func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, o
 
 	}
 
-	sheet.Column(2).SetWidth(measurement.Pixel72 * 350)
+	sheet.Column(2).SetWidth(measurement.Pixel72 * 300)
 	sheet.Column(3).SetWidth(measurement.Pixel72 * 650)
 	sheet.Column(4).SetWidth(measurement.Pixel72 * 1370)
 	ss.SaveToFile(output)
