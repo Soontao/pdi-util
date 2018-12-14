@@ -5,6 +5,7 @@
 ### Common
 
 * **release:** new version
+* **release:** new version
 
 ### Features
 
