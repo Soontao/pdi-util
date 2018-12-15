@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
 
-Cli for SAP PDI
+Cli for SAP PDI, expose PDI apis to cli environment. For research. 
 
 ## Latest Build
 
@@ -13,7 +13,7 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 ```bash
 bash> pdi-util
 NAME:
-   PDI Util - A cli util for SAP PDI
+   PDI Util - A Command Line Tool for SAP Partner Development IDE
 
 USAGE:
    pdi-util [global options] command [command options] [arguments...]
@@ -22,8 +22,7 @@ VERSION:
    SNAPSHOT
 
 COMMANDS:
-     check     code static check
-     session   session related operations
+     check     static check
      solution  solution related operations
      source    source code related operations
      help, h   Shows a list of commands or help for one command
@@ -68,6 +67,26 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
 ```
 
 ## Static Check
+
+
+```bash
+bash> pdi-util check --help
+NAME:
+   PDI Util check - static check
+
+USAGE:
+   PDI Util check command [command options] [arguments...]
+
+COMMANDS:
+     header       check copyright header
+     backend      do backend check
+     translation  do translation check
+     name         check name convension
+
+OPTIONS:
+   --help, -h  show help
+```
+
 
 ### copyright header check
 
@@ -123,6 +142,8 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check backend -
 ...
 2018/12/04 22:28:32 Finished
 ```
+
+with `-f`, output can be formated as `Excel` file
 
 ### translation check
 
