@@ -9,7 +9,7 @@ import (
 
 var commandCheck = cli.Command{
 	Name:  "check",
-	Usage: "static check",
+	Usage: "static code check",
 	Subcommands: []cli.Command{
 		commandCheckCopyright,
 		commandCheckBackend,
