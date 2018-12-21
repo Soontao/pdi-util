@@ -20,7 +20,7 @@ var commandCheckAll = cli.Command{
 		cli.IntFlag{
 			Name:   "concurrent, c",
 			EnvVar: "CHECK_CONCURRENT",
-			Value:  35,
+			Value:  25,
 			Usage:  "concurrent goroutines number",
 		},
 		cli.StringFlag{
@@ -56,31 +56,22 @@ var commandCheckAll = cli.Command{
 		for _, r := range nameConventionResponse {
 			row := []string{shortenPath2(r.IncludePath), strconv.FormatBool(r.Correct), r.CorrectName}
 			nameConventionTableData = append(nameConventionTableData, row)
-
 		}
 
 		for _, r := range backendCheckResponse {
-
 			row := []string{r.GetMessageLevel(), r.GetMessageCategory(), fmt.Sprintf("%s (%s,%s)", shortenPath2(r.FileName), r.Row, r.Column), r.Message}
-
 			backendTableData = append(backendTableData, row)
-
 		}
 
 		for _, r := range translationResponses {
-
 			row := []string{shortenPath2(r.FileName), r.AllTextCount, r.Info["Chinese"].TranslatedCount, r.Info["English"].TranslatedCount}
-
 			translationTableData = append(translationTableData, row)
 
 		}
 
 		for _, r := range copyRightresponses {
-
 			row := []string{shortenPath2(r.File.XrepPath), strconv.FormatBool(r.HaveHeader), r.File.Attributes["~CREATED_BY"], r.File.Attributes["~LAST_CHANGED_BY"]}
-
 			copyRightTableData = append(copyRightTableData, row)
-
 		}
 
 		addSheetTo(ss, "Backend Check Result", []string{"Level", "Category", "Location", "Message"}, backendTableData)

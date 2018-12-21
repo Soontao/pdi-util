@@ -25,6 +25,7 @@ var rules = map[string]string{
 
 func shortenPath2(path string) string {
 	rt := path
+	path = strings.Replace(path, "\\", "/", -1)
 	pathArray := strings.Split(path, "/")
 	pathArrayLen := len(pathArray)
 

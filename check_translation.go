@@ -95,7 +95,7 @@ func (c *PDIClient) CheckTranslationAPI(solution string, concurrent int) []Trans
 			responses = append(responses, *r)
 		}
 	}
-	bar.Finish()
+	bar.FinishPrint("Translation check finished")
 
 	return responses
 

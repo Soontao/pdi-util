@@ -128,7 +128,7 @@ func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []Ch
 		r := *(<-response)
 		responses = append(responses, r...)
 	}
-	bar.Finish()
+	bar.FinishPrint("Backend check finished")
 
 	return responses
 
