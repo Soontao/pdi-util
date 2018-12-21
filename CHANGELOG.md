@@ -1,4 +1,19 @@
 
+<a name="v1.0.19"></a>
+## [v1.0.19](https://github.com/Soontao/pdi-util/compare/v1.0.18...v1.0.19) (2018-12-21)
+
+### Common
+
+* text change
+* **doc:** update
+* **release:** new version
+
+### Features
+
+* check all support
+* add warning catelog
+
+
 <a name="v1.0.18"></a>
 ## [v1.0.18](https://github.com/Soontao/pdi-util/compare/v1.0.17...v1.0.18) (2018-12-14)
 
