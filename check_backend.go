@@ -7,8 +7,6 @@ import (
 	"regexp"
 	"strings"
 
-	"baliance.com/gooxml/measurement"
-
 	"github.com/urfave/cli"
 
 	"baliance.com/gooxml/spreadsheet"
@@ -141,45 +139,18 @@ func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, o
 
 	responses := c.CheckBackendMessageAPI(solution, concurrent)
 
-	ss := spreadsheet.New()
-
-	sheet := ss.AddSheet()
-
-	fs := ss.StyleSheet.AddFont()
-	fs.SetBold(true)
-	cs := ss.StyleSheet.AddCellStyle()
-	cs.SetFont(fs)
-
-	sheet.SetName("Backend Check Result")
-
-	header := sheet.AddRow()
-
-	headerSs := []string{"Level", "Category", "Location", "Message"}
-
-	for _, h := range headerSs {
-		c := header.AddCell()
-		c.SetString(h)
-		c.SetStyle(cs)
-	}
+	tableData := [][]string{}
 
 	for _, r := range responses {
-		if r.Severity == "E" {
-			// any error will cause exit not as zero
-			c.exitCode = c.exitCode + 1
-		}
-		row := sheet.AddRow()
 
-		row.SetHeightAuto()
-		row.AddCell().SetString(r.GetMessageLevel())
-		row.AddCell().SetString(r.GetMessageCategory())
-		row.AddCell().SetString(fmt.Sprintf("%s (%s,%s)", shortenPath2(r.FileName), r.Row, r.Column))
-		row.AddCell().SetString(r.Message)
+		row := []string{r.GetMessageLevel(), r.GetMessageCategory(), fmt.Sprintf("%s (%s,%s)", shortenPath2(r.FileName), r.Row, r.Column), r.Message}
+
+		tableData = append(tableData, row)
 
 	}
 
-	sheet.Column(2).SetWidth(measurement.Pixel72 * 300)
-	sheet.Column(3).SetWidth(measurement.Pixel72 * 650)
-	sheet.Column(4).SetWidth(measurement.Pixel72 * 1370)
+	ss := spreadsheet.New()
+	addSheetTo(ss, "Backend Check Result", []string{"Level", "Category", "Location", "Message"}, tableData)
 	ss.SaveToFile(output)
 }
 

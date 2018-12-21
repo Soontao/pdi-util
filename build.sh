@@ -22,7 +22,7 @@ for PLATFORM in $PLATFORMS; do
   CMD="GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
-  zip "${BIN_FILENAME}.zip" ${BIN_FILENAME}
+  zip -j "${BIN_FILENAME}.zip" ${BIN_FILENAME}
   rm ${BIN_FILENAME}
 done
 
@@ -32,7 +32,7 @@ if [[ $PLATFORMS_ARM == *"linux"* ]]; then
   CMD="GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
-  zip "${BIN_FILENAME}.zip" ${BIN_FILENAME}
+  zip -j "${BIN_FILENAME}.zip" ${BIN_FILENAME}
   rm ${BIN_FILENAME}
 fi
 
@@ -44,7 +44,7 @@ for GOOS in $PLATFORMS_ARM; do
     CMD="GOARM=${GOARM} GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
     echo "${CMD}"
     eval "${CMD}" || FAILURES="${FAILURES} ${GOOS}/${GOARCH}${GOARM}"
-    zip "${BIN_FILENAME}.zip" ${BIN_FILENAME}
+    zip -j "${BIN_FILENAME}.zip" ${BIN_FILENAME}
     rm ${BIN_FILENAME}
   done
 done

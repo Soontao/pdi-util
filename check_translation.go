@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"baliance.com/gooxml/spreadsheet"
 	"github.com/urfave/cli"
 
 	"github.com/tidwall/gjson"
@@ -100,6 +101,29 @@ func (c *PDIClient) CheckTranslationAPI(solution string, concurrent int) []Trans
 
 }
 
+// CheckTranslationToFile output
+func (c *PDIClient) CheckTranslationToFile(solution string, concurrent int, language, outputFile string) {
+
+	responses := c.CheckTranslationAPI(solution, concurrent)
+
+	tableData := [][]string{}
+
+	for _, r := range responses {
+
+		row := []string{shortenPath2(r.FileName), r.AllTextCount, r.Info["Chinese"].TranslatedCount, r.Info["English"].TranslatedCount}
+
+		tableData = append(tableData, row)
+
+	}
+
+	ss := spreadsheet.New()
+
+	addSheetTo(ss, "Translation Check Result", []string{"File", "All Field", "Chinese", "English"}, tableData)
+
+	ss.SaveToFile(outputFile)
+
+}
+
 // CheckTranslation information
 func (c *PDIClient) CheckTranslation(solution string, concurrent int, language string) {
 
@@ -152,11 +176,22 @@ var commandCheckTranslation = cli.Command{
 			Value:  "Chinese",
 			Usage:  "target language to check",
 		},
+		cli.StringFlag{
+			Name:   "fileoutput, f",
+			EnvVar: "FILENAME_OUTPUT",
+			Usage:  "output file name",
+		},
 	},
 	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 		solutionName := context.String("solution")
 		concurrent := context.Int("concurrent")
 		language := context.String("language")
-		pdiClient.CheckTranslation(solutionName, concurrent, language)
+		output := context.String("fileoutput")
+		if output == "" {
+			pdiClient.CheckTranslation(solutionName, concurrent, language)
+		} else {
+			pdiClient.CheckTranslationToFile(solutionName, concurrent, language, output)
+		}
+
 	}),
 }
