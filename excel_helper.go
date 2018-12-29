@@ -12,12 +12,15 @@ func addSheetTo(workbook *spreadsheet.Workbook, sheetName string, headers []stri
 
 	fs := workbook.StyleSheet.AddFont()
 	fs.SetBold(true)
+	fs.SetSize(15)
 	cs := workbook.StyleSheet.AddCellStyle()
 	cs.SetFont(fs)
 
 	sheet.SetName(sheetName)
 
 	header := sheet.AddRow()
+
+	header.SetHeight(measurement.Pixel72 * 3)
 
 	for columnIdx, cellData := range headers {
 		c := header.AddCell()

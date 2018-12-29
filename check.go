@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 
 	"baliance.com/gooxml/spreadsheet"
@@ -20,7 +21,7 @@ var commandCheckAll = cli.Command{
 		cli.IntFlag{
 			Name:   "concurrent, c",
 			EnvVar: "CHECK_CONCURRENT",
-			Value:  25,
+			Value:  35,
 			Usage:  "concurrent goroutines number",
 		},
 		cli.StringFlag{
@@ -37,21 +38,37 @@ var commandCheckAll = cli.Command{
 
 		ss := spreadsheet.New()
 
-		backendCheckResponse := c.CheckBackendMessageAPI(solution, concurrent)
-
 		backendTableData := [][]string{}
-
-		translationResponses := c.CheckTranslationAPI(solution, concurrent)
 
 		translationTableData := [][]string{}
 
+		copyRightTableData := [][]string{}
+
+		nameConventionTableData := [][]string{}
+
+		inActiveFilesTableData := [][]string{}
+
+		backendCheckResponse := c.CheckBackendMessageAPI(solution, concurrent)
+
+		log.Printf("Backend Check Finished")
+
+		translationResponses := c.CheckTranslationAPI(solution, concurrent)
+
+		log.Printf("Translation Check Finished")
+
 		copyRightresponses := c.CheckSolutionCopyrightHeaderAPI(solution, concurrent)
 
-		copyRightTableData := [][]string{}
+		log.Printf("Copyright Header Check Finished")
 
 		nameConventionResponse := c.CheckNameConventionAPI(solution)
 
-		nameConventionTableData := [][]string{}
+		log.Printf("Name Convention Check Finished")
+
+		inActiveFilesResponse := c.CheckInActiveFilesAPI(solution)
+
+		log.Printf("In-Active File Check Finished")
+
+		log.Printf("Start Generating Excel File...")
 
 		for _, r := range nameConventionResponse {
 			row := []string{shortenPath2(r.IncludePath), strconv.FormatBool(r.Correct), r.CorrectName}
@@ -74,6 +91,11 @@ var commandCheckAll = cli.Command{
 			copyRightTableData = append(copyRightTableData, row)
 		}
 
+		for _, r := range inActiveFilesResponse {
+			row := []string{r.File, shortenPath2(r.FilePath), r.LastChangedBy, r.LastChangedOn}
+			inActiveFilesTableData = append(inActiveFilesTableData, row)
+		}
+
 		addSheetTo(ss, "Backend Check Result", []string{"Level", "Category", "Location", "Message"}, backendTableData)
 
 		addSheetTo(ss, "Translation Check Result", []string{"File", "All Field", "Chinese", "English"}, translationTableData)
@@ -82,7 +104,11 @@ var commandCheckAll = cli.Command{
 
 		addSheetTo(ss, "Name Convension Check Result", []string{"File", "Correct", "Correct Name"}, nameConventionTableData)
 
+		addSheetTo(ss, "InActive Files", []string{"File Name", "File Path", "Last Changed By", "Last Changed On"}, inActiveFilesTableData)
+
 		ss.SaveToFile(output)
+
+		log.Printf("Save Check Result File to %s", output)
 
 	}),
 }

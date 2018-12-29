@@ -78,7 +78,6 @@ func (c *PDIClient) CheckSolutionCopyrightHeaderAPI(solutionName string, concurr
 		row.HaveHeader = c.checkCopyrightHeader(file.Source)
 		rt = append(rt, row)
 	}
-	bar.FinishPrint("Copyright header check finished")
 	return rt
 }
 

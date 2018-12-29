@@ -136,7 +136,6 @@ func (c *PDIClient) CheckNameConvention(solution string) {
 	}
 
 	c.exitCode = count
-	log.Printf("name convension error count: %d", count)
 }
 
 // CheckNameConventionToFile output
