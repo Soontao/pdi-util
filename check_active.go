@@ -61,15 +61,10 @@ func (c *PDIClient) CheckInActiveFilesAPI(solutionName string) []XrepActivateChe
 
 	// merge addional active check result
 	for _, addionalCheck := range addtionalActiveCheckResult {
+
 		if fileAttr, existed := fileAttrs[addionalCheck.FileName]; existed {
 			if fileAttr.Active && (!addionalCheck.Active) {
 				fileAttr.Active = false
-			}
-		} else {
-			fileAttrs[addionalCheck.FileName] = XrepFileAttrs{
-				FileName: addionalCheck.FileName,
-				FilePath: addionalCheck.FilePath,
-				Active:   addionalCheck.Active,
 			}
 		}
 
