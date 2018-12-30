@@ -1,4 +1,16 @@
 
+<a name="v1.0.21"></a>
+## [v1.0.21](https://github.com/Soontao/pdi-util/compare/v1.0.20...v1.0.21) (2018-12-30)
+
+### Bug Fixes
+
+* check removed file
+
+### Common
+
+* **release:** new version
+
+
 <a name="v1.0.20"></a>
 ## [v1.0.20](https://github.com/Soontao/pdi-util/compare/v1.0.19...v1.0.20) (2018-12-30)
 
