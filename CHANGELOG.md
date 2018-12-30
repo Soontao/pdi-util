@@ -1,4 +1,18 @@
 
+<a name="v1.0.20"></a>
+## [v1.0.20](https://github.com/Soontao/pdi-util/compare/v1.0.19...v1.0.20) (2018-12-30)
+
+### Common
+
+* refactor
+* **release:** new version
+
+### Features
+
+* remove progress bar, add overview page, add in-active file check.
+* in-active file check
+
+
 <a name="v1.0.19"></a>
 ## [v1.0.19](https://github.com/Soontao/pdi-util/compare/v1.0.18...v1.0.19) (2018-12-21)
 
