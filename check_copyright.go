@@ -9,8 +9,6 @@ import (
 
 	"baliance.com/gooxml/spreadsheet"
 	"github.com/urfave/cli"
-
-	pb "gopkg.in/cheggaaa/pb.v1"
 )
 
 var reg = regexp.MustCompile(`/\*([^*]|[\r\n]|(\*([^/]|[\r\n])))*(Function|Author)([^*]|[\r\n]|(\*([^/]|[\r\n])))*\*/`)
@@ -55,12 +53,9 @@ func (c *PDIClient) CheckSolutionCopyrightHeaderAPI(solutionName string, concurr
 	}
 
 	fileCount := len(checkList)
-	bar := pb.New(fileCount)
-	bar.ShowBar = false
 	// > request and download
 	asyncResponses := make([]chan *XrepFile, fileCount)
 	parallexController := make(chan bool, concurrent)
-	bar.Start()
 	for idx, task := range checkList {
 		asyncResponses[idx] = make(chan *XrepFile, 1)
 		parallexController <- true
@@ -68,7 +63,6 @@ func (c *PDIClient) CheckSolutionCopyrightHeaderAPI(solutionName string, concurr
 			source := c.DownloadFileSource(task)
 			done <- source
 			<-parallexController
-			bar.Increment()
 		}(task, asyncResponses[idx])
 	}
 	for _, response := range asyncResponses {

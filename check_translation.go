@@ -10,7 +10,6 @@ import (
 	"github.com/urfave/cli"
 
 	"github.com/tidwall/gjson"
-	pb "gopkg.in/cheggaaa/pb.v1"
 )
 
 // TranslationStatus message
@@ -71,9 +70,6 @@ func (c *PDIClient) CheckTranslationAPI(solution string, concurrent int) []Trans
 	asyncResponses := make([]chan *TranslationStatus, fileCount)
 	parallexController := make(chan bool, concurrent)
 
-	bar := pb.New(fileCount)
-	bar.ShowBar = false
-	bar.Start()
 	for idx, file := range files {
 		asyncResponses[idx] = make(chan *TranslationStatus, 1)
 		parallexController <- true
@@ -85,7 +81,6 @@ func (c *PDIClient) CheckTranslationAPI(solution string, concurrent int) []Trans
 				done <- nil
 			}
 			<-parallexController
-			bar.Increment()
 		}(file, asyncResponses[idx])
 	}
 

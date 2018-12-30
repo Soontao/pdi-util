@@ -11,7 +11,6 @@ import (
 
 	"baliance.com/gooxml/spreadsheet"
 	"github.com/tidwall/gjson"
-	pb "gopkg.in/cheggaaa/pb.v1"
 )
 
 var contentTypeMapping = map[string]string{
@@ -110,9 +109,6 @@ func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []Ch
 	asyncResponses := make([]chan *[]CheckMessage, fileCount)
 	parallexController := make(chan bool, concurrent)
 
-	bar := pb.New(fileCount)
-	bar.ShowBar = false
-	bar.Start()
 	for idx, file := range files {
 		asyncResponses[idx] = make(chan *[]CheckMessage, 1)
 		parallexController <- true
@@ -120,7 +116,6 @@ func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []Ch
 			_, checkMessage := c.backendCheck(file)
 			done <- checkMessage
 			<-parallexController
-			bar.Increment()
 		}(file, asyncResponses[idx])
 	}
 
