@@ -1,4 +1,17 @@
 
+<a name="v1.0.23"></a>
+## [v1.0.23](https://github.com/Soontao/pdi-util/compare/v1.0.22...v1.0.23) (2018-12-31)
+
+### Common
+
+* **release:** new version
+
+### Features
+
+* tech user id convert to readable user id
+* init CheckLockedFilesAPI feature
+
+
 <a name="v1.0.22"></a>
 ## [v1.0.22](https://github.com/Soontao/pdi-util/compare/v1.0.21...v1.0.22) (2018-12-31)
 
