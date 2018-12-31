@@ -26,12 +26,6 @@ func Test_ensureFileNameConvention(t *testing.T) {
 			false,
 			"CLDT_CSomeType.codelist",
 		},
-		{
-			"test uicomponent",
-			args{"MasterData\\Supplier\\BO_SupplierContract_MD_WCView.WCVIEW.uiwocview"},
-			false,
-			"UI_SupplierContract_MD_WCView.WCVIEW.uiwocview",
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

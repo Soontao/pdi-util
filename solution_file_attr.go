@@ -29,8 +29,8 @@ type XrepFileAttrs struct {
 // GetSolutionFileAttrs from xrep
 func (c *PDIClient) GetSolutionFileAttrs(solutionName string) map[string]XrepFileAttrs {
 	rt := map[string]XrepFileAttrs{}
-	payload := map[string]interface{}{
-		"IMPORTING": map[string]interface{}{
+	payload := JSONObject{
+		"IMPORTING": JSONObject{
 			"IT_FILTER":               []string{},
 			"IV_LAST_SHIPPED_VERSION": "",
 			"IV_PATH":                 fmt.Sprintf("/%sMAIN", solutionName),
@@ -54,9 +54,9 @@ func (c *PDIClient) GetSolutionFileAttrs(solutionName string) map[string]XrepFil
 			case "~ENTITY_TYPE":
 				xrepFileAttr.EntityType = attrValue
 			case "~CREATED_BY":
-				xrepFileAttr.CreatedBy = attrValue
+				xrepFileAttr.CreatedBy = fmt.Sprintf("%s (%s)", c.GetAUserIDNameByTechID(attrValue), attrValue)
 			case "~LAST_CHANGED_BY":
-				xrepFileAttr.LastChangedBy = attrValue
+				xrepFileAttr.LastChangedBy = fmt.Sprintf("%s (%s)", c.GetAUserIDNameByTechID(attrValue), attrValue)
 			case "~LAST_CHANGED_ON":
 				xrepFileAttr.LastChangedOn = attrValue
 			case "~CREATED_ON":

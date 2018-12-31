@@ -3,16 +3,27 @@ package main
 import (
 	"fmt"
 	"path/filepath"
+	"strings"
+	"time"
 
 	"github.com/tidwall/gjson"
 )
 
 // EtLock information
 type EtLock struct {
-	FileName string
-	FilePath string
-	EditBy   string
-	EditOn   string
+	FileName   string
+	FilePath   string
+	EditBy     string
+	EditOn     string
+	EditOnDate time.Time
+}
+
+// ParseXrepDateString
+func ParseXrepDateString(input string) time.Time {
+	// input as 20181231092019.5268080 format
+	sDateTime := strings.SplitN(input, ".", 2)[0]
+	rt, _ := time.Parse("20060102030405", strings.TrimSpace(sDateTime))
+	return rt
 }
 
 // CheckLockedFilesAPI to get locked files
@@ -32,6 +43,9 @@ func (c *PDIClient) CheckLockedFilesAPI(solution string) []EtLock {
 		_, l.FileName = filepath.Split(l.FilePath)
 		l.EditBy = lock.Get("EDIT_BY").String()
 		l.EditOn = lock.Get("EDIT_ON").String()
+		if l.EditOn != "" {
+			l.EditOnDate = ParseXrepDateString(l.EditOn)
+		}
 		rt = append(rt, l)
 	}
 

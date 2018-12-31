@@ -145,7 +145,7 @@ var commandCheckAll = cli.Command{
 			if !r.HaveHeader {
 				withoutHeaderCount++
 			}
-			row := []string{shortenPath2(r.File.XrepPath), strconv.FormatBool(r.HaveHeader), r.File.Attributes["~CREATED_BY"], r.File.Attributes["~LAST_CHANGED_BY"]}
+			row := []string{shortenPath2(r.File.FilePath), strconv.FormatBool(r.HaveHeader), r.File.CreatedBy, r.File.LastChangedBy}
 			copyRightTableData = append(copyRightTableData, row)
 		}
 

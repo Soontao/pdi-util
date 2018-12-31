@@ -2,6 +2,8 @@ package main
 
 import "encoding/xml"
 
+type JSONObject = map[string]interface{}
+
 // LoginResponse struct
 type LoginResponse struct {
 	XMLName  xml.Name `xml:"Login"`

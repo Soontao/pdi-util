@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
@@ -27,50 +26,44 @@ func (c *PDIClient) checkCopyrightHeader(code []byte) bool {
 
 // CopyRightHeaderCheckResult struct
 type CopyRightHeaderCheckResult struct {
-	File       *XrepFile
-	HaveHeader bool
+	File        XrepFileAttrs
+	FileContent XrepFile
+	HaveHeader  bool
 }
 
 // CheckSolutionCopyrightHeaderAPI content
 func (c *PDIClient) CheckSolutionCopyrightHeaderAPI(solutionName string, concurrent int) []CopyRightHeaderCheckResult {
 	rt := []CopyRightHeaderCheckResult{}
-	checkList := []string{}
-	project := c.GetSolutionFileList(solutionName)
-	sourceXrepPrefix := ""
-	for _, property := range project.PropertyGroup {
-		if property.ProjectSourceFolderinXRep != "" {
-			sourceXrepPrefix = property.ProjectSourceFolderinXRep
-		}
-	}
-	for _, group := range project.ItemGroup {
-		// Common Files
-		for _, content := range group.Content {
-			if strings.HasSuffix(content.Include, ".absl") || strings.HasSuffix(content.Include, ".bo") || strings.HasSuffix(content.Include, ".xbo") {
-				xrepPath := strings.Replace(filepath.Join(sourceXrepPrefix, content.Include), "\\", "/", -1)
-				checkList = append(checkList, xrepPath)
-			}
+
+	files := c.GetSolutionFileAttrs(solutionName)
+
+	for _, file := range files {
+		if strings.HasSuffix(file.FilePath, ".absl") || strings.HasSuffix(file.FilePath, ".bo") || strings.HasSuffix(file.FilePath, ".xbo") {
+			rt = append(rt, CopyRightHeaderCheckResult{File: file})
 		}
 	}
 
-	fileCount := len(checkList)
+	fileCount := len(rt)
 	// > request and download
-	asyncResponses := make([]chan *XrepFile, fileCount)
+	asyncResponses := make([]chan bool, fileCount)
 	parallexController := make(chan bool, concurrent)
-	for idx, task := range checkList {
-		asyncResponses[idx] = make(chan *XrepFile, 1)
+	for idx, task := range rt {
+		asyncResponses[idx] = make(chan bool, 1)
 		parallexController <- true
-		go func(task string, done chan *XrepFile) {
-			source := c.DownloadFileSource(task)
-			done <- source
+		go func(task CopyRightHeaderCheckResult, done chan bool) {
+			task.FileContent = *(c.DownloadFileSource(task.File.FilePath))
+			done <- true
 			<-parallexController
 		}(task, asyncResponses[idx])
 	}
+	// await all go-routines finished
 	for _, response := range asyncResponses {
-		file := <-response
-		row := CopyRightHeaderCheckResult{}
-		row.File = file
-		row.HaveHeader = c.checkCopyrightHeader(file.Source)
-		rt = append(rt, row)
+		<-response
+	}
+
+	for _, check := range rt {
+		fileContent := check.FileContent
+		check.HaveHeader = c.checkCopyrightHeader(fileContent.Source)
 	}
 	return rt
 }
@@ -84,7 +77,7 @@ func (c *PDIClient) CheckSolutionCopyrightHeaderToFile(solutionName string, conc
 
 	for _, r := range responses {
 
-		row := []string{shortenPath2(r.File.XrepPath), strconv.FormatBool(r.HaveHeader), r.File.Attributes["~CREATED_BY"], r.File.Attributes["~LAST_CHANGED_BY"]}
+		row := []string{shortenPath2(r.File.FilePath), strconv.FormatBool(r.HaveHeader), r.File.CreatedBy, r.File.LastChangedBy}
 
 		tableData = append(tableData, row)
 
@@ -100,13 +93,13 @@ func (c *PDIClient) CheckSolutionCopyrightHeaderToFile(solutionName string, conc
 
 // CheckSolutionCopyrightHeader content
 func (c *PDIClient) CheckSolutionCopyrightHeader(solutionName string, concurrent int) {
-	lostList := []*XrepFile{}
+	lostList := []XrepFile{}
 
 	checkResult := c.CheckSolutionCopyrightHeaderAPI(solutionName, concurrent)
 
 	for _, response := range checkResult {
 		if !response.HaveHeader {
-			lostList = append(lostList, response.File)
+			lostList = append(lostList, response.FileContent)
 		}
 	}
 

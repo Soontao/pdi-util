@@ -62,12 +62,16 @@ func shortenPath(path string) string {
 
 func ensureFileNameConvention(filePath string) (bool, string) {
 
-	filePathSlices := strings.Split(filePath, "\\")
+	filePathSlices := strings.Split(filePath, "/")
 	fileName := filePathSlices[len(filePathSlices)-1]
 
 	legal := true
 	correctFileName := fileName
 	fileExtensionArray := strings.SplitN(fileName, ".", 2)
+	// the file path without extension
+	if len(fileExtensionArray) < 2 {
+		return true, filePath
+	}
 	fileNameWithoutExtension := fileExtensionArray[0]
 	fileExtension := fileExtensionArray[1]
 	fileNameSlice := strings.SplitN(fileNameWithoutExtension, "_", 2)
@@ -94,33 +98,23 @@ type NameConventionCheckResult struct {
 	Correct     bool
 	IncludePath string
 	CorrectName string
+	File        XrepFileAttrs
 }
 
 // CheckNameConventionAPI of the solution
 func (c *PDIClient) CheckNameConventionAPI(solution string) []NameConventionCheckResult {
 	rt := []NameConventionCheckResult{}
-	project := c.GetSolutionFileList(solution)
-	for _, group := range project.ItemGroup {
-		for _, bcset := range group.BCSet {
-			includePath := strings.SplitN(bcset.Include, "\\", 3)[2]
-			correct, correcetName := ensureFileNameConvention(includePath)
-			row := NameConventionCheckResult{}
-			row.Correct = correct
-			row.CorrectName = correcetName
-			row.IncludePath = includePath
-			rt = append(rt, row)
-		}
-		for _, content := range group.Content {
-			includePath := content.Include
-			correct, correcetName := ensureFileNameConvention(includePath)
-			row := NameConventionCheckResult{}
-			row.Correct = correct
-			row.CorrectName = correcetName
-			row.IncludePath = includePath
-			rt = append(rt, row)
-
-		}
+	files := c.GetSolutionFileAttrs(solution)
+	for _, file := range files {
+		correct, correcetName := ensureFileNameConvention(file.FilePath)
+		row := NameConventionCheckResult{}
+		row.Correct = correct
+		row.CorrectName = correcetName
+		row.IncludePath = file.FilePath
+		row.File = file
+		rt = append(rt, row)
 	}
+
 	return rt
 }
 

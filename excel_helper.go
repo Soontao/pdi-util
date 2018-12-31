@@ -10,9 +10,12 @@ import (
 type OverviewStatus string
 
 const (
+	// Successful
 	Successful OverviewStatus = "Successful"
-	Warning                   = "Warning"
-	FatalError                = "Fatal Error"
+	// Warning
+	Warning = "Warning"
+	// FatalError
+	FatalError = "Fatal Error"
 )
 
 type OverviewItem struct {
