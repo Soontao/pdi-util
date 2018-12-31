@@ -38,7 +38,7 @@ func addOverviewSheetTo(workbook *spreadsheet.Workbook, items []OverviewItem) sp
 	defaultStyle.SetFill(greyFill)
 
 	greenFill := workbook.StyleSheet.Fills().AddFill()
-	greenFill.SetPatternFill().SetFgColor(color.Green)
+	greenFill.SetPatternFill().SetFgColor(color.LightGreen)
 	successStyle := workbook.StyleSheet.AddCellStyle()
 	successStyle.SetFill(greenFill)
 
@@ -96,7 +96,7 @@ func addSheetTo(workbook *spreadsheet.Workbook, sheetName string, headers []stri
 
 	headerFontStyle := workbook.StyleSheet.AddFont()
 	headerFontStyle.SetBold(true)
-	headerFontStyle.SetSize(15)
+	headerFontStyle.SetSize(13)
 
 	cs := workbook.StyleSheet.AddCellStyle()
 	cs.SetFont(headerFontStyle)
@@ -105,7 +105,7 @@ func addSheetTo(workbook *spreadsheet.Workbook, sheetName string, headers []stri
 
 	header := sheet.AddRow()
 
-	header.SetHeight(measurement.Pixel72 * 3)
+	header.SetHeightAuto()
 
 	for columnIdx, cellData := range headers {
 		c := header.AddCell()
