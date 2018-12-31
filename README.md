@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
 
-Cli for SAP PDI, expose PDI apis to cli environment. For research. 
+Cli for SAP PDI, expose PDI apis to cli environment. For research.
 
 ## Latest Build
 
@@ -68,16 +68,17 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source download
 
 ## Static Check
 
+Normally, just use `check all` sub command, it will do all available check & save result to excel file.
 
 ```bash
-bash> pdi-util check --help
 NAME:
-   PDI Util check - static check
+   PDI Util check - static code check
 
 USAGE:
    PDI Util check command [command options] [arguments...]
 
 COMMANDS:
+     all          do all check to file
      header       check copyright header
      backend      do backend check
      translation  do translation check
@@ -87,80 +88,21 @@ OPTIONS:
    --help, -h  show help
 ```
 
+### Check All
 
-### copyright header check
-
-```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check header -s YQABCDEFG_
-2018/11/25 16:13:08 Will check 532 ABSL/BO/XBO Defination
- 532 / 532  100.00% 5s
-2018/11/25 16:13:14 Not found copyright header in: /API/XXXXXXX.absl
-...
-...
-2018/11/25 16:13:14 Totally 247 files (of 532) lost copyright header
-```
-
-### name convension check
-
-check name convension of source code filename
+example:
 
 ```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check name -s YQABCDEFG_
-2018/12/03 20:13:50 Name Convension BPM\CSD_BPMSystem.csd: filename should be CS_BPMSystem.csd
-2018/12/03 20:13:50 Name Convension HCM\EWSI_CH_USER_ID.csd: filename should be CS_CH_USER_ID.csd
-2018/12/03 20:13:50 Name Convension _Common\DT_MDRInputData.bo: filename should be BO_MDRInputData.bo
-2018/12/03 20:13:50 Name Convension _EXT\EBO_ServiceRequest.xbo: filename should be BOE_ServiceRequest.xbo
-2018/12/03 20:13:50 finished
-```
-
-### backend check
-
-execute runtime check on backend
-
-support follow files now
-
-```json
-{
-  ".absl": "ABSL",
-  ".bo":   "BUSINESS_OBJECT",
-  ".qry":  "QUERYDEF",
-  ".xbo":  "EXTENSION_ENTITY",
-  ".bco":  "BCO",
-  ".bcc":  "BCSET",
-  ".uicomponent": "UICOMPONENT"
-}
-```
-
-extremely fast !
-
-```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check backend -s YQABCDEFG_
- 133 / 133  100.00% 1s
-2018/12/04 22:27:08 [W] CustomBO.bo(8 ,26 ): Use of data type 'Description' is not supported in queries
-2018/12/04 22:27:08 [W] CustomBO.bo(8 ,26 ): Do not store external document data in unrestricted data type 'Description'. Recommendation is to use Attachment Folder (refer SDK Help Documentation Section 7.2.2.12). Please refer blog "Text Types Usage" in Community Forum for more on text data types.
-...
-...
-2018/12/04 22:28:32 Finished
-```
-
-with `-f`, output can be formated as `Excel` file
-
-### translation check
-
-check translation status for specific language
-
-```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check translation -s YQABCDEFG_
- 39 / 39  100.00% 0s
-2018/12/05 20:35:12 For language Chinese, full translated, file(BOXXX.bo)
-2018/12/05 20:35:12 For language Chinese, translated 0 text of 15, file(XXXX.bo)
-2018/12/05 20:35:12 For language Chinese, full translated, file(XXXX.bo)
-2018/12/05 20:35:12 For language Chinese, translated 0 text of 14, file(XXXXX.OIF.uicomponent)
-2018/12/05 20:35:12 For language Chinese, translated 0 text of 17, file(XXXXX.OWL.uicomponent)
-2018/12/05 20:35:12 For language Chinese, full translated, file(XXXXX.PTP.uicomponent)
-2018/12/05 20:35:12 For language Chinese, translated 0 text of 11, file(XXXXX.QA.uicomponent)
-2018/12/05 20:35:12 For language Chinese, full translated, file(BO_House.bo)
-2018/12/05 20:35:12 Finished
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check all -s YQABCDEFG_
+2018/12/31 09:52:59 Starting Backend Check...
+2018/12/31 09:53:06 Backend Check Finished
+2018/12/31 09:53:06 StartingTranslation Check...
+2018/12/31 09:53:07 Translation Check Finished
+2018/12/31 09:53:08 Copyright Header Check Finished
+2018/12/31 09:53:08 Name Convention Check Finished
+2018/12/31 09:53:08 In-Active File Check Finished
+2018/12/31 09:53:08 Start Generating Excel File...
+2018/12/31 09:53:08 Save Check Result File to check_all.xlsx
 ```
 
 ## [CHNAGELOG](./CHANGELOG.md)

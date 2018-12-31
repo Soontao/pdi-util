@@ -14,6 +14,17 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+// Solution information
+type Solution struct {
+	Name        string
+	Description string
+	Patch       string
+	Status      string
+	Customer    string
+	Contact     string
+	Email       string
+}
+
 // TrimSuffix string
 func TrimSuffix(s, suffix string) string {
 	rt := s

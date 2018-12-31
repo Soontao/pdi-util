@@ -57,7 +57,7 @@ var commandCheckAll = cli.Command{
 
 		log.Printf("Backend Check Finished")
 
-		log.Printf("StartingTranslation Check...")
+		log.Printf("Starting Translation Check...")
 
 		translationResponses := c.CheckTranslationAPI(solution, concurrent)
 
@@ -78,7 +78,7 @@ var commandCheckAll = cli.Command{
 
 		log.Printf("In-Active File Check Finished")
 
-		log.Printf("Start Generating Excel File...")
+		log.Printf("Starting Generating Excel File...")
 
 		// > format data
 
@@ -189,7 +189,7 @@ var commandCheckAll = cli.Command{
 
 		ss.SaveToFile(output)
 
-		log.Printf("Save Check Result File to %s", output)
+		log.Printf("Saving Check Result File to %s", output)
 
 	}),
 }
