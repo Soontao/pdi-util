@@ -1,4 +1,21 @@
 
+<a name="v1.0.22"></a>
+## [v1.0.22](https://github.com/Soontao/pdi-util/compare/v1.0.21...v1.0.22) (2018-12-31)
+
+### Bug Fixes
+
+* information header height
+
+### Common
+
+* little desc change
+* **release:** new version
+
+### Features
+
+* enhance solution name correction
+
+
 <a name="v1.0.21"></a>
 ## [v1.0.21](https://github.com/Soontao/pdi-util/compare/v1.0.20...v1.0.21) (2018-12-30)
 
