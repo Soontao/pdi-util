@@ -16,13 +16,13 @@ import (
 
 // Solution information
 type Solution struct {
-	Name        string
-	Description string
-	Patch       string
-	Status      string
-	Customer    string
-	Contact     string
-	Email       string
+	Name          string
+	Description   string
+	PatchSolution bool
+	Status        string
+	Customer      string
+	Contact       string
+	Email         string
 }
 
 // TrimSuffix string
@@ -88,67 +88,11 @@ func (c *PDIClient) ListSolutionAllFiles(solutionName string) *PDIClient {
 	return c
 }
 
-// ListSolutions detail information
-func (c *PDIClient) ListSolutions() *PDIClient {
-	url := c.xrepPath()
-	query := c.query("00163E0115B01DDFB194E54BB7204C9B")
-	payload := map[string]interface{}{
-		"IMPORTING": map[string]interface{}{
-			"IV_GET":           "X",
-			"IV_PRODUCT_NAME":  nil,
-			"IV_SOLUTION_TYPE": "2",
-			"IV_USER":          c.ivUser,
-		},
-	}
-	resp, err := req.Post(url, req.BodyJSON(payload), query)
-	if err != nil {
-		panic(nil)
-	}
-	respBody, _ := resp.ToString()
-	solutions := gjson.Get(respBody, "EXPORTING.ET_PRODUCTS").Array()
-
-	solutionTable := [][]string{}
-
-	for _, solution := range solutions {
-		product := solution.Get("PRODUCT")
-		detail := solution.Get("VERSIONS.0")
-
-		solutionID := product.Get("PRODUCT").String()
-		customer := product.Get("PARTNER").String()
-		contact := product.Get("CONTACT_PERSON").String()
-		email := product.Get("EMAIL").String()
-
-		solutionStatus := detail.Get("PV_OVERALL_STATUS").String()
-		patchSolution := "false"
-		if detail.Get("PV_1O_PATCH_SOLUTION").String() == "P" {
-			patchSolution = "true"
-		}
-		solutionDescription := detail.Get("PRODUCT_VERSION_TEXTS.0.DDTEXT").String()
-		row := []string{solutionID, solutionDescription, patchSolution, solutionStatus, customer, contact, email}
-		solutionTable = append(solutionTable, row)
-	}
-
-	// > output table
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"NAME", "Description", "Patch", "Status", "Customer", "Contact", "Email"})
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
-	table.AppendBulk(solutionTable)
-	table.Render()
-
-	return c
-}
-
 var commandSolution = cli.Command{
 	Name:  "solution",
 	Usage: "solution related operations",
 	Subcommands: []cli.Command{
-		{
-			Name:  "list",
-			Usage: "list all solutions",
-			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-				pdiClient.ListSolutions()
-			}),
-		},
+		commandSolutionList,
 		{
 			Name:  "files",
 			Usage: "list all files in a solution",
@@ -160,7 +104,7 @@ var commandSolution = cli.Command{
 				},
 			},
 			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-				solutionName := context.String("solution")
+				solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
 				pdiClient.ListSolutionAllFiles(solutionName)
 			}),
 		},

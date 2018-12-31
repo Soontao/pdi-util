@@ -177,7 +177,7 @@ var commandCheckTranslation = cli.Command{
 		},
 	},
 	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := context.String("solution")
+		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
 		concurrent := context.Int("concurrent")
 		language := context.String("language")
 		output := context.String("fileoutput")

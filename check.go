@@ -32,7 +32,7 @@ var commandCheckAll = cli.Command{
 		},
 	},
 	Action: PDIAction(func(c *PDIClient, context *cli.Context) {
-		solution := context.String("solution")
+		solution := c.GetSolutionIDByString(context.String("solution"))
 		concurrent := context.Int("concurrent")
 		output := context.String("fileoutput")
 

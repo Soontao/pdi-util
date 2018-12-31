@@ -196,7 +196,7 @@ var commandSource = cli.Command{
 				},
 			},
 			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-				solutionName := context.String("solution")
+				solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
 				output := context.String("output")
 				concurrent := context.Int("concurrent")
 				pdiClient.DownloadAllSourceTo(solutionName, output, concurrent)

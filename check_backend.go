@@ -188,7 +188,7 @@ var commandCheckBackend = cli.Command{
 		},
 	},
 	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := context.String("solution")
+		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
 		concurrent := context.Int("concurrent")
 		output := context.String("fileoutput")
 		if output == "" {
