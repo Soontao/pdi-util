@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strconv"
+
 	"baliance.com/gooxml/color"
 	"baliance.com/gooxml/measurement"
 	"baliance.com/gooxml/spreadsheet"
@@ -24,7 +26,7 @@ type OverviewItem struct {
 	ItemStatus      OverviewStatus
 }
 
-func addOverviewSheetTo(workbook *spreadsheet.Workbook, items []OverviewItem) spreadsheet.Sheet {
+func addOverviewSheetTo(workbook *spreadsheet.Workbook, items []OverviewItem, solution Solution) spreadsheet.Sheet {
 
 	sheet := workbook.AddSheet()
 	sheet.SetName("Overview")
@@ -59,8 +61,30 @@ func addOverviewSheetTo(workbook *spreadsheet.Workbook, items []OverviewItem) sp
 	headerRow.SetHeightAuto()
 
 	headerCell := headerRow.AddCell()
-	headerCell.SetString("Overview")
+	headerCell.SetString("Solution Overview")
 	headerCell.SetStyle(headerStyle)
+
+	solutionInfo := [][]string{
+		[]string{"Name", solution.Name},
+		[]string{"Description", solution.Description},
+		[]string{"IsPatch", strconv.FormatBool(solution.PatchSolution)},
+		[]string{"Status", solution.Status},
+		[]string{"Contact", solution.Contact},
+		[]string{"Email", solution.Email},
+	}
+
+	for _, solutionLine := range solutionInfo {
+		_row := sheet.AddRow()
+		_row.AddCell().SetString(solutionLine[0])
+		_row.AddCell().SetString(solutionLine[1])
+	}
+
+	sheet.AddRow() // empty row
+
+	statusRow := sheet.AddRow()
+	statusCell := statusRow.AddCell()
+	statusCell.SetString("Status Overview")
+	statusCell.SetStyle(headerStyle)
 
 	for _, item := range items {
 		row := sheet.AddRow()

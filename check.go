@@ -175,7 +175,7 @@ var commandCheckAll = cli.Command{
 
 		// > generate table & sheets
 
-		addOverviewSheetTo(ss, overviewItems)
+		addOverviewSheetTo(ss, overviewItems, c.GetSolutionByIDOrDescription(solution))
 
 		addSheetTo(ss, "Backend Check Result", []string{"Level", "Category", "Location", "Message"}, backendTableData)
 

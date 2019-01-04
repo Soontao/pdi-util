@@ -106,13 +106,15 @@ func (c *PDIClient) CheckNameConventionAPI(solution string) []NameConventionChec
 	rt := []NameConventionCheckResult{}
 	files := c.GetSolutionFileAttrs(solution)
 	for _, file := range files {
-		correct, correcetName := ensureFileNameConvention(file.FilePath)
-		row := NameConventionCheckResult{}
-		row.Correct = correct
-		row.CorrectName = correcetName
-		row.IncludePath = file.FilePath
-		row.File = file
-		rt = append(rt, row)
+		if !file.IsFolder {
+			correct, correcetName := ensureFileNameConvention(file.FilePath)
+			row := NameConventionCheckResult{}
+			row.Correct = correct
+			row.CorrectName = correcetName
+			row.IncludePath = file.FilePath
+			row.File = file
+			rt = append(rt, row)
+		}
 	}
 
 	return rt

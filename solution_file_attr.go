@@ -2,28 +2,31 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/tidwall/gjson"
 )
 
-// XrepFileAttrs
+// XrepFileAttrs type
 type XrepFileAttrs struct {
-	FileName      string
-	FilePath      string
-	EntityType    string
-	CreatedBy     string
-	LastChangedBy string
-	CreatedOn     string
-	LastChangedOn string
-	FileSize      string
-	MimeType      string
-	IsFolder      bool
-	Solution      string
-	Branch        string
-	ActiveFlag    string
-	Active        bool
-	ContID        string
-	IsLink        bool
+	FileName          string
+	FilePath          string
+	EntityType        string
+	CreatedBy         string
+	LastChangedBy     string
+	CreatedOn         string
+	CreatedOnDate     time.Time
+	LastChangedOn     string
+	LastChangedOnDate time.Time
+	FileSize          string
+	MimeType          string
+	IsFolder          bool
+	Solution          string
+	Branch            string
+	ActiveFlag        string
+	Active            bool
+	ContID            string
+	IsLink            bool
 }
 
 // GetSolutionFileAttrs from xrep
@@ -59,8 +62,10 @@ func (c *PDIClient) GetSolutionFileAttrs(solutionName string) map[string]XrepFil
 				xrepFileAttr.LastChangedBy = fmt.Sprintf("%s (%s)", c.GetAUserIDNameByTechID(attrValue), attrValue)
 			case "~LAST_CHANGED_ON":
 				xrepFileAttr.LastChangedOn = attrValue
+				xrepFileAttr.LastChangedOnDate = ParseXrepDateString(attrValue)
 			case "~CREATED_ON":
 				xrepFileAttr.CreatedOn = attrValue
+				xrepFileAttr.CreatedOnDate = ParseXrepDateString(attrValue)
 			case "~FILE_SIZE":
 				xrepFileAttr.FileSize = attrValue
 			case "~MIME_TYPE":

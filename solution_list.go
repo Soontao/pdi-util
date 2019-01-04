@@ -53,19 +53,19 @@ func (c *PDIClient) GetSolutionsAPI() []Solution {
 	return rt
 }
 
-// GetSolutionIDByString for ensure solution ID
-func (c *PDIClient) GetSolutionIDByString(input string) string {
+func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
 	solutions := c.GetSolutionsAPI()
-
 	for _, s := range solutions {
-		if s.Name == input {
-			return input
-		}
-		if s.Description == input {
-			return s.Name
+		if s.Name == input || s.Description == input {
+			return s
 		}
 	}
 	panic(fmt.Errorf("Not found solution with id or description: %s", input))
+}
+
+// GetSolutionIDByString for ensure solution ID
+func (c *PDIClient) GetSolutionIDByString(input string) string {
+	return c.GetSolutionByIDOrDescription(input).Name
 }
 
 // ListSolutions detail information
