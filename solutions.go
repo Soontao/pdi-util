@@ -36,9 +36,14 @@ func TrimSuffix(s, suffix string) string {
 
 // GetSolutionFileList from vs project file
 func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
+	solutionID := c.GetSolutionByIDOrDescription(solutionName).Name
 	url := c.xrepPath()
 	query := c.query("00163E0115B01DDFB194EC88B8EDEC9B")
-	solutionFilePath := fmt.Sprintf("/%sMAIN/SRC/%s.myproj", solutionName, TrimSuffix(solutionName, "_"))
+	solutionFilePath := fmt.Sprintf(
+		"/%sMAIN/SRC/%s.myproj",
+		solutionID,
+		TrimSuffix(solutionID, "_"),
+	)
 	payload := map[string]interface{}{
 		"IMPORTING": map[string]interface{}{
 			"IV_WITH_CONTENT": "X",

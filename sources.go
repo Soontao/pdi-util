@@ -97,7 +97,7 @@ func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 }
 
 // DownloadAllSourceTo directory
-func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurrent int) {
+func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurrent int, pretty bool) {
 	// > process output target
 	ensure(targetPath, "targetPath")
 	output := ""
@@ -109,35 +109,17 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	}
 	os.MkdirAll(output, os.ModePerm)
 	// > get project file list
-	project := c.GetSolutionFileList(solutionName)
+	xrepFiles := c.GetSolutionXrepFileList(solutionName)
 	downloadList := []XrepDownloadTask{}
-	xrepPrefix := ""
-	bcPrefix := ""
-	for _, property := range project.PropertyGroup {
-		if property.ProjectSourceFolderinXRep != "" {
-			xrepPrefix = property.ProjectSourceFolderinXRep
-		}
-		if property.BCSourceFolderInXRep != "" {
-			bcPrefix = property.BCSourceFolderInXRep
-		}
-	}
-	for _, group := range project.ItemGroup {
-		// Bussiness Configuration Files
-		for _, bc := range group.BCSet {
-			realPath := strings.TrimPrefix(bc.Include, fmt.Sprintf("..\\%sBC\\", solutionName))
-			xrepPath := strings.Replace(filepath.Join(bcPrefix, realPath), "\\", "/", -1)
-			localPath := strings.Replace(filepath.Join(output, realPath), "\\", "/", -1)
-			downloadList = append(downloadList, XrepDownloadTask{xrepPath, localPath})
-		}
-		// Common Files
-		for _, content := range group.Content {
-			xrepPath := strings.Replace(filepath.Join(xrepPrefix, content.Include), "\\", "/", -1)
-			localPath := strings.Replace(filepath.Join(output, content.Include), "\\", "/", -1)
-			downloadList = append(downloadList, XrepDownloadTask{xrepPath, localPath})
-		}
+
+	for _, xrepFile := range xrepFiles {
+		xrepPath := xrepFile
+		localPath := strings.Replace(filepath.Join(output, xrepFile), "\\", "/", -1)
+		downloadList = append(downloadList, XrepDownloadTask{xrepPath, localPath})
 	}
 
 	fileCount := len(downloadList)
+
 	log.Printf("Will download %d files to %s\n", fileCount, output)
 	// > progress ui support
 	// > request and download
@@ -148,6 +130,7 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 		parallexController <- true
 		go func(task XrepDownloadTask, done chan bool) {
 			source := c.DownloadFileSource(task.xrepPath)
+			sourceContent := source.Source
 			os.MkdirAll(filepath.Dir(task.localPath), os.ModePerm)
 			if _, err := os.Stat(task.localPath); os.IsNotExist(err) {
 				f, err := os.Create(task.localPath)
@@ -156,7 +139,7 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 				}
 				f.Close()
 			}
-			if err := ioutil.WriteFile(task.localPath, source.Source, 0644); err != nil {
+			if err := ioutil.WriteFile(task.localPath, sourceContent, 0644); err != nil {
 				panic(err)
 			}
 			done <- true
@@ -194,12 +177,18 @@ var commandSource = cli.Command{
 					Value:  35,
 					Usage:  "concurrent goroutines number",
 				},
+				cli.BoolFlag{
+					Name:   "pretty, f",
+					EnvVar: "PRETTY",
+					Usage:  "pretty xml files",
+				},
 			},
 			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 				solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
 				output := context.String("output")
 				concurrent := context.Int("concurrent")
-				pdiClient.DownloadAllSourceTo(solutionName, output, concurrent)
+				pretty := context.Bool("pretty")
+				pdiClient.DownloadAllSourceTo(solutionName, output, concurrent, pretty)
 			}),
 		},
 	},

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -54,13 +55,37 @@ func (c *PDIClient) GetSolutionsAPI() []Solution {
 }
 
 func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
+
 	solutions := c.GetSolutionsAPI()
+	matched := []Solution{}
+
 	for _, s := range solutions {
 		if s.Name == input || s.Description == input {
-			return s
+			matched = append(matched, s)
 		}
 	}
-	panic(fmt.Errorf("Not found solution with id or description: %s", input))
+
+	switch len(matched) {
+	case 0:
+		panic(fmt.Errorf("Not found solution with id or description: %s", input))
+	case 1:
+		return matched[0]
+	case 2:
+		for _, s := range matched {
+			if s.PatchSolution {
+				log.Printf(
+					"Get solution %s by description %s, default use patch solution",
+					s.Name,
+					input,
+				)
+				return s
+			}
+		}
+		panic(fmt.Errorf("Un-expected error"))
+	default:
+		panic(fmt.Errorf("Un-expected error"))
+	}
+
 }
 
 // GetSolutionIDByString for ensure solution ID
