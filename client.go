@@ -43,9 +43,9 @@ func (c *PDIClient) login() *PDIClient {
 	for _, aData := range respBody.Data.Element {
 		param[aData.Name] = aData.Value
 	}
-	param["sap-alias"] = c.username
+	param["sap-alias"] = strings.TrimSpace(c.username)
 	param["sap-system-login-oninputprocessing"] = "onLogin"
-	param["sap-password"] = c.password
+	param["sap-password"] = strings.TrimSpace(c.password)
 	delete(param, "sap-user")
 	c.sapClient = param["sap-client"].(string)
 

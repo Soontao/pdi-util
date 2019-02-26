@@ -48,6 +48,7 @@ func main() {
 		commandSource,
 		commandCheck,
 		commandSolution,
+		commandRepl,
 	}
 
 	sort.Sort(cli.CommandsByName(app.Commands))

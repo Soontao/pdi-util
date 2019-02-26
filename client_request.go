@@ -11,7 +11,10 @@ func (c *PDIClient) path(path string) string {
 	if !strings.HasPrefix(path, "/") {
 		panic("path must start with /")
 	}
-	return fmt.Sprintf("https://%s%s", c.hostname, path)
+	if strings.HasPrefix(c.hostname, "https://") {
+		c.hostname = strings.TrimPrefix(c.hostname, "https://")
+	}
+	return fmt.Sprintf("https://%s%s", strings.TrimSpace(c.hostname), path)
 }
 
 func (c *PDIClient) xrepPath() string {
