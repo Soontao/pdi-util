@@ -34,9 +34,18 @@ func TrimSuffix(s, suffix string) string {
 	return rt
 }
 
+// solution project data cache
+var solutionCache = map[string]*Project{}
+
 // GetSolutionFileList from vs project file
+// with cache
 func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
 	solutionID := c.GetSolutionByIDOrDescription(solutionName).Name
+	// with cache
+	if p, ok := solutionCache[solutionName]; ok {
+		return p
+	}
+	// else
 	url := c.xrepPath()
 	query := c.query("00163E0115B01DDFB194EC88B8EDEC9B")
 	solutionFilePath := fmt.Sprintf(
@@ -69,19 +78,17 @@ func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
 		panic(err)
 	}
 	return project
+
 }
 
 // ListSolutionAllFiles names
 func (c *PDIClient) ListSolutionAllFiles(solutionName string) *PDIClient {
-	project := c.GetSolutionFileList(solutionName)
+	files := c.GetSolutionXrepFileList(solutionName)
 	info := [][]string{}
 
-	for _, group := range project.ItemGroup {
-		// ignore folder & bcset
-		for _, content := range group.Content {
-			row := []string{content.Include}
-			info = append(info, row)
-		}
+	for _, f := range files {
+		row := []string{f}
+		info = append(info, row)
 	}
 
 	// > output table
@@ -93,25 +100,27 @@ func (c *PDIClient) ListSolutionAllFiles(solutionName string) *PDIClient {
 	return c
 }
 
+var commandListSolutionFiles = cli.Command{
+	Name:  "files",
+	Usage: "list all files in a solution",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:   "solution, s",
+			EnvVar: "SOLUTION_NAME",
+			Usage:  "The PDI Solution Name",
+		},
+	},
+	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
+		pdiClient.ListSolutionAllFiles(solutionName)
+	}),
+}
+
 var commandSolution = cli.Command{
 	Name:  "solution",
 	Usage: "solution related operations",
 	Subcommands: []cli.Command{
 		commandSolutionList,
-		{
-			Name:  "files",
-			Usage: "list all files in a solution",
-			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:   "solution, s",
-					EnvVar: "SOLUTION_NAME",
-					Usage:  "The PDI Solution Name",
-				},
-			},
-			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-				solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-				pdiClient.ListSolutionAllFiles(solutionName)
-			}),
-		},
+		commandListSolutionFiles,
 	},
 }

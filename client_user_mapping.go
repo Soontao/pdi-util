@@ -14,8 +14,8 @@ var cachedMapping = BPUserNameMapping{}
 func (c *PDIClient) GetAUserIDNameByTechID(techID string) string {
 	rt := ""
 	if techID != "" {
-		cached := cachedMapping[techID]
-		if cached != "" && cached != "null" {
+
+		if cached, hit := cachedMapping[techID]; hit {
 			rt = cached
 		} else {
 			rt = c.GetBPUserNameByTechID(append([]string{}, techID))[techID]
@@ -23,7 +23,8 @@ func (c *PDIClient) GetAUserIDNameByTechID(techID string) string {
 			if rt != "" {
 				cachedMapping[techID] = rt
 			} else {
-				cachedMapping[techID] = "null"
+				// failback, avoid query again
+				cachedMapping[techID] = "Unknown User TechID: " + techID
 			}
 		}
 	}

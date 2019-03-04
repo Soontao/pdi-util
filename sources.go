@@ -152,44 +152,47 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	}
 }
 
+var commandDownloadSource = cli.Command{
+	Name:  "download",
+	Usage: "download all files in a solution",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:   "solution, s",
+			EnvVar: "SOLUTION_NAME",
+			Usage:  "The PDI Solution Name",
+		},
+		cli.StringFlag{
+			Name:   "output, o",
+			EnvVar: "OUTPUT",
+			Value:  "output",
+			Usage:  "Output directory",
+		},
+		cli.IntFlag{
+			Name:   "concurrent, c",
+			EnvVar: "DOWNLOAD_CONCURRENT",
+			Value:  35,
+			Usage:  "concurrent goroutines number",
+		},
+		cli.BoolFlag{
+			Name:   "pretty, f",
+			EnvVar: "PRETTY",
+			Usage:  "pretty xml files",
+		},
+	},
+	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
+		output := context.String("output")
+		concurrent := context.Int("concurrent")
+		pretty := context.Bool("pretty")
+		pdiClient.DownloadAllSourceTo(solutionName, output, concurrent, pretty)
+	}),
+}
+
 var commandSource = cli.Command{
 	Name:  "source",
 	Usage: "source code related operations",
 	Subcommands: []cli.Command{
-		{
-			Name:  "download",
-			Usage: "download all files in a solution",
-			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:   "solution, s",
-					EnvVar: "SOLUTION_NAME",
-					Usage:  "The PDI Solution Name",
-				},
-				cli.StringFlag{
-					Name:   "output, o",
-					EnvVar: "OUTPUT",
-					Value:  "output",
-					Usage:  "Output directory",
-				},
-				cli.IntFlag{
-					Name:   "concurrent, c",
-					EnvVar: "DOWNLOAD_CONCURRENT",
-					Value:  35,
-					Usage:  "concurrent goroutines number",
-				},
-				cli.BoolFlag{
-					Name:   "pretty, f",
-					EnvVar: "PRETTY",
-					Usage:  "pretty xml files",
-				},
-			},
-			Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-				solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-				output := context.String("output")
-				concurrent := context.Int("concurrent")
-				pretty := context.Bool("pretty")
-				pdiClient.DownloadAllSourceTo(solutionName, output, concurrent, pretty)
-			}),
-		},
+		commandListFileVersion,
+		commandDownloadSource,
 	},
 }

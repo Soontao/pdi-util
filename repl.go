@@ -12,11 +12,12 @@ import (
 
 // PDIRepl type
 type PDIRepl struct {
-	prefix   string
-	logined  bool
-	client   *PDIClient
-	ui       *input.UI
-	commands []*ReplCommand
+	prefix            string
+	logined           bool
+	client            *PDIClient
+	ui                *input.UI
+	commands          []*ReplCommand
+	currentSolutionID string
 }
 
 // ReplCommand command
