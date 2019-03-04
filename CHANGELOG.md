@@ -1,4 +1,16 @@
 
+<a name="v1.1.1"></a>
+## [v1.1.1](https://github.com/Soontao/pdi-util/compare/v1.1.0...v1.1.1) (2019-03-04)
+
+### Common
+
+* **release:** new version
+
+### Remove
+
+* repl feature
+
+
 <a name="v1.1.0"></a>
 ## [v1.1.0](https://github.com/Soontao/pdi-util/compare/v1.0.24...v1.1.0) (2019-03-04)
 
