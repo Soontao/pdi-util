@@ -1,4 +1,20 @@
 
+<a name="v1.1.0"></a>
+## [v1.1.0](https://github.com/Soontao/pdi-util/compare/v1.0.24...v1.1.0) (2019-03-04)
+
+### Common
+
+* refactor reple
+* **release:** new version
+
+### Features
+
+* version view
+* query file version
+* new repl provided
+* support fuzz solution name
+
+
 <a name="v1.0.24"></a>
 ## [v1.0.24](https://github.com/Soontao/pdi-util/compare/v1.0.23...v1.0.24) (2019-01-04)
 
