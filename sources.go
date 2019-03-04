@@ -65,6 +65,34 @@ func (c *PDIClient) DownloadFileSource(xrepPath string) *XrepFile {
 	return &XrepFile{xrepPath, fileContent, attrs}
 }
 
+func (c *PDIClient) GetXrepPathByFuzzyName(solution, s string) (xrepPath string, existAndUnique bool) {
+	matched := []string{}
+
+	for _, xFilePath := range c.GetSolutionXrepFileList(solution) {
+		if strings.Contains(xFilePath, s) {
+			matched = append(matched, xFilePath)
+		}
+	}
+
+	switch len(matched) {
+	case 0:
+		log.Printf("Not found any file with name: %s", s)
+		existAndUnique = false
+	case 1:
+		xrepPath = matched[0]
+		existAndUnique = true
+	default:
+		log.Println("More than one files matched name: " + s)
+		for _, m := range matched {
+			log.Println(m)
+		}
+		existAndUnique = false
+
+	}
+
+	return xrepPath, existAndUnique
+}
+
 // GetSolutionFileList in xrep
 func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 	rt := []string{}
@@ -194,5 +222,6 @@ var commandSource = cli.Command{
 	Subcommands: []cli.Command{
 		commandListFileVersion,
 		commandDownloadSource,
+		commandViewFileVersion,
 	},
 }

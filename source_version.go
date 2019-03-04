@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/base64"
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -53,7 +54,7 @@ func (c *PDIClient) DownloadVersionFileSource(xrepPath string, version FileVersi
 				"TIMESTAMP": version.Timestamp,
 			},
 			"IV_VIRTUAL_VIEW": "X",
-			"IV_PATH":         xrepPath,
+			"IV_FILE_PATH":    xrepPath,
 		},
 	}
 	resp, err := req.Post(url, req.BodyJSON(payload), query)
@@ -66,12 +67,17 @@ func (c *PDIClient) DownloadVersionFileSource(xrepPath string, version FileVersi
 	for _, attr := range attrsList {
 		attrs[attr.Get("NAME").String()] = attr.Get("VALUE").String()
 	}
-	base64Content := gjson.Get(respBody, "EXPORTING.EV_CONTENT").String()
+	base64Content := gjson.Get(respBody, "EXPORTING.EV_FILE_CONTENT").String()
 	fileContent, err := base64.StdEncoding.DecodeString(base64Content)
 	if err != nil {
 		panic(err)
 	}
 	return &XrepFile{xrepPath, fileContent, attrs}
+}
+
+func (c *PDIClient) ViewFileVerionContent(xrepPath string, version FileVersion) {
+	file := c.DownloadVersionFileSource(xrepPath, version)
+	fmt.Print(string(file.Source))
 }
 
 // ListFileVersionsAPI information
@@ -105,6 +111,34 @@ func (c *PDIClient) ListFileVersionsAPI(xrepPath string) []FileVersion {
 	return rt
 }
 
+func (c *PDIClient) GetVersionByFuzzyVersion(xrepPath, sVersion string) (rt FileVersion, existAndUnique bool) {
+	matched := []FileVersion{}
+	for _, v := range c.ListFileVersionsAPI(xrepPath) {
+		if strings.Contains(v.Timestamp, sVersion) {
+			matched = append(matched, v)
+		}
+	}
+
+	switch len(matched) {
+	case 0:
+		log.Printf("Not found any file with name: %s", sVersion)
+		existAndUnique = false
+	case 1:
+		rt = matched[0]
+		existAndUnique = true
+	default:
+		log.Println("More than one files matched name: " + sVersion)
+		for _, m := range matched {
+			log.Println(m)
+		}
+		existAndUnique = false
+
+	}
+
+	return rt, existAndUnique
+
+}
+
 // ListFileVersions to console
 func (c *PDIClient) ListFileVersions(xrepPath string) {
 	versions := c.ListFileVersionsAPI(xrepPath)
@@ -128,6 +162,39 @@ func (c *PDIClient) ListFileVersions(xrepPath string) {
 	table.Render()
 }
 
+var commandViewFileVersion = cli.Command{
+	Name:  "versionview",
+	Usage: "view file version content",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:   "solution, s",
+			EnvVar: "SOLUTION_NAME",
+			Usage:  "The PDI Solution Name",
+		},
+		cli.StringFlag{
+			Name:   "filename, f",
+			EnvVar: "VERSION_FILE_NAME",
+			Usage:  "The target file xrep path/file name",
+		},
+		cli.StringFlag{
+			Name:   "version, v",
+			EnvVar: "VERSION",
+			Usage:  "File version string",
+		},
+	},
+	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+		filename := context.String("filename")
+		sVersion := context.String("version")
+		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
+
+		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
+			if version, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersion); foundVersion {
+				pdiClient.ViewFileVerionContent(path, version)
+			}
+		}
+	}),
+}
+
 var commandListFileVersion = cli.Command{
 	Name:  "version",
 	Usage: "list file all versions",
@@ -146,24 +213,9 @@ var commandListFileVersion = cli.Command{
 	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 		filename := context.String("filename")
 		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		matched := []string{}
 
-		for _, xFilePath := range pdiClient.GetSolutionXrepFileList(solutionName) {
-			if strings.Contains(xFilePath, filename) {
-				matched = append(matched, xFilePath)
-			}
-		}
-
-		switch len(matched) {
-		case 0:
-			log.Printf("Not found any file with name: %s", filename)
-		case 1:
-			pdiClient.ListFileVersions(matched[0])
-		default:
-			log.Println("More than one files matched name: " + filename)
-			for _, m := range matched {
-				log.Println(m)
-			}
+		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
+			pdiClient.ListFileVersions(path)
 		}
 
 	}),
