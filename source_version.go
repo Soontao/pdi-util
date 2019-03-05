@@ -10,6 +10,7 @@ import (
 
 	"github.com/imroc/req"
 	"github.com/olekukonko/tablewriter"
+	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli"
 )
@@ -38,23 +39,23 @@ func (v *FileVersion) GetUserName() string {
 }
 
 func (v *FileVersion) GetVersionContent() *XrepFile {
-	return v.client.DownloadVersionFileSource(v.FilePath, *v)
+	return v.client.DownloadVersionFileSource(v.FilePath, v.Branch, v.Solution, v.Timestamp)
 }
 
 // DownloadVersionFileSource will return the remote file content with version information
-func (c *PDIClient) DownloadVersionFileSource(xrepPath string, version FileVersion) *XrepFile {
+func (c *PDIClient) DownloadVersionFileSource(path, branch, solution, timestamp string) *XrepFile {
 
 	url := c.xrepPath()
 	query := c.query("00163E0115011DDFAEE8C7ADCF082648")
 	payload := map[string]interface{}{
 		"IMPORTING": map[string]interface{}{
 			"IS_VERSION_ID": map[string]interface{}{
-				"BRANCH":    version.Branch,
-				"SOLUTION":  version.Solution,
-				"TIMESTAMP": version.Timestamp,
+				"BRANCH":    branch,
+				"SOLUTION":  solution,
+				"TIMESTAMP": timestamp,
 			},
 			"IV_VIRTUAL_VIEW": "X",
-			"IV_FILE_PATH":    xrepPath,
+			"IV_FILE_PATH":    path,
 		},
 	}
 	resp, err := req.Post(url, req.BodyJSON(payload), query)
@@ -72,11 +73,11 @@ func (c *PDIClient) DownloadVersionFileSource(xrepPath string, version FileVersi
 	if err != nil {
 		panic(err)
 	}
-	return &XrepFile{xrepPath, fileContent, attrs}
+	return &XrepFile{path, fileContent, attrs}
 }
 
-func (c *PDIClient) ViewFileVerionContent(xrepPath string, version FileVersion) {
-	file := c.DownloadVersionFileSource(xrepPath, version)
+func (c *PDIClient) ViewFileVerionContent(version FileVersion) {
+	file := version.GetVersionContent()
 	fmt.Print(string(file.Source))
 }
 
@@ -162,6 +163,13 @@ func (c *PDIClient) ListFileVersions(xrepPath string) {
 	table.Render()
 }
 
+// DiffFileVersion
+func (c *PDIClient) DiffFileVersion(from, to FileVersion) {
+	dmp := diffmatchpatch.New()
+	diffs := dmp.DiffMain(string(from.GetVersionContent().Source), string(to.GetVersionContent().Source), false)
+	fmt.Println(dmp.DiffPrettyText(diffs))
+}
+
 var commandViewFileVersion = cli.Command{
 	Name:  "versionview",
 	Usage: "view file version content",
@@ -189,9 +197,48 @@ var commandViewFileVersion = cli.Command{
 
 		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
 			if version, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersion); foundVersion {
-				pdiClient.ViewFileVerionContent(path, version)
+				pdiClient.ViewFileVerionContent(version)
 			}
 		}
+	}),
+}
+
+var commandVersionDiff = cli.Command{
+	Name:  "diff",
+	Usage: "diff file content in different version",
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:   "solution, s",
+			EnvVar: "SOLUTION_NAME",
+			Usage:  "The PDI Solution Name",
+		},
+		cli.StringFlag{
+			Name:   "filename, f",
+			EnvVar: "VERSION_FILE_NAME",
+			Usage:  "The target file xrep path/file name",
+		},
+		cli.StringFlag{
+			Name:  "from",
+			Usage: "Version From",
+		},
+		cli.StringFlag{
+			Name:  "to",
+			Usage: "Version To",
+		},
+	},
+	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
+		filename := context.String("filename")
+		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
+		sVersionFrom := context.String("from")
+		sVersionTo := context.String("to")
+		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
+			if versionFrom, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionFrom); foundVersion {
+				if versionTo, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionTo); foundVersion {
+					pdiClient.DiffFileVersion(versionFrom, versionTo)
+				}
+			}
+		}
+
 	}),
 }
 

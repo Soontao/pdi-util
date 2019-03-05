@@ -223,5 +223,6 @@ var commandSource = cli.Command{
 		commandListFileVersion,
 		commandDownloadSource,
 		commandViewFileVersion,
+		commandVersionDiff,
 	},
 }

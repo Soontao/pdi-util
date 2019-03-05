@@ -23,6 +23,7 @@ var AppUsage = "A Command Line Tool for SAP Partner Development IDE"
 // PDIAction wrapper
 func PDIAction(action func(pdiClient *PDIClient, c *cli.Context)) func(c *cli.Context) error {
 	return func(c *cli.Context) error {
+		// overwrite here
 		username := c.GlobalString("username")
 		password := c.GlobalString("password")
 		hostname := c.GlobalString("hostname")
