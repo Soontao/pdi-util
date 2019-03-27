@@ -222,7 +222,5 @@ var commandSource = cli.Command{
 	Subcommands: []cli.Command{
 		commandListFileVersion,
 		commandDownloadSource,
-		commandViewFileVersion,
-		commandVersionDiff,
 	},
 }

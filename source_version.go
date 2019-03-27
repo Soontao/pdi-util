@@ -78,7 +78,7 @@ func (c *PDIClient) DownloadVersionFileSource(path, branch, solution, timestamp 
 
 func (c *PDIClient) ViewFileVerionContent(version FileVersion) {
 	file := version.GetVersionContent()
-	fmt.Print(string(file.Source))
+	fmt.Println(string(file.Source))
 }
 
 // ListFileVersionsAPI information
@@ -170,42 +170,9 @@ func (c *PDIClient) DiffFileVersion(from, to FileVersion) {
 	fmt.Println(dmp.DiffPrettyText(diffs))
 }
 
-var commandViewFileVersion = cli.Command{
-	Name:  "versionview",
-	Usage: "view file version content",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.StringFlag{
-			Name:   "filename, f",
-			EnvVar: "VERSION_FILE_NAME",
-			Usage:  "The target file xrep path/file name",
-		},
-		cli.StringFlag{
-			Name:   "version, v",
-			EnvVar: "VERSION",
-			Usage:  "File version string",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		filename := context.String("filename")
-		sVersion := context.String("version")
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-
-		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
-			if version, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersion); foundVersion {
-				pdiClient.ViewFileVerionContent(version)
-			}
-		}
-	}),
-}
-
-var commandVersionDiff = cli.Command{
-	Name:  "diff",
-	Usage: "diff file content in different version",
+var commandListFileVersion = cli.Command{
+	Name:  "version",
+	Usage: "list/view/diff file versions",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
@@ -225,44 +192,41 @@ var commandVersionDiff = cli.Command{
 			Name:  "to",
 			Usage: "Version To",
 		},
+		cli.StringFlag{
+			Name:   "targetversion, v",
+			EnvVar: "VERSION",
+			Usage:  "File version string",
+		},
 	},
 	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
 		filename := context.String("filename")
 		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
 		sVersionFrom := context.String("from")
+		sVersion := context.String("targetversion")
 		sVersionTo := context.String("to")
-		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
-			if versionFrom, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionFrom); foundVersion {
-				if versionTo, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionTo); foundVersion {
-					pdiClient.DiffFileVersion(versionFrom, versionTo)
+
+		if sVersionFrom != "" && sVersionTo != "" {
+			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
+				if versionFrom, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionFrom); foundVersion {
+					if versionTo, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionTo); foundVersion {
+						pdiClient.DiffFileVersion(versionFrom, versionTo)
+					}
 				}
 			}
-		}
+		} else if sVersion != "" {
 
-	}),
-}
+			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
+				if version, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersion); foundVersion {
+					pdiClient.ViewFileVerionContent(version)
+				}
+			}
 
-var commandListFileVersion = cli.Command{
-	Name:  "version",
-	Usage: "list file all versions",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.StringFlag{
-			Name:   "filename, f",
-			EnvVar: "VERSION_FILE_NAME",
-			Usage:  "The target file xrep path/file name",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		filename := context.String("filename")
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
+		} else {
 
-		if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
-			pdiClient.ListFileVersions(path)
+			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
+				pdiClient.ListFileVersions(path)
+			}
+
 		}
 
 	}),

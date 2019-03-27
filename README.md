@@ -53,6 +53,56 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list
 
 ## Source Operations
 
+### source version access
+
+access different source version in history.
+
+```bash
+# try to use BO name search version
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version -s Test_Solution -f BO_Notification
+2019/03/27 10:31:24 More than one files matched name: BO_Notification
+2019/03/27 10:31:24 /YQCS6QLDY_MAIN/SRC/Theo/BO_Notification-Root-Event-BeforeSave.absl
+2019/03/27 10:31:24 /YQCS6QLDY_MAIN/SRC/Theo/BO_Notification-Root.node
+2019/03/27 10:31:24 /YQCS6QLDY_MAIN/SRC/Theo/BO_Notification.bo
+
+# use the bo file name search version
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version -s Test_Solution -f BO_Notification-Root-Event-BeforeSave.absl
++-------------------------------+--------+--------+------------------------+
+|           DATE TIME           | ACTION |  USER  |       VERSIONID        |
++-------------------------------+--------+--------+------------------------+
+| 2018-12-20 08:26:31 +0000 UTC | ADD    | YS1004 | 20181220082631.8250240 |
+| 2018-12-20 08:29:47 +0000 UTC | EDIT   | YS1004 | 20181220082947.8340020 |
+| 2018-12-20 08:33:53 +0000 UTC | EDIT   | YS1004 | 20181220083353.8092850 |
+| 2018-12-20 08:35:28 +0000 UTC | EDIT   | YS1004 | 20181220083528.7241340 |
+| 2018-12-20 08:50:22 +0000 UTC | EDIT   | YS1004 | 20181220085022.6248990 |
+| 2018-12-20 09:18:55 +0000 UTC | EDIT   | YS1004 | 20181220091855.8923780 |
++-------------------------------+--------+--------+------------------------+
+
+# use version id access source version content
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version -s Test_Solution -f BO_Notification-Root-Event-BeforeSave.absl -v 20181220082631.8250240
+/*
+	Add your SAP Business ByDesign scripting language implementation for:
+		Business Object: BO_Notification
+		Node: Root
+		Event: BeforeSave 
+		
+	Note: 
+	  - To access the elements of the business object node, 
+	    use path expressions, for example, this.<element name>. 
+	  - To use code completion, press CTRL+J. 
+	  - The solution uses this script when:
+		- the instance of the business object is being saved.
+		- the instance of the business object is created from other sources like web services, preview screen, and so on.
+*/
+
+import ABSL;
+
+# diff two version change
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version -s Test_Solution -f BO_Notification-Root-Event-BeforeSave.absl --from 20181220085022.6248990 --to 20181220091855.8923780
+# result have color, markdown can not present that so ignore
+
+```
+
 ### download source from repo
 
 Extremely fast, download with `35` goroutines defaultly.
