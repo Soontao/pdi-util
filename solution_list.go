@@ -52,6 +52,7 @@ func (c *PDIClient) GetSolutionsAPI() []Solution {
 	return rt
 }
 
+// GetSolutionByIDOrDescription exported
 func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
 
 	solutions := c.GetSolutionsAPI()

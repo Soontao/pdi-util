@@ -14,7 +14,9 @@ import (
 
 // Solution information
 type Solution struct {
-	Name          string
+	// Solution ID
+	Name string
+	// Solution Name
 	Description   string
 	PatchSolution bool
 	Status        string
