@@ -3,7 +3,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/golang:1.9
+      - image: circleci/golang:1.12
 
     working_directory: /go/src/github.com/Soontao/pdi-util
     steps:
@@ -14,7 +14,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/golang:1.9
+      - image: circleci/golang:1.12
 
     working_directory: /go/src/github.com/Soontao/pdi-util
     steps:
@@ -29,9 +29,9 @@ jobs:
           command: go test -v ./...
       - run: 
           name: build multi platform excutable file
-          command: VERSION=${CIRCLE_TAG} bash ./cli/build.sh
+          command: cd ./cli && VERSION=${CIRCLE_TAG} bash ./build.sh
       - persist_to_workspace:
-          root: .
+          root: ./cli
           paths: ./build
 
   publish-github-release:
