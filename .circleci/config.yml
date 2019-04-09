@@ -5,34 +5,34 @@ jobs:
     docker:
       - image: circleci/golang:1.9
 
-    working_directory: /go/src/github.com/Soontao/pdi-util/cli
+    working_directory: /go/src/github.com/Soontao/pdi-util
     steps:
       - checkout
-      - run: go get -v .
-      - run: go test -v .
+      - run: go get -v -t -d ./...
+      - run: go test -v ./...
       - run: go build .
 
   build:
     docker:
       - image: circleci/golang:1.9
 
-    working_directory: /go/src/github.com/Soontao/pdi-util/cli
+    working_directory: /go/src/github.com/Soontao/pdi-util
     steps:
       - checkout
       - attach_workspace:
           at: ~/artifacts
       - run: 
           name: install golang deps
-          command: go get -v .
+          command: go get -v -t -d ./...
       - run: 
           name: unit tests
-          command: go test -v .
+          command: go test -v ./...
       - run: 
           name: build multi platform excutable file
-          command: VERSION=${CIRCLE_TAG} bash ./build.sh
+          command: VERSION=${CIRCLE_TAG} bash ./cli/build.sh
       - persist_to_workspace:
-          root: .
-          paths: build
+          root: ./cli
+          paths: ./build
 
   publish-github-release:
     docker:
