@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"log"
@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"baliance.com/gooxml/spreadsheet"
-	"github.com/urfave/cli"
 
 	"github.com/tidwall/gjson"
 )
@@ -147,45 +146,4 @@ func (c *PDIClient) CheckTranslation(solution string, concurrent int, language s
 
 	}
 
-}
-
-var commandCheckTranslation = cli.Command{
-	Name:  "translation",
-	Usage: "do translation check",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.IntFlag{
-			Name:   "concurrent, c",
-			EnvVar: "CHECK_CONCURRENT",
-			Value:  35,
-			Usage:  "concurrent goroutines number",
-		},
-		cli.StringFlag{
-			Name:   "language, l",
-			EnvVar: "LANGUAGE",
-			Value:  "Chinese",
-			Usage:  "target language to check",
-		},
-		cli.StringFlag{
-			Name:   "fileoutput, f",
-			EnvVar: "FILENAME_OUTPUT",
-			Usage:  "output file name",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		concurrent := context.Int("concurrent")
-		language := context.String("language")
-		output := context.String("fileoutput")
-		if output == "" {
-			pdiClient.CheckTranslation(solutionName, concurrent, language)
-		} else {
-			pdiClient.CheckTranslationToFile(solutionName, concurrent, language, output)
-		}
-
-	}),
 }

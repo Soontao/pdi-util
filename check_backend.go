@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"fmt"
@@ -6,8 +6,6 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-
-	"github.com/urfave/cli"
 
 	"baliance.com/gooxml/spreadsheet"
 	"github.com/tidwall/gjson"
@@ -164,37 +162,4 @@ func (c *PDIClient) CheckBackendMessage(solution string, concurrent int) {
 		log.Printf("[%s]\t%s(%s,%s): %s\n", r.GetMessageLevel(), filename, r.Row, r.Column, r.Message)
 	}
 
-}
-
-var commandCheckBackend = cli.Command{
-	Name:  "backend",
-	Usage: "do backend check",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.IntFlag{
-			Name:   "concurrent, c",
-			EnvVar: "CHECK_CONCURRENT",
-			Value:  35,
-			Usage:  "concurrent goroutines number",
-		},
-		cli.StringFlag{
-			Name:   "fileoutput, f",
-			EnvVar: "FILENAME_OUTPUT",
-			Usage:  "output file name",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		concurrent := context.Int("concurrent")
-		output := context.String("fileoutput")
-		if output == "" {
-			pdiClient.CheckBackendMessage(solutionName, concurrent)
-		} else {
-			pdiClient.CheckBackendMessageToFile(solutionName, concurrent, output)
-		}
-	}),
 }

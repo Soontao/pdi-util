@@ -1,12 +1,10 @@
-package main
+package pdiutil
 
 import (
 	"fmt"
 	"log"
 	"os"
 	"strconv"
-
-	"github.com/urfave/cli"
 
 	"github.com/imroc/req"
 	"github.com/olekukonko/tablewriter"
@@ -111,12 +109,4 @@ func (c *PDIClient) ListSolutions() *PDIClient {
 	table.Render()
 
 	return c
-}
-
-var commandSolutionList = cli.Command{
-	Name:  "list",
-	Usage: "list all solutions",
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		pdiClient.ListSolutions()
-	}),
 }

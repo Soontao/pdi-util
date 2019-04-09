@@ -18,6 +18,8 @@ test
 output
 output.*
 *.xlsx
+cli/*cli*
+cli/build
 
 # launch 
 .vscode/launch.json

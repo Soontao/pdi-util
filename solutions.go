@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"encoding/base64"
@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/urfave/cli"
 
 	"github.com/imroc/req"
 	"github.com/olekukonko/tablewriter"
@@ -98,29 +96,4 @@ func (c *PDIClient) ListSolutionAllFiles(solutionName string) *PDIClient {
 	table.AppendBulk(info)
 	table.Render()
 	return c
-}
-
-var commandListSolutionFiles = cli.Command{
-	Name:  "files",
-	Usage: "list all files in a solution",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		pdiClient.ListSolutionAllFiles(solutionName)
-	}),
-}
-
-var commandSolution = cli.Command{
-	Name:  "solution",
-	Usage: "solution related operations",
-	Subcommands: []cli.Command{
-		commandSolutionList,
-		commandListSolutionFiles,
-	},
 }

@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"fmt"
@@ -22,6 +22,11 @@ type PDIClient struct {
 	ivUser string
 	// exit Code
 	exitCode int
+}
+
+// GetExitCode for client
+func (c *PDIClient) GetExitCode() int {
+	return c.exitCode
 }
 
 func (c *PDIClient) login() *PDIClient {

@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"github.com/clbanning/mxj"

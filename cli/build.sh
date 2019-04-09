@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# cli file naem
+OUTPUT_FILENAME="pdiutil"
+
 PLATFORMS="darwin/amd64" # amd64 only as of go1.5
 PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
 PLATFORMS="$PLATFORMS linux/amd64 linux/386"
@@ -11,7 +14,7 @@ SCRIPT_NAME=`basename "$0"`
 FAILURES=""
 SOURCE_FILE=`echo $@ | sed 's/\.go//'`
 CURRENT_DIRECTORY=${PWD##*/}
-OUTPUT=build/${SOURCE_FILE:-$CURRENT_DIRECTORY} # if no src file given, use current dir name
+OUTPUT=build/${SOURCE_FILE:-$OUTPUT_FILENAME} # if no src file given, use current dir name
 LDFLAGS="-ldflags \"-X main.Version=${VERSION}\""
 
 for PLATFORM in $PLATFORMS; do

@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"encoding/base64"
@@ -12,7 +12,6 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/tidwall/gjson"
-	"github.com/urfave/cli"
 )
 
 // FileVersion describe a file version information
@@ -168,66 +167,4 @@ func (c *PDIClient) DiffFileVersion(from, to FileVersion) {
 	dmp := diffmatchpatch.New()
 	diffs := dmp.DiffMain(string(from.GetVersionContent().Source), string(to.GetVersionContent().Source), false)
 	fmt.Println(dmp.DiffPrettyText(diffs))
-}
-
-var commandListFileVersion = cli.Command{
-	Name:  "version",
-	Usage: "list/view/diff file versions",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.StringFlag{
-			Name:   "filename, f",
-			EnvVar: "VERSION_FILE_NAME",
-			Usage:  "The target file xrep path/file name",
-		},
-		cli.StringFlag{
-			Name:  "from",
-			Usage: "Version From",
-		},
-		cli.StringFlag{
-			Name:  "to",
-			Usage: "Version To",
-		},
-		cli.StringFlag{
-			Name:   "targetversion, v",
-			EnvVar: "VERSION",
-			Usage:  "File version string",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		filename := context.String("filename")
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		sVersionFrom := context.String("from")
-		sVersion := context.String("targetversion")
-		sVersionTo := context.String("to")
-
-		if sVersionFrom != "" && sVersionTo != "" {
-			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
-				if versionFrom, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionFrom); foundVersion {
-					if versionTo, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersionTo); foundVersion {
-						pdiClient.DiffFileVersion(versionFrom, versionTo)
-					}
-				}
-			}
-		} else if sVersion != "" {
-
-			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
-				if version, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersion); foundVersion {
-					pdiClient.ViewFileVerionContent(version)
-				}
-			}
-
-		} else {
-
-			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
-				pdiClient.ListFileVersions(path)
-			}
-
-		}
-
-	}),
 }

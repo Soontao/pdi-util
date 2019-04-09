@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"log"
@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"baliance.com/gooxml/spreadsheet"
-	"github.com/urfave/cli"
 )
 
 // maybe these rules can be loaded by external
@@ -41,6 +40,9 @@ func shortenPath2(path string) string {
 
 	return rt
 }
+
+// ShortenPath2 exported
+var ShortenPath2 = shortenPath2
 
 func shortenPath(path string) string {
 	rt := path
@@ -151,31 +153,4 @@ func (c *PDIClient) CheckNameConventionToFile(solution, output string) {
 
 	ss.SaveToFile(output)
 
-}
-
-var commandCheckNameConvention = cli.Command{
-	Name:      "name",
-	Usage:     "check name convension",
-	UsageText: "check the name convension of source code",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.StringFlag{
-			Name:   "fileoutput, f",
-			EnvVar: "FILENAME_OUTPUT",
-			Usage:  "output file name",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		output := context.String("fileoutput")
-		if output == "" {
-			pdiClient.CheckNameConvention(solutionName)
-		} else {
-			pdiClient.CheckNameConventionToFile(solutionName, output)
-		}
-	}),
 }

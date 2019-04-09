@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"log"
@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"baliance.com/gooxml/spreadsheet"
-	"github.com/urfave/cli"
 )
 
 var reg = regexp.MustCompile(`/\*([^*]|[\r\n]|(\*([^/]|[\r\n])))*(Function|Author)([^*]|[\r\n]|(\*([^/]|[\r\n])))*\*/`)
@@ -114,39 +113,4 @@ func (c *PDIClient) CheckSolutionCopyrightHeader(solutionName string, concurrent
 		log.Println("Congratulation, all source code have copyright header")
 	}
 
-}
-
-var commandCheckCopyright = cli.Command{
-	Name:      "header",
-	Usage:     "check copyright header",
-	UsageText: "\nmake sure all absl & bo have copyright header with following format:\n\n/*\n\tFunction: make sure all absl & bo have copyright header\n\tAuthor: Theo Sun\n\tCopyright: ?\n*/",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-		cli.IntFlag{
-			Name:   "concurrent, c",
-			EnvVar: "CHECK_CONCURRENT",
-			Value:  35,
-			Usage:  "concurrent goroutines number",
-		},
-		cli.StringFlag{
-			Name:   "fileoutput, f",
-			EnvVar: "FILENAME_OUTPUT",
-			Usage:  "output file name",
-		},
-	},
-	Action: PDIAction(func(pdiClient *PDIClient, context *cli.Context) {
-		solutionName := pdiClient.GetSolutionIDByString(context.String("solution"))
-		concurrent := context.Int("concurrent")
-		output := context.String("fileoutput")
-		if output == "" {
-			pdiClient.CheckSolutionCopyrightHeader(solutionName, concurrent)
-		} else {
-			pdiClient.CheckSolutionCopyrightHeaderToFile(solutionName, concurrent, output)
-		}
-
-	}),
 }

@@ -1,4 +1,4 @@
-package main
+package pdiutil
 
 import (
 	"strconv"
@@ -160,3 +160,9 @@ func addSheetTo(workbook *spreadsheet.Workbook, sheetName string, headers []stri
 
 	return sheet
 }
+
+// AddOverviewSheetTo internal usage
+var AddOverviewSheetTo = addOverviewSheetTo
+
+// AddSheetTo internal usage
+var AddSheetTo = addSheetTo

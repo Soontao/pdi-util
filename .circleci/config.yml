@@ -16,7 +16,7 @@ jobs:
     docker:
       - image: circleci/golang:1.9
 
-    working_directory: /go/src/github.com/Soontao/pdi-util
+    working_directory: /go/src/github.com/Soontao/pdi-util/cli
     steps:
       - checkout
       - attach_workspace:

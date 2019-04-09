@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strings"
 
+	pdiutil "github.com/Soontao/pdi-util"
+
 	"github.com/urfave/cli"
 )
 
@@ -21,16 +23,16 @@ var AppName = "PDI Util"
 var AppUsage = "A Command Line Tool for SAP Partner Development IDE"
 
 // PDIAction wrapper
-func PDIAction(action func(pdiClient *PDIClient, c *cli.Context)) func(c *cli.Context) error {
+func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c *cli.Context) error {
 	return func(c *cli.Context) error {
 		// overwrite here
 		username := c.GlobalString("username")
 		password := c.GlobalString("password")
 		hostname := c.GlobalString("hostname")
 		hostname = strings.TrimPrefix(hostname, "https://") // remove hostname schema
-		pdiClient := NewPDIClient(username, password, hostname)
+		pdiClient := pdiutil.NewPDIClient(username, password, hostname)
 		action(pdiClient, c) // do process
-		if pdiClient.exitCode > 0 {
+		if pdiClient.GetExitCode() > 0 {
 			// if error happened, change exit code
 			return fmt.Errorf("finished %s with error", c.Command.FullName())
 		}
