@@ -31,7 +31,7 @@ jobs:
           name: build multi platform excutable file
           command: VERSION=${CIRCLE_TAG} bash ./cli/build.sh
       - persist_to_workspace:
-          root: ./cli
+          root: .
           paths: ./build
 
   publish-github-release:
