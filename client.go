@@ -16,12 +16,16 @@ type PDIClient struct {
 	password string
 	// pdi tenant hostname
 	hostname string
+	// tenant release version
+	release string
 	// sap client id
 	sapClient string
 	// tech user id
 	ivUser string
 	// exit Code
 	exitCode int
+	// user session id
+	sessionID string
 }
 
 // GetExitCode for client
@@ -69,6 +73,9 @@ func (c *PDIClient) login() *PDIClient {
 		}
 	}
 
+	// get session id
+	c.GetSessionID(c.release)
+
 	return c.getIvUser()
 }
 
@@ -93,11 +100,12 @@ func ensure(v interface{}, name string) {
 }
 
 // NewPDIClient instance
-func NewPDIClient(username, password, hostname string) *PDIClient {
+func NewPDIClient(username, password, hostname, release string) *PDIClient {
 	ensure(username, "username")
 	ensure(password, "password")
 	ensure(hostname, "hostname")
-	rt := &PDIClient{username: username, password: password, hostname: hostname, exitCode: 0}
+	ensure(release, "release")
+	rt := &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0}
 	rt.login()
 	return rt
 }

@@ -18,4 +18,9 @@ var globalFlags = []cli.Flag{
 		EnvVar: "PDI_TENANT_HOST",
 		Usage:  "The PDI Tenant host",
 	},
+	cli.StringFlag{
+		Name:   "release,r",
+		EnvVar: "TENANT_RELEASE",
+		Usage:  "The tenant release version, e.g. 1902",
+	},
 }

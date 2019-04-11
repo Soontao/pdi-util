@@ -29,8 +29,9 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 		username := c.GlobalString("username")
 		password := c.GlobalString("password")
 		hostname := c.GlobalString("hostname")
+		release := c.GlobalString("release")
 		hostname = strings.TrimPrefix(hostname, "https://") // remove hostname schema
-		pdiClient := pdiutil.NewPDIClient(username, password, hostname)
+		pdiClient := pdiutil.NewPDIClient(username, password, hostname, release)
 		action(pdiClient, c) // do process
 		if pdiClient.GetExitCode() > 0 {
 			// if error happened, change exit code

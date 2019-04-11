@@ -27,6 +27,10 @@ type SolutionHeader struct {
 	Status         SolutionStatus
 	StatusText     string
 	Phase          string
+	CanActivation  bool
+	CanAssemble    bool
+	CanDownload    bool
+	IsRunningJob   bool
 	// Is Solution Enabled
 	Enabled bool
 }
@@ -52,6 +56,10 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	statusText := solutionHeader.Get("VERSION_STATUS_TEXT").String()
 	phase := solutionHeader.Get("PHASE").String()
 	enabled := solutionHeader.Get("IS_ENABLED").String() == "X"
+	canActivation := solutionHeader.Get("EV_ACT_STATUS").String() == "X"
+	canAssemble := solutionHeader.Get("EV_ASSEMBLE_STATUS").String() == "X"
+	canDownload := solutionHeader.Get("EV_DOWNLOAD_STATUS").String() == "X"
+	isRunningJob := solutionHeader.Get("EV_IS_SPLIT_JOB_RUNNING").String() == "X"
 
 	return &SolutionHeader{
 		ChangeDateTime: changeDateTime,
@@ -62,6 +70,10 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 		StatusText:     statusText,
 		Phase:          phase,
 		Enabled:        enabled,
+		CanActivation:  canActivation,
+		CanAssemble:    canAssemble,
+		CanDownload:    canDownload,
+		IsRunningJob:   isRunningJob,
 	}
 
 }
