@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/imroc/req"
+	"github.com/tidwall/gjson"
 )
 
 func (c *PDIClient) path(path string) string {
@@ -34,4 +35,16 @@ func (c *PDIClient) xrepRequest(code string, payload interface{}) string {
 	}
 	respBody, _ := resp.ToString()
 	return respBody
+}
+
+func (c *PDIClient) xrepRequestE(code string, payload interface{}) (res string, err error) {
+	res = c.xrepRequest(code, payload)
+
+	success := gjson.Get(res, "EXPORTING.EV_SUCCESS").String() == "X"
+
+	if !success {
+		err = fmt.Errorf(gjson.Get(res, "EXPORTING.ET_MESSAGES").String())
+	}
+
+	return res, err
 }

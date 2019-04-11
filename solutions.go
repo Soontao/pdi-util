@@ -40,7 +40,7 @@ var solutionCache = map[string]*Project{}
 // GetSolutionFileList from vs project file
 // with cache
 func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
-	solutionID := c.GetSolutionByIDOrDescription(solutionName).Name
+	solutionID := c.GetSolutionIDByString(solutionName)
 	// with cache
 	if p, ok := solutionCache[solutionName]; ok {
 		return p

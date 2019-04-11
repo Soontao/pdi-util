@@ -6,8 +6,9 @@ import (
 
 var commandsPackage = cli.Command{
 	Name:  "package",
-	Usage: "package related commands",
+	Usage: "package related operations",
 	Subcommands: []cli.Command{
 		commandPackageDownload,
+		commandPackageAssemble,
 	},
 }

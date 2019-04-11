@@ -2,6 +2,8 @@ package pdiutil
 
 import (
 	"fmt"
+	"log"
+	"strings"
 	"time"
 
 	"github.com/tidwall/gjson"
@@ -9,7 +11,7 @@ import (
 
 // DefaultPackageCheckInterval for set the default interval for status checking
 // unit is second
-const DefaultPackageCheckInterval = 10
+const DefaultPackageCheckInterval = 5
 
 // ActivationSolution sync
 func (c *PDIClient) ActivationSolution(solution string) (err error) {
@@ -61,8 +63,48 @@ func (c *PDIClient) ActivationSolution(solution string) (err error) {
 
 }
 
+// FindBACAndActivateIt
+func (c *PDIClient) FindBACAndActivateIt(solution string) (err error) {
+
+	if c.sessionID == "" {
+		return fmt.Errorf("session id lost")
+	}
+
+	files := c.GetSolutionXrepFileList(solution)
+	bacFile := ""
+
+	for _, file := range files {
+		if strings.HasSuffix(file, ".bac") {
+			bacFile = file
+			break
+		}
+	}
+
+	if bacFile == "" {
+		err = fmt.Errorf("Not found BAC from solution: %v", solution)
+	} else {
+		log.Printf("Activating BAC file: %s", bacFile)
+		payload := JSONObject{
+			"IMPORTING": JSONObject{
+				"IV_CONTENT_TYPE": "BUSINESSCONFIGURATION",
+				"IV_SESSION_ID":   c.sessionID,
+				"IV_XREP_PATH":    bacFile,
+			},
+		}
+		if _, err := c.xrepRequestE("00163E0115B01DDFB194EC88B8EE4C9B", payload); err != nil {
+			log.Println("Activating BAC failed")
+		}
+	}
+
+	return err
+}
+
 // AssembleSolution from server
 func (c *PDIClient) AssembleSolution(solution string) (err error) {
+
+	if err = c.FindBACAndActivateIt(solution); err != nil {
+		return err
+	}
 
 	if c.sessionID == "" {
 		return fmt.Errorf("session id lost")
@@ -128,4 +170,44 @@ func (c *PDIClient) DownloadSolution(solution, version string) (err error, outpu
 	}
 
 	return err, output
+}
+
+// CreatePatch solution
+func (c *PDIClient) CreatePatch(solution string) (err error) {
+
+	payload := JSONObject{
+		"IMPORTING": JSONObject{
+			"IV_DELETION_PATCH": false,
+			"IV_PRODUCT_NAME":   solution,
+			"IV_SESSION_ID":     c.sessionID,
+			"IV_USER":           nil,
+		},
+	}
+
+	if _, err = c.xrepRequestE("00163E1267F91EE5B7D7285EE2C105CE", payload); err != nil {
+		m := "Create patch solution failed."
+		log.Printf(m)
+		err = fmt.Errorf(m)
+	}
+
+	// wait patch solution created
+	for {
+		solutionHeader := c.GetSolutionStatus(solution)
+
+		if solutionHeader.IsCreatingPatch {
+			// still in running
+			// wait interval then check it.
+			time.Sleep(DefaultPackageCheckInterval * time.Second)
+		} else {
+			// finished
+			if solutionHeader.Status != S_STATUS_IN_DEV {
+				// finished but not in development
+				// error happened
+				err = fmt.Errorf("Create patch solution failed, please check at PDI UI.")
+			}
+			break
+		}
+	}
+
+	return err
 }

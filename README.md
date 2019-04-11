@@ -16,7 +16,8 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 * [x] download current sources in solution
 * [x] download assembled package
 * [x] view single file history
-* [ ] assemble and download assembled package
+* [x] assemble and download assembled package
+* [x] automatic create patch solution after assembled
 
 ## Help
 
