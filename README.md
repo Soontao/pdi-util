@@ -16,13 +16,14 @@ NAME:
    PDI Util - A Command Line Tool for SAP Partner Development IDE
 
 USAGE:
-   pdi-util [global options] command [command options] [arguments...]
+   cli [global options] command [command options] [arguments...]
 
 VERSION:
    SNAPSHOT
 
 COMMANDS:
-     check     static check
+     check     static code check
+     package   package related commands
      solution  solution related operations
      source    source code related operations
      help, h   Shows a list of commands or help for one command
@@ -31,6 +32,7 @@ GLOBAL OPTIONS:
    --username value, -u value  The PDI Development User [$PDI_USER]
    --password value, -p value  The PDI Development User Password [$PDI_PASSWORD]
    --hostname value, -t value  The PDI Tenant host [$PDI_TENANT_HOST]
+   --release value, -r value   The tenant release version, e.g. 1902 (default: "1902") [$TENANT_RELEASE]
    --help, -h                  show help
    --version, -v               print the version
 ```
@@ -42,7 +44,7 @@ Almost all options can be configured in the system environment variables.
 ### list all solutions
 
 ```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list 
+bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com solution list
 +----------+----------------+----------------+------------+----------+-------+
 |   NAME   |   DESCRIPTION  |     STATUS     |  CUSTOMER  |  CONTACT | EMAIL |
 +----------+----------------+----------------+------------+----------+-------+
@@ -80,22 +82,8 @@ bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version 
 
 # use version id access source version content
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version -s Test_Solution -f BO_Notification-Root-Event-BeforeSave.absl -v 20181220082631.8250240
-/*
-	Add your SAP Business ByDesign scripting language implementation for:
-		Business Object: BO_Notification
-		Node: Root
-		Event: BeforeSave 
-		
-	Note: 
-	  - To access the elements of the business object node, 
-	    use path expressions, for example, this.<element name>. 
-	  - To use code completion, press CTRL+J. 
-	  - The solution uses this script when:
-		- the instance of the business object is being saved.
-		- the instance of the business object is created from other sources like web services, preview screen, and so on.
-*/
 
-import ABSL;
+# content ignore
 
 # diff two version change
 bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com source version -s Test_Solution -f BO_Notification-Root-Event-BeforeSave.absl --from 20181220085022.6248990 --to 20181220091855.8923780
@@ -136,23 +124,6 @@ COMMANDS:
 
 OPTIONS:
    --help, -h  show help
-```
-
-### Check All
-
-example:
-
-```bash
-bash> pdi-util -u USER -p PASS -t myxxxxx.c4c.saphybriscloud.com check all -s YQABCDEFG_
-2018/12/31 09:52:59 Starting Backend Check...
-2018/12/31 09:53:06 Backend Check Finished
-2018/12/31 09:53:06 StartingTranslation Check...
-2018/12/31 09:53:07 Translation Check Finished
-2018/12/31 09:53:08 Copyright Header Check Finished
-2018/12/31 09:53:08 Name Convention Check Finished
-2018/12/31 09:53:08 In-Active File Check Finished
-2018/12/31 09:53:08 Start Generating Excel File...
-2018/12/31 09:53:08 Save Check Result File to check_all.xlsx
 ```
 
 ## [CHNAGELOG](./CHANGELOG.md)
