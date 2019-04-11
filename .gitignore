@@ -20,6 +20,7 @@ output.*
 *.xlsx
 cli/*cli*
 cli/build
+cli/*.zip
 
 # launch 
 .vscode/launch.json

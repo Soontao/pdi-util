@@ -2,7 +2,9 @@ package pdiutil
 
 import (
 	"fmt"
+	"log"
 	"strings"
+	"sync"
 
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
@@ -73,10 +75,23 @@ func (c *PDIClient) login() *PDIClient {
 		}
 	}
 
-	// get session id
-	c.GetSessionID(c.release)
+	var wg sync.WaitGroup
 
-	return c.getIvUser()
+	wg.Add(2)
+
+	go func() {
+		defer wg.Done()
+		c.GetSessionID(c.release)
+	}()
+
+	go func() {
+		defer wg.Done()
+		c.getIvUser()
+	}()
+
+	wg.Wait()
+
+	return c
 }
 
 // Destroy PDI session
@@ -90,6 +105,7 @@ func (c *PDIClient) getIvUser() *PDIClient {
 	}
 	respBody, _ := resp.ToString()
 	c.ivUser = gjson.Get(respBody, "EXPORTING.EV_USER").String()
+	log.Printf("Login as %v", c.ivUser)
 	return c
 }
 

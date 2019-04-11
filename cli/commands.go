@@ -228,23 +228,6 @@ var commandCheckAll = cli.Command{
 	}),
 }
 
-var commandSolutionStatus = cli.Command{
-	Name:  "status",
-	Usage: "view the solution status",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:   "solution, s",
-			EnvVar: "SOLUTION_NAME",
-			Usage:  "The PDI Solution Name",
-		},
-	},
-	Action: PDIAction(func(c *pdiutil.PDIClient, ctx *cli.Context) {
-		solution := c.GetSolutionIDByString(ctx.String("solution"))
-		header := c.GetSolutionStatus(solution)
-		log.Printf("%+v\n", header)
-	}),
-}
-
 // empty index
 // content splited
 

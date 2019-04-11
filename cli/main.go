@@ -52,6 +52,7 @@ func main() {
 		commandSource,
 		commandCheck,
 		commandSolution,
+		commandsPackage,
 	}
 
 	sort.Sort(cli.CommandsByName(app.Commands))

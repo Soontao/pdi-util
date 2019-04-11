@@ -2,6 +2,7 @@ package pdiutil
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/tidwall/gjson"
 )
@@ -32,6 +33,7 @@ func (c *PDIClient) GetSessionID(release string) (sessionID string, err error) {
 	if success {
 		sessionID = gjson.Get(resp, "EXPORTING.EV_SID").String()
 		c.sessionID = sessionID
+		log.Printf("Retrive session id: %v", sessionID)
 	} else {
 		s := ""
 		for _, e := range gjson.Get(resp, "EXPORING.ET_MESSAGES").Array() {
