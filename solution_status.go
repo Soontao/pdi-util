@@ -20,24 +20,28 @@ const S_STATUS_DEPLOYED = SolutionStatus("4")
 
 // SolutionHeader information
 type SolutionHeader struct {
-	ChangeDateTime time.Time
-	SolutionID     string
-	SolutionName   string
-	Version        int64
-	Status         SolutionStatus
-	StatusText     string
-	Phase          string
-	CanActivation  bool
-	CanAssemble    bool
-	CanDownload    bool
-	IsRunningJob   bool
+	ChangeDateTime  time.Time
+	SolutionID      string
+	SolutionName    string
+	Version         int64
+	Status          SolutionStatus
+	StatusText      string
+	Phase           string
+	CanActivation   bool
+	CanAssemble     bool
+	CanDownload     bool
+	NeedCreatePatch bool
+	IsRunningJob    bool
+	IsCreatingPatch bool
 	// Is Solution Enabled
 	Enabled bool
 }
 
 // GetSolutionStatus exported
 func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
+
 	solutionID := c.GetSolutionIDByString(solution)
+
 	payload := JSONObject{
 		"IMPORTING": JSONObject{
 			"IV_LANGUAGE":      "E",
@@ -60,20 +64,24 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	canAssemble := solutionHeader.Get("EV_ASSEMBLE_STATUS").String() == "X"
 	canDownload := solutionHeader.Get("EV_DOWNLOAD_STATUS").String() == "X"
 	isRunningJob := solutionHeader.Get("EV_IS_SPLIT_JOB_RUNNING").String() == "X"
+	isCreatingPatch := solutionHeader.Get("EV_IS_PATCH_JOB_RUNNING").String() == "X"
+	needCreatePatch := solutionHeader.Get("IS_PATCHSOL_REQUIRED").String() == "X"
 
 	return &SolutionHeader{
-		ChangeDateTime: changeDateTime,
-		SolutionID:     solutionID,
-		SolutionName:   solutionName,
-		Version:        version,
-		Status:         SolutionStatus(status),
-		StatusText:     statusText,
-		Phase:          phase,
-		Enabled:        enabled,
-		CanActivation:  canActivation,
-		CanAssemble:    canAssemble,
-		CanDownload:    canDownload,
-		IsRunningJob:   isRunningJob,
+		ChangeDateTime:  changeDateTime,
+		SolutionID:      solutionID,
+		SolutionName:    solutionName,
+		Version:         version,
+		Status:          SolutionStatus(status),
+		StatusText:      statusText,
+		Phase:           phase,
+		Enabled:         enabled,
+		CanActivation:   canActivation,
+		CanAssemble:     canAssemble,
+		CanDownload:     canDownload,
+		IsRunningJob:    isRunningJob,
+		NeedCreatePatch: needCreatePatch,
+		IsCreatingPatch: isCreatingPatch,
 	}
 
 }
