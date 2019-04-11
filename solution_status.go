@@ -7,15 +7,28 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+type SolutionStatus string
+
+// S_STATUS_IN_DEV Solution In Development
+const S_STATUS_IN_DEV = SolutionStatus("1")
+
+// S_STATUS_IN_DEV Assembled
+const S_STATUS_ASSEMBLED = SolutionStatus("2")
+
+// S_STATUS_DEPLOYED Deployed
+const S_STATUS_DEPLOYED = SolutionStatus("4")
+
 // SolutionHeader information
 type SolutionHeader struct {
 	ChangeDateTime time.Time
 	SolutionID     string
 	SolutionName   string
 	Version        int64
-	Status         string
+	Status         SolutionStatus
 	StatusText     string
 	Phase          string
+	// Is Solution Enabled
+	Enabled bool
 }
 
 // GetSolutionStatus exported
@@ -38,15 +51,17 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	status := solutionHeader.Get("VERSION_STATUS").String()
 	statusText := solutionHeader.Get("VERSION_STATUS_TEXT").String()
 	phase := solutionHeader.Get("PHASE").String()
+	enabled := solutionHeader.Get("IS_ENABLED").String() == "X"
 
 	return &SolutionHeader{
 		ChangeDateTime: changeDateTime,
 		SolutionID:     solutionID,
 		SolutionName:   solutionName,
 		Version:        version,
-		Status:         status,
+		Status:         SolutionStatus(status),
 		StatusText:     statusText,
 		Phase:          phase,
+		Enabled:        enabled,
 	}
 
 }
