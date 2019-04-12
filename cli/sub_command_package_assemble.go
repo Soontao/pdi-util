@@ -44,16 +44,47 @@ var commandPackageAssemble = cli.Command{
 			return
 		}
 
+		// do checkout check
+		// all files must check in, so that you can assemble
+		log.Println("Start locks check")
+		locks := c.CheckLockedFilesAPI(solution)
+
+		for _, l := range locks {
+			log.Printf("%v is locked by %v(%v) at %v", l.FileName, l.EditByUserID, l.EditBy, l.EditOnDate)
+		}
+
+		if len(locks) > 0 {
+			log.Panicln("Solution or solution files are lock by user, please check in them firstly.")
+		}
+
+		// do backend check
+		log.Println("Start backend check")
+		checkMessages := c.CheckBackendMessageAPI(solution, 30)
+		checkErrorCount := 0
+
+		for _, m := range checkMessages {
+			if m.IsError() {
+				checkErrorCount++
+				log.Printf("%v: %v", m.FileName, m.Message)
+			}
+		}
+
+		if checkErrorCount > 0 {
+			log.Panicln("Backend code check failed")
+		} else {
+
+		}
+
 		// start activation
 		log.Println("Start activation")
 		if err := c.ActivationSolution(solution); err != nil {
-			log.Println(err)
+			log.Panicln(err)
 			return
 		}
 		// start assemble
 		log.Println("Start assemble")
 		if err := c.AssembleSolution(solution); err != nil {
-			log.Println(err)
+			log.Panicln(err)
 			return
 		}
 
@@ -81,21 +112,22 @@ var commandPackageAssemble = cli.Command{
 		err, content := c.DownloadSolution(solution, downloadVersion)
 
 		if err != nil {
-			log.Panic(err)
+			log.Panicln(err)
 		} else {
 			if len(content) != 0 {
 				bytes, _ := base64.StdEncoding.DecodeString(content)
 				ioutil.WriteFile(output, bytes, 0644)
 				log.Println("Finished")
 			} else {
-				log.Printf("Not found content.")
+				log.Printf("Not found content, please check your version")
 			}
 
 		}
 		// start create patch solution
 		log.Println("Start create patch solution")
+
 		if err := c.CreatePatch(solution); err != nil {
-			log.Println(err)
+			log.Panicln(err)
 			return
 		}
 

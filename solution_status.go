@@ -8,6 +8,7 @@ import (
 )
 
 type SolutionStatus string
+type SolutionPhase string
 
 // S_STATUS_IN_DEV Solution In Development
 const S_STATUS_IN_DEV = SolutionStatus("1")
@@ -15,8 +16,17 @@ const S_STATUS_IN_DEV = SolutionStatus("1")
 // S_STATUS_IN_DEV Assembled
 const S_STATUS_ASSEMBLED = SolutionStatus("2")
 
+// S_STATUS_IN_DEPLOYEMENT In Deployement
+const S_STATUS_IN_DEPLOYEMENT = SolutionStatus("3")
+
 // S_STATUS_DEPLOYED Deployed
 const S_STATUS_DEPLOYED = SolutionStatus("4")
+
+// S_PHASE_ACTIVATION
+const S_PHASE_ACTIVATION = SolutionPhase("ACT")
+
+// S_PHASE_DEVELOPMENT
+const S_PHASE_DEVELOPMENT = SolutionPhase("DEV")
 
 // SolutionHeader information
 type SolutionHeader struct {

@@ -53,6 +53,11 @@ func (m CheckMessage) GetMessageCategory() string {
 	return rt
 }
 
+// IsError message
+func (m CheckMessage) IsError() bool {
+	return m.Severity == "E"
+}
+
 // GetMessageLevel formatted level
 // Warning or Error
 func (m CheckMessage) GetMessageLevel() string {

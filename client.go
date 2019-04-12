@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"strings"
-	"sync"
 
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
@@ -35,18 +34,19 @@ func (c *PDIClient) GetExitCode() int {
 	return c.exitCode
 }
 
-func (c *PDIClient) login() *PDIClient {
+func (c *PDIClient) login() (*PDIClient, error) {
 	url := c.path("/sap/ap/ui/login")
 	// > fetch cookie & client infomartions
 	query := req.QueryParam{"saml2": "disabled"}
 	resp, err := req.Get(url, query)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	respBody := &LoginResponse{}
 	err = resp.ToXML(respBody)
+
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	// > login
@@ -62,7 +62,7 @@ func (c *PDIClient) login() *PDIClient {
 
 	resp, err = req.Post(url, param)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	if resp.Response().Header.Get("content-type") == "text/xml; charset=utf-8" {
@@ -71,27 +71,17 @@ func (c *PDIClient) login() *PDIClient {
 		msg := respBody.Messages.Message[0].AttrText
 		session := respBody.Sessions.Session.Terminal
 		if isError {
-			panic(fmt.Sprintf("%s%s", msg, session))
+			return nil, fmt.Errorf("%s%s", msg, session)
 		}
 	}
 
-	var wg sync.WaitGroup
+	if _, err := c.GetSessionID(c.release); err != nil {
+		return nil, err
+	}
 
-	wg.Add(2)
+	c.getIvUser()
 
-	go func() {
-		defer wg.Done()
-		c.GetSessionID(c.release)
-	}()
-
-	go func() {
-		defer wg.Done()
-		c.getIvUser()
-	}()
-
-	wg.Wait()
-
-	return c
+	return c, nil
 }
 
 // Destroy PDI session
@@ -116,12 +106,15 @@ func ensure(v interface{}, name string) {
 }
 
 // NewPDIClient instance
-func NewPDIClient(username, password, hostname, release string) *PDIClient {
+func NewPDIClient(username, password, hostname, release string) (c *PDIClient, err error) {
+
 	ensure(username, "username")
 	ensure(password, "password")
 	ensure(hostname, "hostname")
 	ensure(release, "release")
-	rt := &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0}
-	rt.login()
-	return rt
+	c = &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0}
+
+	_, err = c.login()
+
+	return c, err
 }

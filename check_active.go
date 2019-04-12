@@ -3,15 +3,18 @@ package pdiutil
 import (
 	"log"
 	"path/filepath"
+	"time"
 
 	"github.com/tidwall/gjson"
 )
 
 type XrepActivateCheckResult struct {
-	File          string
-	FilePath      string
-	LastChangedBy string
-	LastChangedOn string
+	File                string
+	FilePath            string
+	LastChangedBy       string
+	LastChangedByUserID string
+	LastChangedOn       string
+	LastChangedOnTime   time.Time
 }
 
 type XrepAddionalActiveCheckResult struct {
@@ -52,6 +55,7 @@ func (c *PDIClient) checkAddionalActiveStatus(solutionName string) map[string]Xr
 	return rt
 }
 
+// CheckInActiveFilesAPI return all in active files
 func (c *PDIClient) CheckInActiveFilesAPI(solutionName string) []XrepActivateCheckResult {
 	rt := []XrepActivateCheckResult{}
 
@@ -76,7 +80,9 @@ func (c *PDIClient) CheckInActiveFilesAPI(solutionName string) []XrepActivateChe
 			f.File = fileAttr.FileName
 			f.FilePath = fileAttr.FilePath
 			f.LastChangedBy = fileAttr.LastChangedBy
+			f.LastChangedByUserID = c.GetAUserIDNameByTechID(f.LastChangedBy)
 			f.LastChangedOn = fileAttr.LastChangedOn
+			f.LastChangedOnTime = ParseXrepDateString(f.LastChangedOn)
 			rt = append(rt, f)
 		}
 	}

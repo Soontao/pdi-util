@@ -36,8 +36,9 @@ func (c *PDIClient) GetSessionID(release string) (sessionID string, err error) {
 		log.Printf("Retrive session id: %v", sessionID)
 	} else {
 		s := ""
-		for _, e := range gjson.Get(resp, "EXPORING.ET_MESSAGES").Array() {
+		for _, e := range gjson.Get(resp, "EXPORTING.ET_MESSAGES").Array() {
 			s += e.Get("TEXT").String()
+			s += ", "
 		}
 		err = fmt.Errorf(s)
 	}

@@ -274,6 +274,7 @@ var commandSolution = cli.Command{
 		commandSolutionList,
 		commandListSolutionFiles,
 		commandSolutionStatus,
+		commandSolutionStatusWatch,
 	},
 }
 

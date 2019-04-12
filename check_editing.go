@@ -11,11 +11,12 @@ import (
 
 // EtLock information
 type EtLock struct {
-	FileName   string
-	FilePath   string
-	EditBy     string
-	EditOn     string
-	EditOnDate time.Time
+	FileName     string
+	FilePath     string
+	EditBy       string
+	EditByUserID string
+	EditOn       string
+	EditOnDate   time.Time
 }
 
 // ParseXrepDateString
@@ -28,10 +29,14 @@ func ParseXrepDateString(input string) time.Time {
 
 // CheckLockedFilesAPI to get locked files
 func (c *PDIClient) CheckLockedFilesAPI(solution string) []EtLock {
+
 	rt := []EtLock{}
+
 	payload := map[string]interface{}{
 		"IMPORTING": map[string]interface{}{
-			"IT_PATH": []string{fmt.Sprintf("%sBC/SRC", solution), fmt.Sprintf("%sMAIN/SRC", solution)},
+			"IT_PATH":       []string{fmt.Sprintf("/%sBC/SRC", solution), fmt.Sprintf("/%sMAIN/SRC", solution)},
+			"IV_USER":       nil,
+			"IV_SESSION_ID": nil,
 		},
 	}
 
@@ -42,6 +47,7 @@ func (c *PDIClient) CheckLockedFilesAPI(solution string) []EtLock {
 		l.FilePath = lock.Get("FILEPATH").String()
 		_, l.FileName = filepath.Split(l.FilePath)
 		l.EditBy = lock.Get("EDIT_BY").String()
+		l.EditByUserID = c.GetAUserIDNameByTechID(l.EditBy)
 		l.EditOn = lock.Get("EDIT_ON").String()
 		if l.EditOn != "" {
 			l.EditOnDate = ParseXrepDateString(l.EditOn)

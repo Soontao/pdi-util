@@ -21,7 +21,8 @@ func (c *PDIClient) GetSolutionsAPI() []Solution {
 			"IV_GET":           "X",
 			"IV_PRODUCT_NAME":  nil,
 			"IV_SOLUTION_TYPE": "2",
-			"IV_USER":          c.ivUser,
+			// if IV_USER is empty, another tenant solution will be listed
+			"IV_USER": c.ivUser,
 		},
 	}
 	resp, err := req.Post(url, req.BodyJSON(payload), query)

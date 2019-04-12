@@ -62,7 +62,7 @@ var commandPackageDownload = cli.Command{
 				ioutil.WriteFile(output, bytes, 0644)
 				log.Println("Finished")
 			} else {
-				log.Printf("Not found content.")
+				log.Printf("Not found content, please check your version")
 			}
 
 		}
