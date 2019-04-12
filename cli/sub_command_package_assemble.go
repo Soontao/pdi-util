@@ -32,11 +32,12 @@ var commandPackageAssemble = cli.Command{
 		s := c.GetSolutionStatus(solution)
 		if s.NeedCreatePatch {
 			log.Panicln("Solultion need create patch firstly.")
-			return
 		}
 		if !s.CanActivation && !s.CanAssemble {
 			log.Panicf("Solution %v can not do activation in: %v status", solution, s.StatusText)
-			return
+		}
+		if !s.IsSplitEnabled {
+			log.Panicf("You need do 'Enabel Assembly Split' manually in PDI.")
 		}
 
 		// do checkout check

@@ -41,6 +41,7 @@ type SolutionHeader struct {
 	CanAssemble     bool
 	CanDownload     bool
 	NeedCreatePatch bool
+	IsSplitEnabled  bool
 	IsRunningJob    bool
 	IsCreatingPatch bool
 	// Is Solution Enabled
@@ -75,6 +76,7 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	canDownload := solutionHeader.Get("EV_DOWNLOAD_STATUS").String() == "X"
 	isRunningJob := solutionHeader.Get("EV_IS_SPLIT_JOB_RUNNING").String() == "X"
 	isCreatingPatch := solutionHeader.Get("EV_IS_PATCH_JOB_RUNNING").String() == "X"
+	isSplitEnabled := solutionHeader.Get("EV_IS_SPLIT_ENABLED").String() == "X"
 	needCreatePatch := solutionHeader.Get("IS_PATCHSOL_REQUIRED").String() == "X"
 
 	return &SolutionHeader{
@@ -92,6 +94,7 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 		IsRunningJob:    isRunningJob,
 		NeedCreatePatch: needCreatePatch,
 		IsCreatingPatch: isCreatingPatch,
+		IsSplitEnabled:  isSplitEnabled,
 	}
 
 }
