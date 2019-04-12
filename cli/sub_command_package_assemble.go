@@ -20,11 +20,6 @@ var commandPackageAssemble = cli.Command{
 			Usage:  "The PDI Solution Name",
 		},
 		cli.StringFlag{
-			Name:   "version, v",
-			EnvVar: "SOLUTION_VERSION",
-			Usage:  "Target download version",
-		},
-		cli.StringFlag{
 			Name:   "output, o",
 			EnvVar: "FILENAME_OUTPUT",
 			Usage:  "output file name",
@@ -92,7 +87,9 @@ var commandPackageAssemble = cli.Command{
 		header := c.GetSolutionStatus(solution)
 		solutionName := header.SolutionName
 		output := ctx.String("output")
-		downloadVersion := ctx.String("version")
+
+		// the version of download
+		downloadVersion := ""
 
 		if downloadVersion == "" {
 			// default download current version

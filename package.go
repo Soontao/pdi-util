@@ -83,7 +83,7 @@ func (c *PDIClient) FindBACAndActivateIt(solution string) (err error) {
 	if bacFile == "" {
 		err = fmt.Errorf("Not found BAC from solution: %v", solution)
 	} else {
-		log.Printf("Activating BAC file: %s", bacFile)
+		log.Printf("Updating BAC file: %s", bacFile)
 		payload := JSONObject{
 			"IMPORTING": JSONObject{
 				"IV_CONTENT_TYPE": "BUSINESSCONFIGURATION",
@@ -92,7 +92,7 @@ func (c *PDIClient) FindBACAndActivateIt(solution string) (err error) {
 			},
 		}
 		if _, err := c.xrepRequestE("00163E0115B01DDFB194EC88B8EE4C9B", payload); err != nil {
-			log.Println("Activating BAC failed")
+			log.Println("Updating BAC failed")
 		}
 	}
 
