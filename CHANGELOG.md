@@ -1,4 +1,16 @@
 
+<a name="v1.5.0"></a>
+## [v1.5.0](https://github.com/Soontao/pdi-util/compare/v1.4.0...v1.5.0) (2019-04-12)
+
+### Common
+
+* **release:** new version
+
+### Features
+
+* **assemble:** with check
+
+
 <a name="v1.4.0"></a>
 ## [v1.4.0](https://github.com/Soontao/pdi-util/compare/v1.3.0...v1.4.0) (2019-04-11)
 
