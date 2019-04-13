@@ -190,6 +190,8 @@ func (c *PDIClient) CreatePatch(solution string) (err error) {
 	// wait patch solution created
 	for {
 		solutionHeader := c.GetSolutionStatus(solution)
+		// sometimes, firstly status retrive will be failed after patch creation
+		retried := false
 
 		if solutionHeader.IsCreatingPatch {
 			// still in running
@@ -198,6 +200,11 @@ func (c *PDIClient) CreatePatch(solution string) (err error) {
 		} else {
 			// finished
 			if solutionHeader.Status != S_STATUS_IN_DEV {
+				if !retried {
+					// retry once
+					retried = true
+					continue
+				}
 				// finished but not in development
 				// error happened
 				err = fmt.Errorf("Create patch solution failed, please check at PDI UI")
