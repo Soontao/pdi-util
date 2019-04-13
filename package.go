@@ -49,7 +49,7 @@ func (c *PDIClient) ActivationSolution(solution string) (err error) {
 				if !solutionHeader.CanAssemble {
 					// finished but can not assemble
 					// error happened
-					err = fmt.Errorf("Activation failed, please check at PDI UI.")
+					err = fmt.Errorf("Activation failed, please check at PDI UI")
 				}
 				break
 			}
@@ -66,6 +66,7 @@ func (c *PDIClient) ActivationSolution(solution string) (err error) {
 // FindBACAndActivateIt
 func (c *PDIClient) FindBACAndActivateIt(solution string) (err error) {
 
+	// NEED do more update
 	if c.sessionID == "" {
 		return fmt.Errorf("session id lost")
 	}
@@ -102,10 +103,6 @@ func (c *PDIClient) FindBACAndActivateIt(solution string) (err error) {
 // AssembleSolution from server
 func (c *PDIClient) AssembleSolution(solution string) (err error) {
 
-	if err = c.FindBACAndActivateIt(solution); err != nil {
-		return err
-	}
-
 	if c.sessionID == "" {
 		return fmt.Errorf("session id lost")
 	}
@@ -136,7 +133,7 @@ func (c *PDIClient) AssembleSolution(solution string) (err error) {
 				if !solutionHeader.CanDownload {
 					// finished but can not assemble
 					// error happened
-					err = fmt.Errorf("Assemble failed, please check at PDI UI.")
+					err = fmt.Errorf("Assemble failed, please check at PDI UI")
 				}
 				break
 			}
@@ -203,7 +200,7 @@ func (c *PDIClient) CreatePatch(solution string) (err error) {
 			if solutionHeader.Status != S_STATUS_IN_DEV {
 				// finished but not in development
 				// error happened
-				err = fmt.Errorf("Create patch solution failed, please check at PDI UI.")
+				err = fmt.Errorf("Create patch solution failed, please check at PDI UI")
 			}
 			break
 		}

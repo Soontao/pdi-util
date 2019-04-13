@@ -28,16 +28,24 @@ var commandPackageAssemble = cli.Command{
 	Action: PDIAction(func(c *pdiutil.PDIClient, ctx *cli.Context) {
 		solution := c.GetSolutionIDByString(ctx.String("solution"))
 
+		log.Println("Start current solution status check")
 		// check status
 		s := c.GetSolutionStatus(solution)
+
 		if s.NeedCreatePatch {
-			log.Panicln("Solultion need create patch firstly.")
+			panic("Solultion need create patch firstly.")
 		}
 		if !s.CanActivation && !s.CanAssemble {
-			log.Panicf("Solution %v can not do activation in: %v status", solution, s.StatusText)
+			panic(fmt.Sprintf("Solution %v can not do activation in: %v status", solution, s.StatusText))
 		}
 		if !s.IsSplitEnabled {
-			log.Panicf("You need do 'Enabel Assembly Split' manually in PDI.")
+			panic(fmt.Sprintf("You need do 'Enabel Assembly Split' manually in PDI."))
+		}
+		if s.IsRunningJob {
+			panic(fmt.Sprintf("Solution %v is activating/assemble now.", solution))
+		}
+		if s.IsCreatingPatch {
+			panic(fmt.Sprintf("Solution %v is creating patch now.", solution))
 		}
 
 		// do checkout check
@@ -50,7 +58,16 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		if len(locks) > 0 {
-			log.Panicln("Solution or solution files are lock by user, please check in them firstly.")
+			panic("Solution or solution files are locked by user, please check in them firstly.")
+		}
+		// do check BAC file
+		log.Println("Start BAC check")
+
+		if outOfDate, errs := c.CheckBacOutOfDate(solution); outOfDate {
+			for _, e := range errs {
+				log.Println(e.Error())
+			}
+			panic("Please update your BAC file.")
 		}
 
 		// do backend check
@@ -66,7 +83,7 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		if checkErrorCount > 0 {
-			log.Panicln("Backend code check failed")
+			panic("Backend code check failed")
 		} else {
 
 		}
@@ -74,14 +91,12 @@ var commandPackageAssemble = cli.Command{
 		// start activation
 		log.Println("Start activation")
 		if err := c.ActivationSolution(solution); err != nil {
-			log.Panicln(err)
-			return
+			panic(err)
 		}
 		// start assemble
 		log.Println("Start assemble")
 		if err := c.AssembleSolution(solution); err != nil {
-			log.Panicln(err)
-			return
+			panic(err)
 		}
 
 		// start downlaod
@@ -110,7 +125,7 @@ var commandPackageAssemble = cli.Command{
 		err, content := c.DownloadSolution(solution, downloadVersion)
 
 		if err != nil {
-			log.Panicln(err)
+			panic(err)
 		} else {
 			if len(content) != 0 {
 				bytes, _ := base64.StdEncoding.DecodeString(content)
@@ -125,7 +140,7 @@ var commandPackageAssemble = cli.Command{
 		log.Println("Start create patch solution")
 
 		if err := c.CreatePatch(solution); err != nil {
-			log.Panicln(err)
+			panic(err)
 			return
 		}
 

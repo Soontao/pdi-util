@@ -81,6 +81,13 @@ func (c *PDIClient) GetSolutionFileList(solutionName string) *Project {
 
 }
 
+// GetSolutionNamespace func
+// e.g. http://0007042773-one-off.sap.com/Y7NLADCSY_
+func (c *PDIClient) GetSolutionNamespace(solution string) string {
+	s := c.GetSolutionFileList(solution)
+	return s.PropertyGroup[0].RepositoryNamespace
+}
+
 // ListSolutionAllFiles names
 func (c *PDIClient) ListSolutionAllFiles(solutionName string) *PDIClient {
 	files := c.GetSolutionXrepFileList(solutionName)

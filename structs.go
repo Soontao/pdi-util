@@ -130,3 +130,135 @@ type Project struct {
 		Project string `xml:"Project,attr"`
 	} `xml:"Import"`
 }
+
+// BOInformation struct
+type BOInformation struct {
+	XMLName xml.Name `xml:"abap"`
+	Text    string   `xml:",chardata"`
+	Version string   `xml:"version,attr"`
+	Asx     string   `xml:"asx,attr"`
+	Values  struct {
+		Text      string `xml:",chardata"`
+		RESULTSET struct {
+			Text string `xml:",chardata"`
+			Item []struct {
+				Text      string `xml:",chardata"`
+				NODEID    string `xml:"NODE_ID"`
+				NAME      string `xml:"NAME"`
+				NAMESPACE string `xml:"NAMESPACE"`
+				UUID      string `xml:"UUID"`
+				PROXYNAME string `xml:"PROXYNAME"`
+				NODE      struct {
+					Text string `xml:",chardata"`
+					Item struct {
+						Text           string `xml:",chardata"`
+						NODEID         string `xml:"NODE_ID"`
+						NAME           string `xml:"NAME"`
+						UUID           string `xml:"UUID"`
+						PROXYNAME      string `xml:"PROXYNAME"`
+						PARENTNODENAME string `xml:"PARENT_NODE_NAME"`
+						WRITEACCESS    string `xml:"WRITE_ACCESS"`
+						CATEGORY       string `xml:"CATEGORY"`
+					} `xml:"item"`
+				} `xml:"NODE"`
+				LASTCHANGEDDATETIME string `xml:"LAST_CHANGED_DATE_TIME"`
+				OBJECTCATEGORY      string `xml:"OBJECT_CATEGORY"`
+				TECHCATEGORY        string `xml:"TECH_CATEGORY"`
+				LIFECYCLESTAT       string `xml:"LIFE_CYCLE_STAT"`
+				DUNAME              string `xml:"DU_NAME"`
+				WRITEACCESS         string `xml:"WRITE_ACCESS"`
+				DEPRECATED          string `xml:"DEPRECATED"`
+				TRANSITIVEHASH      string `xml:"TRANSITIVE_HASH"`
+				OFFLINEENABLED      string `xml:"OFFLINE_ENABLED"`
+			} `xml:"item"`
+		} `xml:"RESULT_SET"`
+	} `xml:"values"`
+}
+
+// BCInformation struct
+type BCInformation struct {
+	XMLName xml.Name `xml:"abap"`
+	Text    string   `xml:",chardata"`
+	Version string   `xml:"version,attr"`
+	Asx     string   `xml:"asx,attr"`
+	Values  struct {
+		Text      string `xml:",chardata"`
+		RESULTSET struct {
+			Text          string `xml:",chardata"`
+			RELEASE       string `xml:"RELEASE"`
+			DATATYPESTYPE struct {
+				Text string `xml:",chardata"`
+				Item struct {
+					Text string `xml:",chardata"`
+					// NAMESPACE
+					// <NAMESPACE>http://0007042773-one-off.sap.com/Y7NLADCSY_</NAMESPACE>
+					NAMESPACE string `xml:"NAMESPACE"`
+					DATATYPES struct {
+						Text string `xml:",chardata"`
+						// <item>
+						// 	<NODE_ID>00163E703A9E1EE997B7D4A29DBA98DC</NODE_ID>
+						// 	<NAME>BCO_1ElementsQueryElements</NAME>
+						// 	<PROXYNAME>Y7NLADCSY_BCTS720E0DE0CA1EB53D</PROXYNAME>
+						// 	<LAST_CHANGED_DATE_TIME>2019-04-13T07:35:02Z</LAST_CHANGED_DATE_TIME>
+						// 	<BASE_DT_KEY_NAME/>
+						// 	<USAGE_CATEGORY>6</USAGE_CATEGORY>
+						// 	<EXTENSIBLE/>
+						// 	<REP_TERM>26</REP_TERM>
+						// 	<TRANSITIVE_HASH>KSDjTUkBnkWvoVJhggkzgg==</TRANSITIVE_HASH>
+						// </item>
+						Item []struct {
+							Text   string `xml:",chardata"`
+							NODEID string `xml:"NODE_ID"`
+							NAME   string `xml:"NAME"`
+							// PROXYNAME, like
+							PROXYNAME           string `xml:"PROXYNAME"`
+							LASTCHANGEDDATETIME string `xml:"LAST_CHANGED_DATE_TIME"`
+							BASEDTKEYNAME       string `xml:"BASE_DT_KEY_NAME"`
+							USAGECATEGORY       string `xml:"USAGE_CATEGORY"`
+							EXTENSIBLE          string `xml:"EXTENSIBLE"`
+							REPTERM             string `xml:"REP_TERM"`
+							TRANSITIVEHASH      string `xml:"TRANSITIVE_HASH"`
+						} `xml:"item"`
+					} `xml:"DATATYPES"`
+				} `xml:"item"`
+			} `xml:"DATATYPESTYPE"`
+		} `xml:"RESULT_SET"`
+	} `xml:"values"`
+}
+
+// BCPartnerSolution struct
+type BCPartnerSolution struct {
+	XMLName xml.Name `xml:"BCPartnerSolution"`
+	Text    string   `xml:",chardata"`
+	Xsi     string   `xml:"xsi,attr"`
+	Xsd     string   `xml:"xsd,attr"`
+	Xmlns   string   `xml:"xmlns,attr"`
+	Head    struct {
+		Text        string `xml:",chardata"`
+		Xmlns       string `xml:"xmlns,attr"`
+		ElementID   string `xml:"ElementID"`
+		ElementType string `xml:"ElementType"`
+	} `xml:"Head"`
+	Bac struct {
+		Text                      string `xml:",chardata"`
+		Xmlns                     string `xml:"xmlns,attr"`
+		ElementID                 string `xml:"ElementID"`
+		ParentID                  string `xml:"ParentID"`
+		VisibleFineTuning         string `xml:"VisibleFineTuning"`
+		Description               string `xml:"Description"`
+		ScopingQuestion           string `xml:"ScopingQuestion"`
+		Type                      string `xml:"Type"`
+		GoLiveActivityDescription string `xml:"GoLiveActivityDescription"`
+		KTOverview                string `xml:"KTOverview"`
+		KTRelevance               string `xml:"KTRelevance"`
+	} `xml:"Bac"`
+	Content []struct {
+		Text        string `xml:",chardata"`
+		Xmlns       string `xml:"xmlns,attr"`
+		ID          string `xml:"ID"`
+		Type        string `xml:"Type"`
+		Description string `xml:"Description"`
+		ElementID   string `xml:"ElementID"`
+		Internal    string `xml:"Internal"`
+	} `xml:"Content"`
+}

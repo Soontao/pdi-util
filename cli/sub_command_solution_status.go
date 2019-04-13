@@ -52,11 +52,6 @@ var commandSolutionStatusWatch = cli.Command{
 
 			header := c.GetSolutionStatus(solution)
 
-			if header.StatusText != currentStatus {
-				currentStatus = header.StatusText
-				log.Printf("Now solution %v status is '%v'.", header.SolutionID, header.StatusText)
-			}
-
 			if header.IsRunningJob != currentRunningAssembleJob {
 				currentRunningAssembleJob = header.IsRunningJob
 				if currentRunningAssembleJob {
@@ -75,6 +70,11 @@ var commandSolutionStatusWatch = cli.Command{
 
 				}
 
+			}
+
+			if header.StatusText != currentStatus {
+				currentStatus = header.StatusText
+				log.Printf("Now solution %v status is '%v'.", header.SolutionID, header.StatusText)
 			}
 
 			// wait

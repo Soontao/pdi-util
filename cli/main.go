@@ -26,6 +26,14 @@ var AppUsage = "A Command Line Tool for SAP Partner Development IDE"
 func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c *cli.Context) error {
 	return func(c *cli.Context) error {
 
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+				log.Println("FATAL error happened, so terminated")
+				os.Exit(1)
+			}
+		}()
+
 		// overwrite here
 		username := c.GlobalString("username")
 		password := c.GlobalString("password")
