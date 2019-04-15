@@ -48,7 +48,7 @@ var commandPackageDownload = cli.Command{
 		}
 
 		if output == "" {
-			output = fmt.Sprintf("%v(V%v).zip", solutionName, downloadVersion)
+			output = fmt.Sprintf("%v_V%v(%v).zip", header.SolutionID, downloadVersion, header.SolutionName)
 		}
 
 		log.Printf("Start download %v(%v)", solutionName, downloadVersion)
