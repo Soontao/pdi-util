@@ -22,7 +22,7 @@ var commandPackageAssemble = cli.Command{
 		cli.StringFlag{
 			Name:   "output, o",
 			EnvVar: "FILENAME_OUTPUT",
-			Usage:  "output file name",
+			Usage:  "Output file name, if not set, tool will use a default one",
 		},
 	},
 	Action: PDIAction(func(c *pdiutil.PDIClient, ctx *cli.Context) {
@@ -141,7 +141,6 @@ var commandPackageAssemble = cli.Command{
 
 		if err := c.CreatePatch(solution); err != nil {
 			panic(err)
-			return
 		}
 
 		log.Println("Finished")

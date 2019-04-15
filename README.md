@@ -12,12 +12,13 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 ## Features
 
 * [x] list all solutions
-* [x] static check & export to excel
+* [x] static check & export results to excel
 * [x] download current sources in solution
-* [x] download assembled package
+* [x] download assembled package (in history)
 * [x] view single file history
-* [x] assemble and download assembled package
+* [x] activate, assemble and download assembled package
 * [x] automatic create patch solution after assembled
+* [ ] deploy solution
 
 ## Help
 
