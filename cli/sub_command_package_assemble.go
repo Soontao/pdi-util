@@ -36,13 +36,13 @@ var commandPackageAssemble = cli.Command{
 			panic("Solultion need create patch firstly.")
 		}
 		if !s.CanActivation && !s.CanAssemble {
-			panic(fmt.Sprintf("Solution %v can not do activation in: %v status", solution, s.StatusText))
+			panic(fmt.Sprintf("Solution %v can not do activation in: '%v' status", solution, s.StatusText))
 		}
 		if !s.IsSplitEnabled {
-			panic(fmt.Sprintf("You need do 'Enabel Assembly Split' manually in PDI."))
+			panic("You need do 'Enabel Assembly Split' manually in PDI.")
 		}
 		if s.IsRunningJob {
-			panic(fmt.Sprintf("Solution %v is activating/assemble now.", solution))
+			panic("Another activation/assemble job is running now.")
 		}
 		if s.IsCreatingPatch {
 			panic(fmt.Sprintf("Solution %v is creating patch now.", solution))
