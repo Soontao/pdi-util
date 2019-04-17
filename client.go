@@ -95,7 +95,7 @@ func (c *PDIClient) getIvUser() *PDIClient {
 	}
 	respBody, _ := resp.ToString()
 	c.ivUser = gjson.Get(respBody, "EXPORTING.EV_USER").String()
-	log.Printf("Login as %v", c.ivUser)
+	log.Printf("Login to %v as %v(%v)", c.hostname, c.ivUser, c.username)
 	return c
 }
 
