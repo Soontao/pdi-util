@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strings"
 	"time"
 
 	pdiutil "github.com/Soontao/pdi-util"
@@ -45,12 +46,21 @@ var commandSolutionStatusWatch = cli.Command{
 
 		solution := c.GetSolutionIDByString(ctx.String("solution"))
 		currentStatus := ""
+		currentText := ""
 		currentRunningAssembleJob := false
 		currentRunningCreatePatchJob := false
 
 		for {
 
 			header := c.GetSolutionStatus(solution)
+
+			// print help text after change
+			if header.HelpText != currentText {
+				currentText = header.HelpText
+				for _, l := range strings.Split(currentText, "\\n") {
+					log.Printf("System help text: %v", l)
+				}
+			}
 
 			if header.IsRunningJob != currentRunningAssembleJob {
 				currentRunningAssembleJob = header.IsRunningJob
@@ -66,8 +76,7 @@ var commandSolutionStatusWatch = cli.Command{
 				if currentRunningCreatePatchJob {
 					log.Println("Now solution is creating patch solution.")
 				} else {
-					log.Println("Now solution patch solution craeted.")
-
+					log.Println("Now solution patch solution created.")
 				}
 
 			}

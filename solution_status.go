@@ -9,6 +9,7 @@ import (
 
 type SolutionStatus string
 type SolutionPhase string
+type SolutionPhaseStatus string
 
 // S_STATUS_IN_DEV Solution In Development
 const S_STATUS_IN_DEV = SolutionStatus("1")
@@ -28,6 +29,18 @@ const S_PHASE_ACTIVATION = SolutionPhase("ACT")
 // S_PHASE_DEVELOPMENT
 const S_PHASE_DEVELOPMENT = SolutionPhase("DEV")
 
+// S_PHASE_IMPORT
+const S_PHASE_IMPORT = SolutionPhase("IMP")
+
+// S_PHASE_DATA_UPDATE
+const S_PHASE_DATA_UPDATE = SolutionPhase("POS")
+
+// S_PHASE_STATUS_SUCCESSFUL
+const S_PHASE_STATUS_SUCCESSFUL = SolutionPhaseStatus("S")
+
+// S_PAHSE_STATUS_RUNNING
+const S_PAHSE_STATUS_RUNNING = SolutionPhaseStatus("R")
+
 // SolutionHeader information
 type SolutionHeader struct {
 	ChangeDateTime  time.Time
@@ -36,7 +49,8 @@ type SolutionHeader struct {
 	Version         int64
 	Status          SolutionStatus
 	StatusText      string
-	Phase           string
+	Phase           SolutionPhase
+	PhaseStatus     SolutionPhaseStatus
 	CanActivation   bool
 	CanAssemble     bool
 	CanDownload     bool
@@ -44,8 +58,33 @@ type SolutionHeader struct {
 	IsSplitEnabled  bool
 	IsRunningJob    bool
 	IsCreatingPatch bool
+	HelpText        string
 	// Is Solution Enabled
 	Enabled bool
+}
+
+// IsRunningUploading file upload process
+func (h *SolutionHeader) IsRunningUploading() bool {
+	if h.Phase == S_PHASE_IMPORT && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
+		return true
+	}
+	return false
+}
+
+// IsRunningActivation process
+func (h *SolutionHeader) IsRunningActivation() bool {
+	if h.Phase == S_PHASE_ACTIVATION && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
+		return true
+	}
+	return false
+}
+
+// IsRunningDateUpdate process
+func (h *SolutionHeader) IsRunningDateUpdate() bool {
+	if h.Phase == S_PHASE_DATA_UPDATE && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
+		return true
+	}
+	return false
 }
 
 // GetSolutionStatus exported
@@ -67,9 +106,11 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	changeDateTime := ParseXrepDateString(solutionHeader.Get("CHANGE_DATETIME").String())
 	solutionName := solutionHeader.Get("DESCRIPTION").String()
 	version, _ := strconv.ParseInt(solutionHeader.Get("VERSION_ID").String(), 10, 64)
-	status := solutionHeader.Get("VERSION_STATUS").String()
+	status := SolutionStatus(solutionHeader.Get("VERSION_STATUS").String())
 	statusText := solutionHeader.Get("VERSION_STATUS_TEXT").String()
-	phase := solutionHeader.Get("PHASE").String()
+	helpText := solutionHeader.Get("HELP_TEXT").String()
+	phase := SolutionPhase(solutionHeader.Get("PHASE").String())
+	phaseStatus := SolutionPhaseStatus(solutionHeader.Get("PHASE_STATUS").String())
 	enabled := solutionHeader.Get("IS_ENABLED").String() == "X"
 	canActivation := solutionHeader.Get("EV_ACT_STATUS").String() == "X"
 	canAssemble := solutionHeader.Get("EV_ASSEMBLE_STATUS").String() == "X"
@@ -84,9 +125,11 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 		SolutionID:      solutionID,
 		SolutionName:    solutionName,
 		Version:         version,
-		Status:          SolutionStatus(status),
+		Status:          status,
 		StatusText:      statusText,
 		Phase:           phase,
+		PhaseStatus:     phaseStatus,
+		HelpText:        helpText,
 		Enabled:         enabled,
 		CanActivation:   canActivation,
 		CanAssemble:     canAssemble,

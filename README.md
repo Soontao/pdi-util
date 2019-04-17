@@ -18,6 +18,7 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 * [x] view single file history
 * [x] activate, assemble and download assembled package
 * [x] automatic create patch solution after assembled
+* [ ] check the WCVs have been assigned to WC
 * [ ] deploy solution
 
 ## Help
