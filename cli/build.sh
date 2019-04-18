@@ -10,7 +10,7 @@ PLATFORMS="$PLATFORMS linux/amd64 linux/386"
 PLATFORMS_ARM="linux"
 
 # default version as 'snapshot'
-VERSION=${VARIABLE:-snapshot}
+VERSION=${VERSION:-snapshot}
 
 type setopt >/dev/null 2>&1
 
