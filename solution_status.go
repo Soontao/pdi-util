@@ -43,22 +43,24 @@ const S_PAHSE_STATUS_RUNNING = SolutionPhaseStatus("R")
 
 // SolutionHeader information
 type SolutionHeader struct {
-	ChangeDateTime  time.Time
-	SolutionID      string
-	SolutionName    string
-	Version         int64
-	Status          SolutionStatus
-	StatusText      string
-	Phase           SolutionPhase
-	PhaseStatus     SolutionPhaseStatus
-	CanActivation   bool
-	CanAssemble     bool
-	CanDownload     bool
-	NeedCreatePatch bool
-	IsSplitEnabled  bool
-	IsRunningJob    bool
-	IsCreatingPatch bool
-	HelpText        string
+	ChangeDateTime     time.Time
+	SolutionID         string
+	SolutionName       string
+	OriginSolutionID   string
+	OriginSolutionName string
+	Version            int64
+	Status             SolutionStatus
+	StatusText         string
+	Phase              SolutionPhase
+	PhaseStatus        SolutionPhaseStatus
+	CanActivation      bool
+	CanAssemble        bool
+	CanDownload        bool
+	NeedCreatePatch    bool
+	IsSplitEnabled     bool
+	IsRunningJob       bool
+	IsCreatingPatch    bool
+	HelpText           string
 	// Is Solution Enabled
 	Enabled bool
 }
@@ -119,25 +121,29 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	isCreatingPatch := solutionHeader.Get("EV_IS_PATCH_JOB_RUNNING").String() == "X"
 	isSplitEnabled := solutionHeader.Get("EV_IS_SPLIT_ENABLED").String() == "X"
 	needCreatePatch := solutionHeader.Get("IS_PATCHSOL_REQUIRED").String() == "X"
+	originSolutionID := solutionHeader.Get("ORIGIN_PROJECT_NAME").String()
+	originSolutionName := solutionHeader.Get("ORIGIN_PROJECT_DESCRIPTION").String()
 
 	return &SolutionHeader{
-		ChangeDateTime:  changeDateTime,
-		SolutionID:      solutionID,
-		SolutionName:    solutionName,
-		Version:         version,
-		Status:          status,
-		StatusText:      statusText,
-		Phase:           phase,
-		PhaseStatus:     phaseStatus,
-		HelpText:        helpText,
-		Enabled:         enabled,
-		CanActivation:   canActivation,
-		CanAssemble:     canAssemble,
-		CanDownload:     canDownload,
-		IsRunningJob:    isRunningJob,
-		NeedCreatePatch: needCreatePatch,
-		IsCreatingPatch: isCreatingPatch,
-		IsSplitEnabled:  isSplitEnabled,
+		ChangeDateTime:     changeDateTime,
+		SolutionID:         solutionID,
+		SolutionName:       solutionName,
+		Version:            version,
+		Status:             status,
+		StatusText:         statusText,
+		Phase:              phase,
+		PhaseStatus:        phaseStatus,
+		HelpText:           helpText,
+		Enabled:            enabled,
+		CanActivation:      canActivation,
+		CanAssemble:        canAssemble,
+		CanDownload:        canDownload,
+		IsRunningJob:       isRunningJob,
+		NeedCreatePatch:    needCreatePatch,
+		IsCreatingPatch:    isCreatingPatch,
+		IsSplitEnabled:     isSplitEnabled,
+		OriginSolutionID:   originSolutionID,
+		OriginSolutionName: originSolutionName,
 	}
 
 }

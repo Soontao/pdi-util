@@ -46,11 +46,12 @@ var commandSolutionDeploy = cli.Command{
 		},
 	},
 	Action: PDIAction(func(sourceClient *pdiutil.PDIClient, ctx *cli.Context) {
-		targetuser := ctx.String("targetuser")
-		targetpassword := ctx.String("targetpassword")
-		target := ctx.String("target")
-		release := ctx.GlobalString("release")
-		_, err := pdiutil.NewPDIClient(targetuser, targetpassword, target, release)
+		_, err := pdiutil.NewPDIClient(
+			ctx.String("targetuser"),
+			ctx.String("targetpassword"),
+			ctx.String("target"),
+			ctx.GlobalString("release"),
+		)
 
 		// create target tenant client failed
 		if err != nil {

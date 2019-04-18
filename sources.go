@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/Jeffail/tunny"
+
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
 )
@@ -122,6 +124,22 @@ func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 	return rt
 }
 
+func (c *PDIClient) fetchSources(xrepPathes []string, concurrent int) []*XrepFile {
+	rt := []*XrepFile{}
+
+	pool := tunny.NewFunc(concurrent, func(xrepPath interface{}) interface{} {
+		return c.DownloadFileSource(xrepPath.(string))
+	})
+
+	defer pool.Close()
+
+	for _, f := range xrepPathes {
+		rt = append(rt, pool.Process(f).(*XrepFile))
+	}
+
+	return rt
+}
+
 // DownloadAllSourceTo directory
 func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurrent int, pretty bool) {
 	// > process output target
@@ -147,7 +165,6 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	fileCount := len(downloadList)
 
 	log.Printf("Will download %d files to %s\n", fileCount, output)
-	// > progress ui support
 	// > request and download
 	asyncResponses := make([]chan bool, fileCount)
 	parallexController := make(chan bool, concurrent)

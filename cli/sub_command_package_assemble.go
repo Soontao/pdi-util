@@ -60,6 +60,7 @@ var commandPackageAssemble = cli.Command{
 		if len(locks) > 0 {
 			panic("Solution or solution files are locked by user, please check in them firstly.")
 		}
+
 		// do check BAC file
 		log.Println("Start BAC check")
 
@@ -67,7 +68,17 @@ var commandPackageAssemble = cli.Command{
 			for _, e := range errs {
 				log.Println(e.Error())
 			}
-			panic("Please update your BAC file.")
+			panic("Please update your BAC file")
+		}
+
+		// do check all WCVs have been assigned
+		log.Println("Start Check WCV assignment")
+
+		if r := c.FindUnAssignedWCV(solution); r.UnAssignedWCVCount > 0 {
+			for _, u := range r.UnAssignedWCVs {
+				log.Printf("Un assigned WCV file: %v", u)
+			}
+			panic("Please make sure all WCV have been assigned")
 		}
 
 		// do backend check
@@ -118,7 +129,11 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		if output == "" {
-			output = fmt.Sprintf("%v_V%v(%v).zip", header.SolutionID, downloadVersion, header.SolutionName)
+			outputID := header.SolutionID
+			if header.OriginSolutionID != "" {
+				outputID = header.OriginSolutionID
+			}
+			output = fmt.Sprintf("%v_V%v(%v).zip", outputID, downloadVersion, header.SolutionName)
 		}
 
 		log.Printf("Start download %v(%v)", solutionName, downloadVersion)

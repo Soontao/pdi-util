@@ -231,18 +231,6 @@ var commandCheckAll = cli.Command{
 // empty index
 // content splited
 
-var commandCheck = cli.Command{
-	Name:  "check",
-	Usage: "static code check",
-	Subcommands: []cli.Command{
-		commandCheckAll,
-		commandCheckCopyright,
-		commandCheckBackend,
-		commandCheckTranslation,
-		commandCheckNameConvention,
-	},
-}
-
 var commandSolutionList = cli.Command{
 	Name:  "list",
 	Usage: "list all solutions",
