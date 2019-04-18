@@ -1,4 +1,21 @@
 
+<a name="v1.6.0"></a>
+## [v1.6.0](https://github.com/Soontao/pdi-util/compare/v1.5.4...v1.6.0) (2019-04-18)
+
+### Common
+
+* **change:** statuswatch feature log format
+* **change:** default output file name
+* **description:** update
+* **release:** new version
+
+### Features
+
+* **check:** un assgined wcv
+* **deploy:** init
+* **deploy:** v1
+
+
 <a name="v1.5.4"></a>
 ## [v1.5.4](https://github.com/Soontao/pdi-util/compare/v1.5.2...v1.5.4) (2019-04-13)
 
