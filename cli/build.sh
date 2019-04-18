@@ -1,12 +1,16 @@
 #!/bin/bash
 
-# cli file naem
+# cli file name
 OUTPUT_FILENAME="pdiutil"
 
+# platforms
 PLATFORMS="darwin/amd64" # amd64 only as of go1.5
 PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
 PLATFORMS="$PLATFORMS linux/amd64 linux/386"
 PLATFORMS_ARM="linux"
+
+# default version as 'snapshot'
+VERSION=${VARIABLE:-snapshot}
 
 type setopt >/dev/null 2>&1
 
@@ -20,7 +24,7 @@ LDFLAGS="-ldflags \"-X main.Version=${VERSION}\""
 for PLATFORM in $PLATFORMS; do
   GOOS=${PLATFORM%/*}
   GOARCH=${PLATFORM#*/}
-  BIN_FILENAME="${OUTPUT}-${GOOS}-${GOARCH}"
+  BIN_FILENAME="${OUTPUT}-${VERSION}-${GOOS}-${GOARCH}"
   if [[ "${GOOS}" == "windows" ]]; then BIN_FILENAME="${BIN_FILENAME}.exe"; fi
   CMD="GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
@@ -31,7 +35,7 @@ done
 
 # ARM builds
 if [[ $PLATFORMS_ARM == *"linux"* ]]; then 
-  BIN_FILENAME="${OUTPUT}-linux-arm64"
+  BIN_FILENAME="${OUTPUT}-${VERSION}-linux-arm64"
   CMD="GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
@@ -43,7 +47,7 @@ for GOOS in $PLATFORMS_ARM; do
   GOARCH="arm"
   # build for each ARM version
   for GOARM in 7 6 5; do
-    BIN_FILENAME="${OUTPUT}-${GOOS}-${GOARCH}${GOARM}"
+    BIN_FILENAME="${OUTPUT}-${VERSION}-${GOOS}-${GOARCH}${GOARM}"
     CMD="GOARM=${GOARM} GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
     echo "${CMD}"
     eval "${CMD}" || FAILURES="${FAILURES} ${GOOS}/${GOARCH}${GOARM}"
