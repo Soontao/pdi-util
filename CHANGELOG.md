@@ -1,4 +1,16 @@
 
+<a name="v1.6.1"></a>
+## [v1.6.1](https://github.com/Soontao/pdi-util/compare/v1.6.0...v1.6.1) (2019-04-18)
+
+### Common
+
+* **release:** new version
+
+### Features
+
+* **bin:** zip file name
+
+
 <a name="v1.6.0"></a>
 ## [v1.6.0](https://github.com/Soontao/pdi-util/compare/v1.5.4...v1.6.0) (2019-04-18)
 
