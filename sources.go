@@ -146,51 +146,34 @@ func (c *PDIClient) DownloadAllSourceTo(solutionName, targetPath string, concurr
 	ensure(targetPath, "targetPath")
 	output := ""
 	pwd, _ := os.Getwd()
+
 	if filepath.IsAbs(targetPath) {
 		output = targetPath
 	} else {
 		output = filepath.Join(pwd, targetPath)
 	}
+
 	os.MkdirAll(output, os.ModePerm)
+
 	// > get project file list
-	xrepFiles := c.GetSolutionXrepFileList(solutionName)
-	downloadList := []XrepDownloadTask{}
+	xrepFiles := c.fetchSources(c.GetSolutionXrepFileList(solutionName), concurrent)
 
 	for _, xrepFile := range xrepFiles {
-		xrepPath := xrepFile
-		localPath := strings.Replace(filepath.Join(output, xrepFile), "\\", "/", -1)
-		downloadList = append(downloadList, XrepDownloadTask{xrepPath, localPath})
-	}
+		xrepPath := xrepFile.XrepPath
+		localPath := strings.Replace(filepath.Join(output, xrepPath), "\\", "/", -1)
 
-	fileCount := len(downloadList)
-
-	log.Printf("Will download %d files to %s\n", fileCount, output)
-	// > request and download
-	asyncResponses := make([]chan bool, fileCount)
-	parallexController := make(chan bool, concurrent)
-	for idx, task := range downloadList {
-		asyncResponses[idx] = make(chan bool, 1)
-		parallexController <- true
-		go func(task XrepDownloadTask, done chan bool) {
-			source := c.DownloadFileSource(task.xrepPath)
-			sourceContent := source.Source
-			os.MkdirAll(filepath.Dir(task.localPath), os.ModePerm)
-			if _, err := os.Stat(task.localPath); os.IsNotExist(err) {
-				f, err := os.Create(task.localPath)
-				if err != nil {
-					panic(err)
-				}
-				f.Close()
-			}
-			if err := ioutil.WriteFile(task.localPath, sourceContent, 0644); err != nil {
+		sourceContent := xrepFile.Source
+		os.MkdirAll(filepath.Dir(localPath), os.ModePerm)
+		if _, err := os.Stat(localPath); os.IsNotExist(err) {
+			f, err := os.Create(localPath)
+			if err != nil {
 				panic(err)
 			}
-			done <- true
-			<-parallexController
-		}(task, asyncResponses[idx])
+			f.Close()
+		}
+		if err := ioutil.WriteFile(localPath, sourceContent, 0644); err != nil {
+			panic(err)
+		}
 	}
 
-	for _, response := range asyncResponses {
-		<-response // ensure all goroutines finished
-	}
 }
