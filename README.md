@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)
 
-Cli for SAP PDI, expose PDI apis to cli environment. For research.
+Cli for SAP PDI.
 
 ## Latest Build
 
@@ -19,7 +19,7 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 * [x] activate, assemble and download assembled package
 * [x] automatic create patch solution after assembled
 * [x] check the WCVs have been assigned to WC
-* [ ] deploy solution
+* [x] deploy solution
 
 ## Help
 

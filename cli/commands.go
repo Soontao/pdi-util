@@ -255,17 +255,6 @@ var commandListSolutionFiles = cli.Command{
 	}),
 }
 
-var commandSolution = cli.Command{
-	Name:  "solution",
-	Usage: "solution related operations",
-	Subcommands: []cli.Command{
-		commandSolutionList,
-		commandListSolutionFiles,
-		commandSolutionStatus,
-		commandSolutionStatusWatch,
-	},
-}
-
 var commandCheckCopyright = cli.Command{
 	Name:      "header",
 	Usage:     "check copyright header",

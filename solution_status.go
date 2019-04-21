@@ -73,7 +73,17 @@ func (h *SolutionHeader) IsRunningUploading() bool {
 	return false
 }
 
+// IsUploadingSuccessful file upload finished
+func (h *SolutionHeader) IsUploadingSuccessful() bool {
+	if h.Phase == S_PHASE_IMPORT && h.PhaseStatus == S_PHASE_STATUS_SUCCESSFUL {
+		return true
+	}
+	return false
+}
+
 // IsRunningActivation process
+//
+// just used for deployment scenario
 func (h *SolutionHeader) IsRunningActivation() bool {
 	if h.Phase == S_PHASE_ACTIVATION && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
 		return true
