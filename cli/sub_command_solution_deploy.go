@@ -48,12 +48,12 @@ var commandSolutionDeploy = cli.Command{
 		}
 
 		s := sourceClient.GetSolutionByIDOrDescription(ctx.String("solution"))
-		sourceSolution := s.Name
-		sourceSolutionName := s.Description
+		sourceSolutionID := s.Name
+		sourceSolutionDescription := s.Description
 
 		version := ""
 
-		sourceSolutionStatus := sourceClient.GetSolutionStatus(sourceSolution)
+		sourceSolutionStatus := sourceClient.GetSolutionStatus(sourceSolutionID)
 
 		// if current solution is 'Assembled'
 		// Download current version
@@ -64,7 +64,7 @@ var commandSolutionDeploy = cli.Command{
 			version = fmt.Sprintf("%v", sourceSolutionStatus.Version-1)
 		}
 
-		err, assembledPackage := sourceClient.DownloadSolution(sourceSolution, version)
+		err, assembledPackage := sourceClient.DownloadSolution(sourceSolutionID, version)
 
 		if err != nil {
 			panic(err)
@@ -72,11 +72,12 @@ var commandSolutionDeploy = cli.Command{
 
 		// content is empty
 		if assembledPackage == "" {
-			panic(fmt.Errorf("Not found solution %v package with version %v", sourceSolution, version))
+			panic(fmt.Errorf("Not found solution %v package with version %v", sourceSolutionID, version))
 		} else {
 			log.Printf("Assmebled packaged downloaded from source tenant")
 		}
 
+		// after deploy, the solution must be existed in target tenant
 		err = targetClient.DeploySolution(assembledPackage)
 
 		log.Println("Assmebled packaged uploaded to target system")
@@ -87,7 +88,7 @@ var commandSolutionDeploy = cli.Command{
 		}
 
 		// use source solution name to find target solution
-		targetS := targetClient.GetSolutionByIDOrDescription(sourceSolutionName)
+		targetS := targetClient.GetSolutionByIDOrDescription(sourceSolutionDescription)
 		targetSolution := targetS.Name
 		targetStatus := targetClient.GetSolutionStatus(targetSolution)
 
@@ -96,6 +97,7 @@ var commandSolutionDeploy = cli.Command{
 		}
 
 		log.Println("Package uploaded, system is processing the uploaded package")
+
 		// wait uploading finished
 		for {
 

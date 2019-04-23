@@ -53,6 +53,20 @@ func (c *PDIClient) GetSolutionsAPI() []Solution {
 	return rt
 }
 
+// IsSolutionExist func
+func (c *PDIClient) IsSolutionExist(solutionName string) bool {
+	rt := false
+	solutions := c.GetSolutionsAPI()
+
+	for _, s := range solutions {
+		if s.Name == solutionName || s.Description == solutionName {
+			return true
+		}
+	}
+
+	return rt
+}
+
 // GetSolutionByIDOrDescription exported
 func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
 

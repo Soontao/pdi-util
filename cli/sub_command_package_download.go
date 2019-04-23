@@ -27,13 +27,18 @@ var commandPackageDownload = cli.Command{
 		cli.StringFlag{
 			Name:   "output, o",
 			EnvVar: "FILENAME_OUTPUT",
-			Usage:  "output file name",
+			Usage:  "output file name, default as PDI download package format",
 		},
 	},
 	Action: PDIAction(func(c *pdiutil.PDIClient, ctx *cli.Context) {
 		solution := c.GetSolutionIDByString(ctx.String("solution"))
 		header := c.GetSolutionStatus(solution)
 		solutionName := header.SolutionName
+		solutionID := header.SolutionID
+		// use original solution id as file part
+		if header.OriginSolutionID != "" {
+			solutionID = header.OriginSolutionID
+		}
 		output := ctx.String("output")
 		downloadVersion := ctx.String("version")
 
@@ -48,7 +53,7 @@ var commandPackageDownload = cli.Command{
 		}
 
 		if output == "" {
-			output = fmt.Sprintf("%v_V%v(%v).zip", header.SolutionID, downloadVersion, header.SolutionName)
+			output = fmt.Sprintf("%v_V%v(%v).zip", solutionID, downloadVersion, solutionName)
 		}
 
 		log.Printf("Start download %v(%v)", solutionName, downloadVersion)

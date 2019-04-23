@@ -160,3 +160,21 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	}
 
 }
+
+// IsHotFixNow func
+//
+// check solution if enable hot fix now
+func (c *PDIClient) IsHotFixNow(solution string) (bool, error) {
+	rt := false
+	body, err := c.xrepRequestE("00163E0115B01DDFB194E54BB7202C9B", JSONObject{
+		"IMPORTING": JSONObject{"IV_PRODUCT_NAME": solution},
+	})
+
+	if err != nil {
+		return rt, err
+	}
+
+	rt = gjson.Get(body, "EXPORTING.ES_PRODUCT.VERSIONS.0.PV_OVERALL_STATUS").String() == "Deployed-In Correction"
+
+	return rt, nil
+}
