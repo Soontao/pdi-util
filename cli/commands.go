@@ -292,8 +292,8 @@ var commandCheckCopyright = cli.Command{
 
 var commandCheckNameConvention = cli.Command{
 	Name:      "name",
-	Usage:     "check name convension",
-	UsageText: "check the name convension of source code",
+	Usage:     "check name convention",
+	UsageText: "check the name convention of source code",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
