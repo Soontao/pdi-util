@@ -7,6 +7,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+// DefaultRelease version
 const DefaultRelease = "1902"
 
 // GetSessionID from server

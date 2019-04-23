@@ -65,6 +65,7 @@ func (c *PDIClient) DownloadFileSource(xrepPath string) *XrepFile {
 	return &XrepFile{xrepPath, fileContent, attrs}
 }
 
+// GetXrepPathByFuzzyName func
 func (c *PDIClient) GetXrepPathByFuzzyName(solution, s string) (xrepPath string, existAndUnique bool) {
 	matched := []string{}
 
@@ -93,7 +94,7 @@ func (c *PDIClient) GetXrepPathByFuzzyName(solution, s string) (xrepPath string,
 	return xrepPath, existAndUnique
 }
 
-// GetSolutionFileList in xrep
+// GetSolutionXrepFileList in xrep
 func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 	rt := []string{}
 	project := c.GetSolutionFileList(solutionName)
@@ -124,6 +125,7 @@ func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 	return rt
 }
 
+// fetchSources list
 func (c *PDIClient) fetchSources(xrepPathes []string, concurrent int) []*XrepFile {
 	rt := []*XrepFile{}
 

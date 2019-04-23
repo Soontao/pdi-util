@@ -3,7 +3,6 @@ package pdiutil
 import (
 	"fmt"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/tidwall/gjson"
@@ -17,14 +16,6 @@ type EtLock struct {
 	EditByUserID string
 	EditOn       string
 	EditOnDate   time.Time
-}
-
-// ParseXrepDateString
-func ParseXrepDateString(input string) time.Time {
-	// input as 20181231092019.5268080 format
-	sDateTime := strings.SplitN(input, ".", 2)[0]
-	rt, _ := time.Parse("20060102030405", strings.TrimSpace(sDateTime))
-	return rt
 }
 
 // CheckLockedFilesAPI to get locked files

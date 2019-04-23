@@ -8,16 +8,23 @@ import (
 	mapset "github.com/deckarep/golang-set"
 )
 
-// DefaultDownloadConcurrnet value
-var DefaultDownloadConcurrnet = 20
+const (
+	// DefaultDownloadConcurrnet value
+	//
+	// used to limit the download concurrent
+	DefaultDownloadConcurrnet = 20
+	// SuffixWCV
+	//
+	// Work Center View suffix
+	SuffixWCV = "WCVIEW.uiwocview"
+	// SuffixWoC
+	//
+	// Work Center suffix
+	SuffixWoC = "WCF.uiwoc"
+)
+
 var extractWCVReferenceReg = regexp.MustCompile(`<uxc:EmbeddedComponent.*?targetComponentID="(.*?)".*?/>
 `)
-
-// Work Center View suffix
-var WCV_SUFFIX = "WCVIEW.uiwocview"
-
-// Work Center suffix
-var WoC_SUFFIX = "WCF.uiwoc"
 
 // WCVAssignCheckResult type
 type WCVAssignCheckResult struct {
@@ -36,9 +43,9 @@ func (c *PDIClient) FindUnAssignedWCV(solution string) *WCVAssignCheckResult {
 	usedWorkCenterViews := mapset.NewSet()
 	unusedWorkCenterViews := []string{}
 	for _, f := range files {
-		if strings.HasSuffix(f, WoC_SUFFIX) {
+		if strings.HasSuffix(f, SuffixWoC) {
 			allWockCenters = append(allWockCenters, f)
-		} else if strings.HasSuffix(f, WCV_SUFFIX) {
+		} else if strings.HasSuffix(f, SuffixWCV) {
 			allWorkCenterViews = append(allWorkCenterViews, f)
 		}
 	}
@@ -52,7 +59,7 @@ func (c *PDIClient) FindUnAssignedWCV(solution string) *WCVAssignCheckResult {
 		xml.Unmarshal(wcSource.Source, wcStruct)
 
 		for _, ec := range wcStruct.EmbeddedComponents.EmbeddedComponent {
-			if strings.HasSuffix(ec.TargetComponentID, WCV_SUFFIX) {
+			if strings.HasSuffix(ec.TargetComponentID, SuffixWCV) {
 				usedWorkCenterViews.Add(ec.TargetComponentID)
 			}
 		}

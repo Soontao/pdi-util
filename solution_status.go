@@ -42,6 +42,8 @@ const S_PHASE_STATUS_SUCCESSFUL = SolutionPhaseStatus("S")
 const S_PAHSE_STATUS_RUNNING = SolutionPhaseStatus("R")
 
 // SolutionHeader information
+//
+// includes some status/text information
 type SolutionHeader struct {
 	ChangeDateTime     time.Time
 	SolutionID         string
@@ -60,7 +62,8 @@ type SolutionHeader struct {
 	IsSplitEnabled     bool
 	IsRunningJob       bool
 	IsCreatingPatch    bool
-	HelpText           string
+	// Help Text on PDI UI
+	HelpText string
 	// Is Solution Enabled
 	Enabled bool
 }

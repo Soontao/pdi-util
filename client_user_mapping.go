@@ -4,13 +4,15 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-// BPUserNameMapping
+// BPUserNameMapping func
+//
 // name is tech id, value is business user id
+// for cache usage
 type BPUserNameMapping = map[string]string
 
 var cachedMapping = BPUserNameMapping{}
 
-// GetAUserIDNameByTechID
+// GetAUserIDNameByTechID func
 func (c *PDIClient) GetAUserIDNameByTechID(techID string) string {
 	rt := ""
 	if techID != "" {
