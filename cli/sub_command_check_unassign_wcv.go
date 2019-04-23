@@ -8,8 +8,8 @@ import (
 )
 
 var commandCheckUnAssignedWCV = cli.Command{
-	Name: "unassignwcv",
-	Usage: "c	heck if un-assigned WoC existed.",
+	Name:  "unassignwcv",
+	Usage: "check if un-assigned WoC existed.",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
