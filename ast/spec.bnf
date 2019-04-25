@@ -129,15 +129,18 @@ runeLit
 
 StatementList
 : Statement terminator RepeatTerminator StatementList
-| Statement RepeatTerminator;
+| Statement RepeatTerminator
+;
 
 RepeatTerminator
 : terminator RepeatTerminator 
-| empty	;
+| empty	
+;
 
 Statement
 : ImportAsDeclaration	
-| ImportNormalDeclaration ;
+| ImportNormalDeclaration 
+;
 
 ImportAsDeclaration
 : "import" Namespace "as" Identifier << ast.NewImportAsDeclaration($1, $3) >> 
