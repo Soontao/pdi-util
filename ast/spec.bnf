@@ -49,20 +49,32 @@ runeLit  : '\'' [ '\\' ] [ . ] '\'' ;
 
 // === [ Syntax part] ==========================================================
 
-StatementList								: Statement terminator RepeatTerminator StatementList | Statement RepeatTerminator;
+StatementList
+: Statement terminator RepeatTerminator StatementList
+| Statement RepeatTerminator;
 
-RepeatTerminator        		: terminator RepeatTerminator | empty	;
+RepeatTerminator
+: terminator RepeatTerminator 
+| empty	;
 
-Statement										:	ImportAsDeclaration	|	ImportNormalDeclaration ;
+Statement
+:	ImportAsDeclaration	
+|	ImportNormalDeclaration ;
 
-ImportAsDeclaration 				: "import" Namespace "as" Identifier << ast.NewImportAsDeclaration($1, $3) >> ;	
+ImportAsDeclaration
+: "import" Namespace "as" Identifier << ast.NewImportAsDeclaration($1, $3) >> 
+;	
 
-ImportNormalDeclaration 		: "import" Namespace ;										
+ImportNormalDeclaration
+: "import" Namespace 
+;										
 
-Namespace										:	Identifier << ast.NewNamespace($0, nil) >>
-														| Identifier "." Namespace << ast.NewNamespace($0, $2) >>
-														;
+Namespace
+:	Identifier << ast.NewNamespace($0, nil) >>
+| Identifier "." Namespace << ast.NewNamespace($0, $2) >>
+;
 
 
-Identifier									:	identifier << ast.NewIdentifier($0) >>
-														;
+Identifier
+:	identifier << ast.NewIdentifier($0) >> 
+;
