@@ -1,0 +1,31 @@
+
+
+import Common.DataTypes as CommonDTs;
+
+businessobject BusinessObject1 {
+
+  element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+  
+  node Level1 {
+
+    element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+      
+    node Level2 {
+      
+      element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+        
+      node Level3 {
+      
+        element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+      
+      }
+
+    }
+
+  }
+
+  association A_ToLevel3 to BusinessObject1.Level3;
+  
+  association B_ToLevel3 to Level3;
+
+}

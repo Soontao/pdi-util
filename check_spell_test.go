@@ -7,11 +7,8 @@ import (
 	"gotest.tools/assert"
 )
 
-// RapidAPIToken test key, maybe deprecated
-var RapidAPIToken = "92227c001emsh8847b5b6c9eced3p1163b0jsnc6a4f3a23aaa"
-
 func TestSpellCheck(t *testing.T) {
-	spellErrors, _ := SpellCheckAPI(RapidAPIToken, []string{"hello", "friend", "qq", "haha", "ariba", "integration"})
+	spellErrors, _ := SpellCheckAPI(DefaultRapidAPIToken, []string{"hello", "friend", "qq", "haha", "ariba", "integration"})
 	assert.DeepEqual(t, spellErrors, []string{"qq", "haha", "ariba"})
 }
 

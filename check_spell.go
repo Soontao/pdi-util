@@ -12,12 +12,17 @@ import (
 	"github.com/imroc/req"
 )
 
+// DefaultRapidAPIToken test key, maybe deprecated
+var DefaultRapidAPIToken = "92227c001emsh8847b5b6c9eced3p1163b0jsnc6a4f3a23aaa"
+
 // UISuffixs list
 var UISuffixs = []string{".uicomponent", ".uiwoc", ".uiwocview"}
 
 // SpellErrorCheckResult type
 type SpellErrorCheckResult struct {
-	File               *XrepFile
+	// File xrep file information
+	File *XrepFile
+	// These words maybe misspelling
 	ErrorSpellingWords []string
 }
 
