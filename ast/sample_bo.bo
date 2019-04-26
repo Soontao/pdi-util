@@ -4,17 +4,17 @@ import Common.DataTypes as CommonDTs;
 
 businessobject BusinessObject1 {
 
-  element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+  elementName : LANGUAGEINDEPENDENT_MEDIUM_Name;
   
   node Level1 {
 
-    element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+    elementName : LANGUAGEINDEPENDENT_MEDIUM_Name;
       
     node Level2 {
       
-      element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+      elementName : LANGUAGEINDEPENDENT_MEDIUM_Name;
         
-      node Level3 {
+      nodeLevel3 {
       
         element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
       

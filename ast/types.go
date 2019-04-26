@@ -1,18 +1,9 @@
 package ast
 
-// ImportAsDeclaration type
-type ImportAsDeclaration struct {
-	Namespace *Namespace
-	Alias     *Identifier
-}
+// GrammerNode type
+type GrammerNode map[string]interface{}
 
-// Namespace type
-type Namespace struct {
-	identifier *Identifier
-	sub        *Namespace
-}
-
-// Identifier type
-type Identifier struct {
-	value string
+// GetType type
+func (n *GrammerNode) GetType() string {
+	return (*n)["Type"].(string)
 }

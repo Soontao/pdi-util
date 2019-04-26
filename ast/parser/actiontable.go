@@ -17,15 +17,39 @@ var actionTab = actionTable{
 			nil,      /* INVALID */
 			nil,      /* $ */
 			nil,      /* terminator */
-			nil,      /* empty */
-			shift(5), /* import */
-			nil,      /* as */
-			nil,      /* . */
-			nil,      /* identifier */
+			shift(6), /* keywordImport */
+			nil,      /* keywordAs */
+			nil,      /* keywordBusinessObject */
+			nil,      /* { */
+			nil,      /* } */
+			nil,      /* keywordNode */
+			nil,      /* [ */
+			nil,      /* , */
+			nil,      /* ] */
+			nil,      /* n */
+			nil,      /* message */
+			nil,      /* text */
+			nil,      /* stringLit */
+			nil,      /* : */
+			nil,      /* keywordAssociation */
+			nil,      /* keywordTo */
+			nil,      /* keywordValuation */
+			nil,      /* ( */
+			nil,      /* ) */
+			nil,      /* element */
+			nil,      /* = */
+			nil,      /* keywordAction */
 			nil,      /* floatLit */
 			nil,      /* intLit */
+			nil,      /* boolLit */
+			nil,      /* && */
+			nil,      /* cmpOp */
+			nil,      /* . */
+			nil,      /* empty */
+			nil,      /* keywordRaises */
+			nil,      /* identifier */
+			nil,      /* assignOp */
 			nil,      /* runeLit */
-			nil,      /* stringLit */
 		},
 	},
 	actionRow{ // S1
@@ -34,66 +58,162 @@ var actionTab = actionTable{
 			nil,          /* INVALID */
 			accept(true), /* $ */
 			nil,          /* terminator */
-			nil,          /* empty */
-			nil,          /* import */
-			nil,          /* as */
-			nil,          /* . */
-			nil,          /* identifier */
+			nil,          /* keywordImport */
+			nil,          /* keywordAs */
+			nil,          /* keywordBusinessObject */
+			nil,          /* { */
+			nil,          /* } */
+			nil,          /* keywordNode */
+			nil,          /* [ */
+			nil,          /* , */
+			nil,          /* ] */
+			nil,          /* n */
+			nil,          /* message */
+			nil,          /* text */
+			nil,          /* stringLit */
+			nil,          /* : */
+			nil,          /* keywordAssociation */
+			nil,          /* keywordTo */
+			nil,          /* keywordValuation */
+			nil,          /* ( */
+			nil,          /* ) */
+			nil,          /* element */
+			nil,          /* = */
+			nil,          /* keywordAction */
 			nil,          /* floatLit */
 			nil,          /* intLit */
+			nil,          /* boolLit */
+			nil,          /* && */
+			nil,          /* cmpOp */
+			nil,          /* . */
+			nil,          /* empty */
+			nil,          /* keywordRaises */
+			nil,          /* identifier */
+			nil,          /* assignOp */
 			nil,          /* runeLit */
-			nil,          /* stringLit */
 		},
 	},
 	actionRow{ // S2
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(4), /* $, reduce: RepeatTerminator */
-			shift(6),  /* terminator */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			shift(8),  /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			shift(10), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S3
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(5), /* $, reduce: Statement */
-			reduce(5), /* terminator, reduce: Statement */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
-			nil,       /* floatLit */
-			nil,       /* intLit */
-			nil,       /* runeLit */
-			nil,       /* stringLit */
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(12),  /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(60), /* keywordBusinessObject, reduce: RepeatTerminator */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(60), /* [, reduce: RepeatTerminator */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
 		},
 	},
 	actionRow{ // S4
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(6), /* $, reduce: Statement */
-			reduce(6), /* terminator, reduce: Statement */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
+			nil,       /* $ */
+			reduce(4), /* terminator, reduce: Statement */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			reduce(4), /* keywordBusinessObject, reduce: Statement */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			reduce(4), /* [, reduce: Statement */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S5
@@ -101,135 +221,327 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
 			nil,       /* $ */
-			nil,       /* terminator */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			shift(10), /* identifier */
+			reduce(5), /* terminator, reduce: Statement */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			reduce(5), /* keywordBusinessObject, reduce: Statement */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			reduce(5), /* [, reduce: Statement */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S6
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(4), /* $, reduce: RepeatTerminator */
-			shift(11), /* terminator */
-			nil,       /* empty */
-			reduce(4), /* import, reduce: RepeatTerminator */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(16), /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S7
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(2), /* $, reduce: StatementList */
+			reduce(1), /* $, reduce: Program */
 			nil,       /* terminator */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S8
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(8), /* $, reduce: ImportNormalDeclaration */
-			reduce(8), /* terminator, reduce: ImportNormalDeclaration */
-			nil,       /* empty */
-			nil,       /* import */
-			shift(13), /* as */
-			nil,       /* . */
-			nil,       /* identifier */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(18), /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S9
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(9), /* $, reduce: Namespace */
-			reduce(9), /* terminator, reduce: Namespace */
-			nil,       /* empty */
-			nil,       /* import */
-			reduce(9), /* as, reduce: Namespace */
-			shift(14), /* . */
-			nil,       /* identifier */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			shift(19), /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S10
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(11), /* $, reduce: Identifier */
-			reduce(11), /* terminator, reduce: Identifier */
-			nil,        /* empty */
-			nil,        /* import */
-			reduce(11), /* as, reduce: Identifier */
-			reduce(11), /* ., reduce: Identifier */
-			nil,        /* identifier */
-			nil,        /* floatLit */
-			nil,        /* intLit */
-			nil,        /* runeLit */
-			nil,        /* stringLit */
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(21), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
 		},
 	},
 	actionRow{ // S11
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(4), /* $, reduce: RepeatTerminator */
-			shift(11), /* terminator */
-			nil,       /* empty */
-			reduce(4), /* import, reduce: RepeatTerminator */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
-			nil,       /* floatLit */
-			nil,       /* intLit */
-			nil,       /* runeLit */
-			nil,       /* stringLit */
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(52), /* keywordBusinessObject, reduce: AnnotationList */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			shift(10),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
 		},
 	},
 	actionRow{ // S12
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(3), /* $, reduce: RepeatTerminator */
-			nil,       /* terminator */
-			nil,       /* empty */
-			shift(5),  /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
-			nil,       /* floatLit */
-			nil,       /* intLit */
-			nil,       /* runeLit */
-			nil,       /* stringLit */
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(23),  /* terminator */
+			reduce(60), /* keywordImport, reduce: RepeatTerminator */
+			nil,        /* keywordAs */
+			reduce(60), /* keywordBusinessObject, reduce: RepeatTerminator */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(60), /* [, reduce: RepeatTerminator */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
 		},
 	},
 	actionRow{ // S13
@@ -238,15 +550,39 @@ var actionTab = actionTable{
 			nil,       /* INVALID */
 			nil,       /* $ */
 			nil,       /* terminator */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			shift(18), /* identifier */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			reduce(3), /* keywordBusinessObject, reduce: StatementList */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			reduce(3), /* [, reduce: StatementList */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S14
@@ -254,101 +590,9060 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
 			nil,       /* $ */
-			nil,       /* terminator */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			shift(10), /* identifier */
+			reduce(7), /* terminator, reduce: ImportNormalDeclaration */
+			nil,       /* keywordImport */
+			shift(25), /* keywordAs */
+			reduce(7), /* keywordBusinessObject, reduce: ImportNormalDeclaration */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			reduce(7), /* [, reduce: ImportNormalDeclaration */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S15
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(3), /* $, reduce: RepeatTerminator */
-			nil,       /* terminator */
-			nil,       /* empty */
-			reduce(3), /* import, reduce: RepeatTerminator */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
-			nil,       /* floatLit */
-			nil,       /* intLit */
-			nil,       /* runeLit */
-			nil,       /* stringLit */
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(54), /* terminator, reduce: Namespace */
+			nil,        /* keywordImport */
+			reduce(54), /* keywordAs, reduce: Namespace */
+			reduce(54), /* keywordBusinessObject, reduce: Namespace */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(54), /* [, reduce: Namespace */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			shift(26),  /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
 		},
 	},
 	actionRow{ // S16
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(1), /* $, reduce: StatementList */
-			nil,       /* terminator */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
-			nil,       /* floatLit */
-			nil,       /* intLit */
-			nil,       /* runeLit */
-			nil,       /* stringLit */
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			reduce(64), /* keywordAs, reduce: Identifier */
+			reduce(64), /* keywordBusinessObject, reduce: Identifier */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(64), /* [, reduce: Identifier */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			reduce(64), /* ., reduce: Identifier */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
 		},
 	},
 	actionRow{ // S17
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(7), /* $, reduce: ImportAsDeclaration */
-			reduce(7), /* terminator, reduce: ImportAsDeclaration */
-			nil,       /* empty */
-			nil,       /* import */
-			nil,       /* as */
-			nil,       /* . */
-			nil,       /* identifier */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			shift(27), /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
 			nil,       /* floatLit */
 			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			shift(29), /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
 			nil,       /* runeLit */
-			nil,       /* stringLit */
 		},
 	},
 	actionRow{ // S18
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(11), /* $, reduce: Identifier */
-			reduce(11), /* terminator, reduce: Identifier */
-			nil,        /* empty */
-			nil,        /* import */
-			nil,        /* as */
-			nil,        /* . */
-			nil,        /* identifier */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(64), /* {, reduce: Identifier */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
 			nil,        /* floatLit */
 			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			reduce(64), /* keywordRaises, reduce: Identifier */
+			nil,        /* identifier */
+			nil,        /* assignOp */
 			nil,        /* runeLit */
-			nil,        /* stringLit */
 		},
 	},
 	actionRow{ // S19
 		canRecover: false,
 		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(18), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S20
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			shift(31), /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			shift(32), /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S21
+		canRecover: false,
+		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(10), /* $, reduce: Namespace */
-			reduce(10), /* terminator, reduce: Namespace */
-			nil,        /* empty */
-			nil,        /* import */
-			reduce(10), /* as, reduce: Namespace */
-			nil,        /* . */
-			nil,        /* identifier */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(64), /* ], reduce: Identifier */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			reduce(64), /* (, reduce: Identifier */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
 			nil,        /* floatLit */
 			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
 			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S22
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(53), /* keywordBusinessObject, reduce: AnnotationList */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
 			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S23
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(23),  /* terminator */
+			reduce(60), /* keywordImport, reduce: RepeatTerminator */
+			nil,        /* keywordAs */
+			reduce(60), /* keywordBusinessObject, reduce: RepeatTerminator */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(60), /* [, reduce: RepeatTerminator */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S24
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			shift(6),   /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(59), /* keywordBusinessObject, reduce: RepeatTerminator */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(59), /* [, reduce: RepeatTerminator */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S25
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(36), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S26
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(16), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S27
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S28
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			shift(54), /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S29
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(57), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S30
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			shift(58), /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			shift(29), /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S31
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(56), /* keywordBusinessObject, reduce: Annotation */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(56), /* [, reduce: Annotation */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S32
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			shift(62), /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(63), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S33
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			reduce(59), /* keywordImport, reduce: RepeatTerminator */
+			nil,        /* keywordAs */
+			reduce(59), /* keywordBusinessObject, reduce: RepeatTerminator */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(59), /* [, reduce: RepeatTerminator */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S34
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			reduce(2), /* keywordBusinessObject, reduce: StatementList */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			reduce(2), /* [, reduce: StatementList */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S35
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			reduce(6), /* terminator, reduce: ImportAsDeclaration */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			reduce(6), /* keywordBusinessObject, reduce: ImportAsDeclaration */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			reduce(6), /* [, reduce: ImportAsDeclaration */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S36
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(64), /* keywordBusinessObject, reduce: Identifier */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(64), /* [, reduce: Identifier */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S37
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(55), /* terminator, reduce: Namespace */
+			nil,        /* keywordImport */
+			reduce(55), /* keywordAs, reduce: Namespace */
+			reduce(55), /* keywordBusinessObject, reduce: Namespace */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(55), /* [, reduce: Namespace */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S38
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			shift(64), /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S39
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S40
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(12), /* }, reduce: BOItemList */
+			reduce(12), /* keywordNode, reduce: BOItemList */
+			reduce(12), /* [, reduce: BOItemList */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(12), /* message, reduce: BOItemList */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(12), /* keywordAssociation, reduce: BOItemList */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(12), /* element, reduce: BOItemList */
+			nil,        /* = */
+			reduce(12), /* keywordAction, reduce: BOItemList */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S41
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(15), /* }, reduce: AnnotatedBOItem */
+			reduce(15), /* keywordNode, reduce: AnnotatedBOItem */
+			reduce(15), /* [, reduce: AnnotatedBOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(15), /* message, reduce: AnnotatedBOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(15), /* keywordAssociation, reduce: AnnotatedBOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(15), /* element, reduce: AnnotatedBOItem */
+			nil,        /* = */
+			reduce(15), /* keywordAction, reduce: AnnotatedBOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S42
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(26), /* }, reduce: BOItem */
+			reduce(26), /* keywordNode, reduce: BOItem */
+			reduce(26), /* [, reduce: BOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(26), /* message, reduce: BOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(26), /* keywordAssociation, reduce: BOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(26), /* element, reduce: BOItem */
+			nil,        /* = */
+			reduce(26), /* keywordAction, reduce: BOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S43
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(68), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S44
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(21), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S45
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(22), /* }, reduce: BOItem */
+			reduce(22), /* keywordNode, reduce: BOItem */
+			reduce(22), /* [, reduce: BOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(22), /* message, reduce: BOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(22), /* keywordAssociation, reduce: BOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(22), /* element, reduce: BOItem */
+			nil,        /* = */
+			reduce(22), /* keywordAction, reduce: BOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S46
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(23), /* }, reduce: BOItem */
+			reduce(23), /* keywordNode, reduce: BOItem */
+			reduce(23), /* [, reduce: BOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(23), /* message, reduce: BOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(23), /* keywordAssociation, reduce: BOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(23), /* element, reduce: BOItem */
+			nil,        /* = */
+			reduce(23), /* keywordAction, reduce: BOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S47
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(24), /* }, reduce: BOItem */
+			reduce(24), /* keywordNode, reduce: BOItem */
+			reduce(24), /* [, reduce: BOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(24), /* message, reduce: BOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(24), /* keywordAssociation, reduce: BOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(24), /* element, reduce: BOItem */
+			nil,        /* = */
+			reduce(24), /* keywordAction, reduce: BOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S48
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(25), /* }, reduce: BOItem */
+			reduce(25), /* keywordNode, reduce: BOItem */
+			reduce(25), /* [, reduce: BOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(25), /* message, reduce: BOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(25), /* keywordAssociation, reduce: BOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(25), /* element, reduce: BOItem */
+			nil,        /* = */
+			reduce(25), /* keywordAction, reduce: BOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S49
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(71), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S50
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(73), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S51
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(75), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S52
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(77), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S53
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			reduce(52), /* keywordNode, reduce: AnnotationList */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(52), /* message, reduce: AnnotationList */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(52), /* keywordAssociation, reduce: AnnotationList */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(52), /* element, reduce: AnnotationList */
+			nil,        /* = */
+			reduce(52), /* keywordAction, reduce: AnnotationList */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S54
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S55
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(62), /* {, reduce: IdentifierList */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(62), /* ,, reduce: IdentifierList */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S56
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(61), /* {, reduce: RaiseExpr */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(80),  /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S57
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(64), /* {, reduce: Identifier */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(64), /* ,, reduce: Identifier */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S58
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S59
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			shift(82), /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S60
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			shift(83), /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S61
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(54), /* ), reduce: Namespace */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			shift(84),  /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S62
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			shift(85), /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S63
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(64), /* ), reduce: Identifier */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			reduce(64), /* ., reduce: Identifier */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S64
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(8), /* $, reduce: BusinessObjectDefination */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S65
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(13), /* }, reduce: BOItemList */
+			reduce(13), /* keywordNode, reduce: BOItemList */
+			reduce(13), /* [, reduce: BOItemList */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(13), /* message, reduce: BOItemList */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(13), /* keywordAssociation, reduce: BOItemList */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(13), /* element, reduce: BOItemList */
+			nil,        /* = */
+			reduce(13), /* keywordAction, reduce: BOItemList */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S66
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(14), /* }, reduce: AnnotatedBOItem */
+			reduce(14), /* keywordNode, reduce: AnnotatedBOItem */
+			reduce(14), /* [, reduce: AnnotatedBOItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(14), /* message, reduce: AnnotatedBOItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(14), /* keywordAssociation, reduce: AnnotatedBOItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(14), /* element, reduce: AnnotatedBOItem */
+			nil,        /* = */
+			reduce(14), /* keywordAction, reduce: AnnotatedBOItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S67
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			shift(86), /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			shift(89), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			shift(29), /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S68
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(64), /* {, reduce: Identifier */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(64), /* [, reduce: Identifier */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			reduce(64), /* keywordRaises, reduce: Identifier */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S69
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			shift(90), /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			shift(91), /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S70
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			shift(92), /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S71
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			reduce(64), /* text, reduce: Identifier */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S72
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			shift(94), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			shift(95), /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S73
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(64), /* [, reduce: Identifier */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			reduce(64), /* keywordTo, reduce: Identifier */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S74
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			shift(96), /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S75
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			reduce(64), /* :, reduce: Identifier */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S76
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			shift(97), /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			shift(99), /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S77
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			reduce(64), /* keywordRaises, reduce: Identifier */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S78
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			reduce(53), /* keywordNode, reduce: AnnotationList */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(53), /* message, reduce: AnnotationList */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(53), /* keywordAssociation, reduce: AnnotationList */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(53), /* element, reduce: AnnotationList */
+			nil,        /* = */
+			reduce(53), /* keywordAction, reduce: AnnotationList */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S79
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(100), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S80
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(57), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S81
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(102), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S82
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S83
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(104), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S84
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			shift(63), /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S85
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(106), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S86
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S87
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(108), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S88
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(109), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			shift(29),  /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S89
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(111), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(113), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(114), /* floatLit */
+			shift(115), /* intLit */
+			shift(116), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S90
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			reduce(56), /* keywordNode, reduce: Annotation */
+			reduce(56), /* [, reduce: Annotation */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(56), /* message, reduce: Annotation */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(56), /* keywordAssociation, reduce: Annotation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(56), /* element, reduce: Annotation */
+			nil,        /* = */
+			reduce(56), /* keywordAction, reduce: Annotation */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S91
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(119), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(63),  /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S92
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(120), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S93
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			shift(121), /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S94
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(111), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(113), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(114), /* floatLit */
+			shift(115), /* intLit */
+			shift(116), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S95
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(124), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S96
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(128), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S97
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(33), /* }, reduce: ActionItem */
+			reduce(33), /* keywordNode, reduce: ActionItem */
+			reduce(33), /* [, reduce: ActionItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(33), /* message, reduce: ActionItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(33), /* keywordAssociation, reduce: ActionItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(33), /* element, reduce: ActionItem */
+			nil,        /* = */
+			reduce(33), /* keywordAction, reduce: ActionItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S98
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(129), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S99
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(132), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S100
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(9), /* $, reduce: BusinessObjectDefination */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			nil,       /* keywordNode */
+			nil,       /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			nil,       /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			nil,       /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* element */
+			nil,       /* = */
+			nil,       /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S101
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(63), /* {, reduce: IdentifierList */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(63), /* ,, reduce: IdentifierList */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S102
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(10), /* $, reduce: BusinessObjectDefination */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S103
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(133), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S104
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(58), /* keywordBusinessObject, reduce: Annotation */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(58), /* [, reduce: Annotation */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S105
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(55), /* ), reduce: Namespace */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S106
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			reduce(57), /* keywordBusinessObject, reduce: Annotation */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			reduce(57), /* [, reduce: Annotation */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S107
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(134), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S108
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S109
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S110
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(137), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S111
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(141), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S112
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(142), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S113
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(39), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S114
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(37), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S115
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(38), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S116
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(40), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S117
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(41), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S118
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			shift(143), /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S119
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			shift(144), /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S120
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			shift(145), /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S121
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(147), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S122
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(148), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S123
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(149), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S124
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S125
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			shift(150), /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S126
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(35), /* terminator, reduce: DataType */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			reduce(54), /* :, reduce: Namespace */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			reduce(35), /* =, reduce: DataType */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			shift(151), /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S127
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(152), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			shift(153), /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S128
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			reduce(64), /* :, reduce: Identifier */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			reduce(64), /* =, reduce: Identifier */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			reduce(64), /* ., reduce: Identifier */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S129
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(34), /* }, reduce: ActionItem */
+			reduce(34), /* keywordNode, reduce: ActionItem */
+			reduce(34), /* [, reduce: ActionItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(34), /* message, reduce: ActionItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(34), /* keywordAssociation, reduce: ActionItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(34), /* element, reduce: ActionItem */
+			nil,        /* = */
+			reduce(34), /* keywordAction, reduce: ActionItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S130
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(62), /* terminator, reduce: IdentifierList */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(62), /* ,, reduce: IdentifierList */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S131
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(61), /* terminator, reduce: RaiseExpr */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(154), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S132
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(64), /* ,, reduce: Identifier */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S133
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(11), /* $, reduce: BusinessObjectDefination */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S134
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(16), /* }, reduce: BusinessObjectNode */
+			reduce(16), /* keywordNode, reduce: BusinessObjectNode */
+			reduce(16), /* [, reduce: BusinessObjectNode */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(16), /* message, reduce: BusinessObjectNode */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(16), /* keywordAssociation, reduce: BusinessObjectNode */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(16), /* element, reduce: BusinessObjectNode */
+			nil,        /* = */
+			reduce(16), /* keywordAction, reduce: BusinessObjectNode */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S135
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(155), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S136
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(156), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S137
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* terminator */
+			nil,       /* keywordImport */
+			nil,       /* keywordAs */
+			nil,       /* keywordBusinessObject */
+			nil,       /* { */
+			nil,       /* } */
+			shift(43), /* keywordNode */
+			shift(44), /* [ */
+			nil,       /* , */
+			nil,       /* ] */
+			nil,       /* n */
+			shift(49), /* message */
+			nil,       /* text */
+			nil,       /* stringLit */
+			nil,       /* : */
+			shift(50), /* keywordAssociation */
+			nil,       /* keywordTo */
+			nil,       /* keywordValuation */
+			nil,       /* ( */
+			nil,       /* ) */
+			shift(51), /* element */
+			nil,       /* = */
+			shift(52), /* keywordAction */
+			nil,       /* floatLit */
+			nil,       /* intLit */
+			nil,       /* boolLit */
+			nil,       /* && */
+			nil,       /* cmpOp */
+			nil,       /* . */
+			nil,       /* empty */
+			nil,       /* keywordRaises */
+			nil,       /* identifier */
+			nil,       /* assignOp */
+			nil,       /* runeLit */
+		},
+	},
+	actionRow{ // S138
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			shift(158), /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S139
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(159), /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(160), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S140
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(43), /* }, reduce: KeyValueList */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(43), /* ,, reduce: KeyValueList */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S141
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			reduce(64), /* =, reduce: Identifier */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S142
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(161), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			shift(163), /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(164), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(165), /* floatLit */
+			shift(166), /* intLit */
+			shift(167), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S143
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(169), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S144
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(170), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S145
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(173), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S146
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(174), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			shift(175), /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S147
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			reduce(64), /* keywordValuation, reduce: Identifier */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S148
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(161), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			shift(177), /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(164), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(165), /* floatLit */
+			shift(166), /* intLit */
+			shift(167), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S149
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(28), /* }, reduce: AssociationItem */
+			reduce(28), /* keywordNode, reduce: AssociationItem */
+			reduce(28), /* [, reduce: AssociationItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(28), /* message, reduce: AssociationItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(28), /* keywordAssociation, reduce: AssociationItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(28), /* element, reduce: AssociationItem */
+			nil,        /* = */
+			reduce(28), /* keywordAction, reduce: AssociationItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S150
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(179), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S151
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(182), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S152
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(31), /* }, reduce: ElementItem */
+			reduce(31), /* keywordNode, reduce: ElementItem */
+			reduce(31), /* [, reduce: ElementItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(31), /* message, reduce: ElementItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(31), /* keywordAssociation, reduce: ElementItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(31), /* element, reduce: ElementItem */
+			nil,        /* = */
+			reduce(31), /* keywordAction, reduce: ElementItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S153
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(183), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(185), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(186), /* floatLit */
+			shift(187), /* intLit */
+			shift(188), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S154
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(132), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S155
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(18), /* }, reduce: BusinessObjectNode */
+			reduce(18), /* keywordNode, reduce: BusinessObjectNode */
+			reduce(18), /* [, reduce: BusinessObjectNode */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(18), /* message, reduce: BusinessObjectNode */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(18), /* keywordAssociation, reduce: BusinessObjectNode */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(18), /* element, reduce: BusinessObjectNode */
+			nil,        /* = */
+			reduce(18), /* keywordAction, reduce: BusinessObjectNode */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S156
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(17), /* }, reduce: BusinessObjectNode */
+			reduce(17), /* keywordNode, reduce: BusinessObjectNode */
+			reduce(17), /* [, reduce: BusinessObjectNode */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(17), /* message, reduce: BusinessObjectNode */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(17), /* keywordAssociation, reduce: BusinessObjectNode */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(17), /* element, reduce: BusinessObjectNode */
+			nil,        /* = */
+			reduce(17), /* keywordAction, reduce: BusinessObjectNode */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S157
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(191), /* } */
+			shift(43),  /* keywordNode */
+			shift(44),  /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			shift(49),  /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			shift(50),  /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			shift(51),  /* element */
+			nil,        /* = */
+			shift(52),  /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S158
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(192), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(194), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(195), /* floatLit */
+			shift(196), /* intLit */
+			shift(197), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S159
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(42), /* ,, reduce: ComplexValue */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S160
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(141), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S161
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(141), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S162
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(201), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S163
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(202), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S164
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(39), /* ], reduce: Value */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S165
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(37), /* ], reduce: Value */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S166
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(38), /* ], reduce: Value */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S167
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(40), /* ], reduce: Value */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S168
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(41), /* ], reduce: Value */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S169
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			reduce(58), /* keywordNode, reduce: Annotation */
+			reduce(58), /* [, reduce: Annotation */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(58), /* message, reduce: Annotation */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(58), /* keywordAssociation, reduce: Annotation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(58), /* element, reduce: Annotation */
+			nil,        /* = */
+			reduce(58), /* keywordAction, reduce: Annotation */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S170
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			reduce(57), /* keywordNode, reduce: Annotation */
+			reduce(57), /* [, reduce: Annotation */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(57), /* message, reduce: Annotation */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(57), /* keywordAssociation, reduce: Annotation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(57), /* element, reduce: Annotation */
+			nil,        /* = */
+			reduce(57), /* keywordAction, reduce: Annotation */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S171
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(203), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S172
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(54), /* terminator, reduce: Namespace */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			shift(204), /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S173
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			reduce(64), /* ., reduce: Identifier */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S174
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(29), /* }, reduce: AssociationItem */
+			reduce(29), /* keywordNode, reduce: AssociationItem */
+			reduce(29), /* [, reduce: AssociationItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(29), /* message, reduce: AssociationItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(29), /* keywordAssociation, reduce: AssociationItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(29), /* element, reduce: AssociationItem */
+			nil,        /* = */
+			reduce(29), /* keywordAction, reduce: AssociationItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S175
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			shift(205), /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S176
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(206), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S177
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			shift(207), /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S178
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(36), /* terminator, reduce: DataType */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			reduce(36), /* =, reduce: DataType */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S179
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(64), /* terminator, reduce: Identifier */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			reduce(64), /* =, reduce: Identifier */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S180
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			reduce(55), /* :, reduce: Namespace */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S181
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			reduce(54), /* :, reduce: Namespace */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			shift(151), /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S182
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			reduce(64), /* :, reduce: Identifier */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			reduce(64), /* ., reduce: Identifier */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S183
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(141), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S184
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(209), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S185
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(39), /* terminator, reduce: Value */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S186
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(37), /* terminator, reduce: Value */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S187
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(38), /* terminator, reduce: Value */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S188
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(40), /* terminator, reduce: Value */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S189
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(41), /* terminator, reduce: Value */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S190
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(63), /* terminator, reduce: IdentifierList */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(63), /* ,, reduce: IdentifierList */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S191
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(19), /* }, reduce: BusinessObjectNode */
+			reduce(19), /* keywordNode, reduce: BusinessObjectNode */
+			reduce(19), /* [, reduce: BusinessObjectNode */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(19), /* message, reduce: BusinessObjectNode */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(19), /* keywordAssociation, reduce: BusinessObjectNode */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(19), /* element, reduce: BusinessObjectNode */
+			nil,        /* = */
+			reduce(19), /* keywordAction, reduce: BusinessObjectNode */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S192
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(141), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S193
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(45), /* }, reduce: KeyValue */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(45), /* ,, reduce: KeyValue */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S194
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(39), /* }, reduce: Value */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(39), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S195
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(37), /* }, reduce: Value */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(37), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S196
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(38), /* }, reduce: Value */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(38), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S197
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(40), /* }, reduce: Value */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(40), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S198
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(41), /* }, reduce: Value */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(41), /* ,, reduce: Value */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S199
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(44), /* }, reduce: KeyValueList */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(44), /* ,, reduce: KeyValueList */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S200
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(211), /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(160), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S201
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(20), /* {, reduce: Multiplicity */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			reduce(20), /* keywordRaises, reduce: Multiplicity */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S202
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			reduce(21), /* {, reduce: Multiplicity */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			reduce(21), /* keywordRaises, reduce: Multiplicity */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S203
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(27), /* }, reduce: MessageItem */
+			reduce(27), /* keywordNode, reduce: MessageItem */
+			reduce(27), /* [, reduce: MessageItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(27), /* message, reduce: MessageItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(27), /* keywordAssociation, reduce: MessageItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(27), /* element, reduce: MessageItem */
+			nil,        /* = */
+			reduce(27), /* keywordAction, reduce: MessageItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S204
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(173), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S205
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(216), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S206
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			reduce(20), /* keywordTo, reduce: Multiplicity */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S207
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			reduce(21), /* keywordTo, reduce: Multiplicity */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S208
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(217), /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(160), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S209
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(32), /* }, reduce: ElementItem */
+			reduce(32), /* keywordNode, reduce: ElementItem */
+			reduce(32), /* [, reduce: ElementItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(32), /* message, reduce: ElementItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(32), /* keywordAssociation, reduce: ElementItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(32), /* element, reduce: ElementItem */
+			nil,        /* = */
+			reduce(32), /* keywordAction, reduce: ElementItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S210
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(218), /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(160), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S211
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			reduce(42), /* ], reduce: ComplexValue */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S212
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(55), /* terminator, reduce: Namespace */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S213
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			shift(219), /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S214
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			shift(220), /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			shift(221), /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S215
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(46), /* ), reduce: Valuation */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(46), /* &&, reduce: Valuation */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S216
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			reduce(64), /* cmpOp, reduce: Identifier */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S217
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(42), /* terminator, reduce: ComplexValue */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S218
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(42), /* }, reduce: ComplexValue */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			reduce(42), /* ,, reduce: ComplexValue */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S219
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			shift(223), /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			shift(225), /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			shift(226), /* floatLit */
+			shift(227), /* intLit */
+			shift(228), /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(230), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S220
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(231), /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S221
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(216), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S222
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(48), /* ), reduce: Condition */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(48), /* &&, reduce: Condition */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S223
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			shift(141), /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S224
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(49), /* ), reduce: Condition */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(49), /* &&, reduce: Condition */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S225
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(39), /* ), reduce: Value */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(39), /* &&, reduce: Value */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S226
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(37), /* ), reduce: Value */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(37), /* &&, reduce: Value */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S227
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(38), /* ), reduce: Value */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(38), /* &&, reduce: Value */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S228
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(40), /* ), reduce: Value */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(40), /* &&, reduce: Value */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S229
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(41), /* ), reduce: Value */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(41), /* &&, reduce: Value */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S230
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(64), /* ), reduce: Identifier */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(64), /* &&, reduce: Identifier */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S231
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			reduce(30), /* }, reduce: AssociationItem */
+			reduce(30), /* keywordNode, reduce: AssociationItem */
+			reduce(30), /* [, reduce: AssociationItem */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			reduce(30), /* message, reduce: AssociationItem */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			reduce(30), /* keywordAssociation, reduce: AssociationItem */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			reduce(30), /* element, reduce: AssociationItem */
+			nil,        /* = */
+			reduce(30), /* keywordAction, reduce: AssociationItem */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S232
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(47), /* ), reduce: Valuation */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(47), /* &&, reduce: Valuation */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S233
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			shift(234), /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			shift(160), /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			nil,        /* && */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
+		},
+	},
+	actionRow{ // S234
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* terminator */
+			nil,        /* keywordImport */
+			nil,        /* keywordAs */
+			nil,        /* keywordBusinessObject */
+			nil,        /* { */
+			nil,        /* } */
+			nil,        /* keywordNode */
+			nil,        /* [ */
+			nil,        /* , */
+			nil,        /* ] */
+			nil,        /* n */
+			nil,        /* message */
+			nil,        /* text */
+			nil,        /* stringLit */
+			nil,        /* : */
+			nil,        /* keywordAssociation */
+			nil,        /* keywordTo */
+			nil,        /* keywordValuation */
+			nil,        /* ( */
+			reduce(42), /* ), reduce: ComplexValue */
+			nil,        /* element */
+			nil,        /* = */
+			nil,        /* keywordAction */
+			nil,        /* floatLit */
+			nil,        /* intLit */
+			nil,        /* boolLit */
+			reduce(42), /* &&, reduce: ComplexValue */
+			nil,        /* cmpOp */
+			nil,        /* . */
+			nil,        /* empty */
+			nil,        /* keywordRaises */
+			nil,        /* identifier */
+			nil,        /* assignOp */
+			nil,        /* runeLit */
 		},
 	},
 }

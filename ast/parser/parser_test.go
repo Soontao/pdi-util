@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"io/ioutil"
 	"testing"
 
@@ -14,7 +13,6 @@ func TestParser(t *testing.T) {
 	c, _ := ioutil.ReadFile("../basic_bo.bo")
 	s := lexer.NewLexer(c)
 	p := NewParser()
-	res, err := p.Parse(s)
-	fmt.Println(res)
+	_, err := p.Parse(s)
 	assert.NilError(t, err)
 }

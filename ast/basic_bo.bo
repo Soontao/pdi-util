@@ -1,1 +1,43 @@
 import Common.Hello as Hello;
+import Common.Util;
+
+[ChangeHistory]
+[DeploymentUnit(CustomerRelationshipManagement)] 
+businessobject BO_FDNTest raises ERROR {
+
+  [Label("BO_FDNTest")]
+  element Name : LANGUAGEINDEPENDENT_MEDIUM_Name;
+
+  element ID  : ABSL.Code:ID = 1;
+
+  [ChangeHistory]
+  node FNDCommon [1,1] raises M1,M2 {
+
+    element CommonName  : Text = "New Name";
+
+    node Address [0,1] {
+
+      element PostalCode  : Text;
+
+      element Street      : Numeric;
+      
+    }
+
+    element CommonAmount  : Amount = { currency = "CNY", value = 1.23 };
+
+  }
+  
+  action ActionHello;
+
+  action ThrowError raises M3, M4;
+
+  node CountryNode [0,n] {
+    element CountryNodeID:ID;
+    element CountryCode:CountryCode;
+  }
+
+  association toGermany [0,1] to CountryNode valuation (CountryCode ==
+"DE");
+
+  
+}

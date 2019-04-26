@@ -27,3 +27,7 @@ cli/*.zip
 
 # mac os
 .DS_Store
+
+# ast tests
+
+ast/**/output.json

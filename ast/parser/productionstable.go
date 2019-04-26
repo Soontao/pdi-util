@@ -21,7 +21,7 @@ type (
 
 var productionsTable = ProdTab{
 	ProdTabEntry{
-		String: `S' : StatementList	<<  >>`,
+		String: `S' : Program	<<  >>`,
 		Id:         "S'",
 		NTType:     0,
 		Index:      0,
@@ -31,90 +31,540 @@ var productionsTable = ProdTab{
 		},
 	},
 	ProdTabEntry{
-		String: `StatementList : Statement terminator RepeatTerminator StatementList	<<  >>`,
-		Id:         "StatementList",
+		String: `Program : StatementList BusinessObjectDefination	<< ast.NewProgram(X[0], X[1]) >>`,
+		Id:         "Program",
 		NTType:     1,
 		Index:      1,
-		NumSymbols: 4,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
-		String: `StatementList : Statement RepeatTerminator	<<  >>`,
-		Id:         "StatementList",
-		NTType:     1,
-		Index:      2,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
+			return ast.NewProgram(X[0], X[1])
 		},
 	},
 	ProdTabEntry{
-		String: `RepeatTerminator : terminator RepeatTerminator	<<  >>`,
-		Id:         "RepeatTerminator",
+		String: `StatementList : Statement terminator RepeatTerminator StatementList	<< ast.NewStatementList(X[0], X[3]) >>`,
+		Id:         "StatementList",
+		NTType:     2,
+		Index:      2,
+		NumSymbols: 4,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewStatementList(X[0], X[3])
+		},
+	},
+	ProdTabEntry{
+		String: `StatementList : Statement RepeatTerminator	<< ast.NewStatementList(X[0], nil) >>`,
+		Id:         "StatementList",
 		NTType:     2,
 		Index:      3,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
+			return ast.NewStatementList(X[0], nil)
 		},
 	},
 	ProdTabEntry{
-		String: `RepeatTerminator : empty	<<  >>`,
-		Id:         "RepeatTerminator",
-		NTType:     2,
+		String: `Statement : ImportAsDeclaration	<< ast.NewStatement(X[0]) >>`,
+		Id:         "Statement",
+		NTType:     3,
 		Index:      4,
-		NumSymbols: 0,
+		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return nil, nil
+			return ast.NewStatement(X[0])
 		},
 	},
 	ProdTabEntry{
-		String: `Statement : ImportAsDeclaration	<<  >>`,
+		String: `Statement : ImportNormalDeclaration	<< ast.NewStatement(X[0]) >>`,
 		Id:         "Statement",
 		NTType:     3,
 		Index:      5,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
+			return ast.NewStatement(X[0])
 		},
 	},
 	ProdTabEntry{
-		String: `Statement : ImportNormalDeclaration	<<  >>`,
-		Id:         "Statement",
-		NTType:     3,
+		String: `ImportAsDeclaration : keywordImport Namespace keywordAs Identifier	<< ast.NewImportDeclaration(X[1], X[3]) >>`,
+		Id:         "ImportAsDeclaration",
+		NTType:     4,
 		Index:      6,
+		NumSymbols: 4,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewImportDeclaration(X[1], X[3])
+		},
+	},
+	ProdTabEntry{
+		String: `ImportNormalDeclaration : keywordImport Namespace	<< ast.NewImportDeclaration(X[1], nil) >>`,
+		Id:         "ImportNormalDeclaration",
+		NTType:     5,
+		Index:      7,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewImportDeclaration(X[1], nil)
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectDefination : keywordBusinessObject Identifier "{" BOItemList "}"	<< ast.NewBODefination(nil, X[1], nil, X[3] ) >>`,
+		Id:         "BusinessObjectDefination",
+		NTType:     6,
+		Index:      8,
+		NumSymbols: 5,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBODefination(nil, X[1], nil, X[3] )
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectDefination : keywordBusinessObject Identifier RaiseExpr "{" BOItemList "}"	<< ast.NewBODefination(nil, X[1], X[2], X[5] ) >>`,
+		Id:         "BusinessObjectDefination",
+		NTType:     6,
+		Index:      9,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBODefination(nil, X[1], X[2], X[5] )
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectDefination : AnnotationList keywordBusinessObject Identifier "{" BOItemList "}"	<< ast.NewBODefination(X[0], X[2], nil, X[4] ) >>`,
+		Id:         "BusinessObjectDefination",
+		NTType:     6,
+		Index:      10,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBODefination(X[0], X[2], nil, X[4] )
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectDefination : AnnotationList keywordBusinessObject Identifier RaiseExpr "{" BOItemList "}"	<< ast.NewBODefination(X[0], X[2], X[3], X[5] ) >>`,
+		Id:         "BusinessObjectDefination",
+		NTType:     6,
+		Index:      11,
+		NumSymbols: 7,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBODefination(X[0], X[2], X[3], X[5] )
+		},
+	},
+	ProdTabEntry{
+		String: `BOItemList : AnnotatedBOItem	<< ast.NewCommonList(nil, X[0]) >>`,
+		Id:         "BOItemList",
+		NTType:     7,
+		Index:      12,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewCommonList(nil, X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `BOItemList : BOItemList AnnotatedBOItem	<< ast.NewCommonList(X[0], X[1]) >>`,
+		Id:         "BOItemList",
+		NTType:     7,
+		Index:      13,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewCommonList(X[0], X[1])
+		},
+	},
+	ProdTabEntry{
+		String: `AnnotatedBOItem : AnnotationList BOItem	<< ast.NewAnnotatedBOItem(X[0], X[1]) >>`,
+		Id:         "AnnotatedBOItem",
+		NTType:     8,
+		Index:      14,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotatedBOItem(X[0], X[1])
+		},
+	},
+	ProdTabEntry{
+		String: `AnnotatedBOItem : BOItem	<< ast.NewAnnotatedBOItem(nil, X[0]) >>`,
+		Id:         "AnnotatedBOItem",
+		NTType:     8,
+		Index:      15,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotatedBOItem(nil, X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectNode : keywordNode Identifier "{" BOItemList "}"	<< ast.NewBusinessObjectNode(X[1], X[3]) >>`,
+		Id:         "BusinessObjectNode",
+		NTType:     9,
+		Index:      16,
+		NumSymbols: 5,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBusinessObjectNode(X[1], X[3])
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectNode : keywordNode Identifier Multiplicity "{" BOItemList "}"	<< ast.NewBusinessObjectNode(X[1], X[4], X[2]) >>`,
+		Id:         "BusinessObjectNode",
+		NTType:     9,
+		Index:      17,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBusinessObjectNode(X[1], X[4], X[2])
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectNode : keywordNode Identifier RaiseExpr "{" BOItemList "}"	<< ast.NewBusinessObjectNode(X[1], X[4], nil, X[2]) >>`,
+		Id:         "BusinessObjectNode",
+		NTType:     9,
+		Index:      18,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBusinessObjectNode(X[1], X[4], nil, X[2])
+		},
+	},
+	ProdTabEntry{
+		String: `BusinessObjectNode : keywordNode Identifier Multiplicity RaiseExpr "{" BOItemList "}"	<< ast.NewBusinessObjectNode(X[1], X[5], X[2], X[3]) >>`,
+		Id:         "BusinessObjectNode",
+		NTType:     9,
+		Index:      19,
+		NumSymbols: 7,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBusinessObjectNode(X[1], X[5], X[2], X[3])
+		},
+	},
+	ProdTabEntry{
+		String: `Multiplicity : "[" Value "," Value "]"	<< ast.NewMultiplicity(X[1], X[3]) >>`,
+		Id:         "Multiplicity",
+		NTType:     10,
+		Index:      20,
+		NumSymbols: 5,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewMultiplicity(X[1], X[3])
+		},
+	},
+	ProdTabEntry{
+		String: `Multiplicity : "[" Value "," "n" "]"	<< ast.NewMultiplicity(X[1], "n") >>`,
+		Id:         "Multiplicity",
+		NTType:     10,
+		Index:      21,
+		NumSymbols: 5,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewMultiplicity(X[1], "n")
+		},
+	},
+	ProdTabEntry{
+		String: `BOItem : ElementItem	<< X[0], nil >>`,
+		Id:         "BOItem",
+		NTType:     11,
+		Index:      22,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
 		},
 	},
 	ProdTabEntry{
-		String: `ImportAsDeclaration : "import" Namespace "as" Identifier	<< ast.NewImportAsDeclaration(X[1], X[3]) >>`,
-		Id:         "ImportAsDeclaration",
-		NTType:     4,
-		Index:      7,
-		NumSymbols: 4,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return ast.NewImportAsDeclaration(X[1], X[3])
-		},
-	},
-	ProdTabEntry{
-		String: `ImportNormalDeclaration : "import" Namespace	<<  >>`,
-		Id:         "ImportNormalDeclaration",
-		NTType:     5,
-		Index:      8,
-		NumSymbols: 2,
+		String: `BOItem : AssociationItem	<<  >>`,
+		Id:         "BOItem",
+		NTType:     11,
+		Index:      23,
+		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
 		},
 	},
 	ProdTabEntry{
+		String: `BOItem : MessageItem	<<  >>`,
+		Id:         "BOItem",
+		NTType:     11,
+		Index:      24,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `BOItem : ActionItem	<< X[0], nil >>`,
+		Id:         "BOItem",
+		NTType:     11,
+		Index:      25,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `BOItem : BusinessObjectNode	<< X[0], nil >>`,
+		Id:         "BOItem",
+		NTType:     11,
+		Index:      26,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `MessageItem : "message" Identifier "text" stringLit ":" Namespace terminator	<<  >>`,
+		Id:         "MessageItem",
+		NTType:     12,
+		Index:      27,
+		NumSymbols: 7,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `AssociationItem : keywordAssociation Identifier keywordTo Identifier terminator	<<  >>`,
+		Id:         "AssociationItem",
+		NTType:     13,
+		Index:      28,
+		NumSymbols: 5,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `AssociationItem : keywordAssociation Identifier Multiplicity keywordTo Identifier terminator	<<  >>`,
+		Id:         "AssociationItem",
+		NTType:     13,
+		Index:      29,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `AssociationItem : keywordAssociation Identifier Multiplicity keywordTo Identifier keywordValuation "(" Valuation ")" terminator	<< ast.NewAssociationItem(X[1], X[2], X[4], X[7]), nil >>`,
+		Id:         "AssociationItem",
+		NTType:     13,
+		Index:      30,
+		NumSymbols: 10,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAssociationItem(X[1], X[2], X[4], X[7]), nil
+		},
+	},
+	ProdTabEntry{
+		String: `ElementItem : "element" Identifier ":" DataType terminator	<< ast.NewElementItem(X[1], X[3], nil) >>`,
+		Id:         "ElementItem",
+		NTType:     14,
+		Index:      31,
+		NumSymbols: 5,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewElementItem(X[1], X[3], nil)
+		},
+	},
+	ProdTabEntry{
+		String: `ElementItem : "element" Identifier ":" DataType "=" Value terminator	<< ast.NewElementItem(X[1], X[3], X[5]) >>`,
+		Id:         "ElementItem",
+		NTType:     14,
+		Index:      32,
+		NumSymbols: 7,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewElementItem(X[1], X[3], X[5])
+		},
+	},
+	ProdTabEntry{
+		String: `ActionItem : keywordAction Identifier terminator	<< ast.NewActionItem(X[1], nil), nil >>`,
+		Id:         "ActionItem",
+		NTType:     15,
+		Index:      33,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewActionItem(X[1], nil), nil
+		},
+	},
+	ProdTabEntry{
+		String: `ActionItem : keywordAction Identifier RaiseExpr terminator	<< ast.NewActionItem(X[1], X[2]), nil >>`,
+		Id:         "ActionItem",
+		NTType:     15,
+		Index:      34,
+		NumSymbols: 4,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewActionItem(X[1], X[2]), nil
+		},
+	},
+	ProdTabEntry{
+		String: `DataType : Identifier	<< ast.NewDataType(X[0], nil) >>`,
+		Id:         "DataType",
+		NTType:     16,
+		Index:      35,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewDataType(X[0], nil)
+		},
+	},
+	ProdTabEntry{
+		String: `DataType : Namespace ":" Identifier	<< ast.NewDataType(X[0], X[2]) >>`,
+		Id:         "DataType",
+		NTType:     16,
+		Index:      36,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewDataType(X[0], X[2])
+		},
+	},
+	ProdTabEntry{
+		String: `Value : floatLit	<< ast.NewNumberValue(X[0]) >>`,
+		Id:         "Value",
+		NTType:     17,
+		Index:      37,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewNumberValue(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Value : intLit	<< ast.NewNumberValue(X[0]) >>`,
+		Id:         "Value",
+		NTType:     17,
+		Index:      38,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewNumberValue(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Value : stringLit	<< ast.NewStringValue(X[0]) >>`,
+		Id:         "Value",
+		NTType:     17,
+		Index:      39,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewStringValue(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Value : boolLit	<< ast.NewBoolValue(X[0]) >>`,
+		Id:         "Value",
+		NTType:     17,
+		Index:      40,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewBoolValue(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Value : ComplexValue	<<  >>`,
+		Id:         "Value",
+		NTType:     17,
+		Index:      41,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `ComplexValue : "{" KeyValueList "}"	<< ast.NewComplexValue(X[1]) >>`,
+		Id:         "ComplexValue",
+		NTType:     18,
+		Index:      42,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewComplexValue(X[1])
+		},
+	},
+	ProdTabEntry{
+		String: `KeyValueList : KeyValue	<< ast.NewKeyValueList(X[0], nil) >>`,
+		Id:         "KeyValueList",
+		NTType:     19,
+		Index:      43,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewKeyValueList(X[0], nil)
+		},
+	},
+	ProdTabEntry{
+		String: `KeyValueList : KeyValueList "," KeyValue	<< ast.NewKeyValueList(X[2], X[0]) >>`,
+		Id:         "KeyValueList",
+		NTType:     19,
+		Index:      44,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewKeyValueList(X[2], X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `KeyValue : Identifier "=" Value	<< ast.NewKeyValuePair(X[0], X[2]) >>`,
+		Id:         "KeyValue",
+		NTType:     20,
+		Index:      45,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewKeyValuePair(X[0], X[2])
+		},
+	},
+	ProdTabEntry{
+		String: `Valuation : Condition	<<  >>`,
+		Id:         "Valuation",
+		NTType:     21,
+		Index:      46,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Valuation : Valuation "&&" Condition	<<  >>`,
+		Id:         "Valuation",
+		NTType:     21,
+		Index:      47,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Condition : Identifier cmpOp Identifier	<<  >>`,
+		Id:         "Condition",
+		NTType:     22,
+		Index:      48,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Condition : Identifier cmpOp Value	<< ast.NewCondition(X[0], X[2]), nil >>`,
+		Id:         "Condition",
+		NTType:     22,
+		Index:      49,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewCondition(X[0], X[2]), nil
+		},
+	},
+	ProdTabEntry{
+		String: `NamespaceList : Namespace	<<  >>`,
+		Id:         "NamespaceList",
+		NTType:     23,
+		Index:      50,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `NamespaceList : Namespace "," NamespaceList	<<  >>`,
+		Id:         "NamespaceList",
+		NTType:     23,
+		Index:      51,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `AnnotationList : Annotation	<< ast.NewAnnotationList(X[0], nil) >>`,
+		Id:         "AnnotationList",
+		NTType:     24,
+		Index:      52,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotationList(X[0], nil)
+		},
+	},
+	ProdTabEntry{
+		String: `AnnotationList : Annotation AnnotationList	<< ast.NewAnnotationList(X[0], X[1]) >>`,
+		Id:         "AnnotationList",
+		NTType:     24,
+		Index:      53,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotationList(X[0], X[1])
+		},
+	},
+	ProdTabEntry{
 		String: `Namespace : Identifier	<< ast.NewNamespace(X[0], nil) >>`,
 		Id:         "Namespace",
-		NTType:     6,
-		Index:      9,
+		NTType:     25,
+		Index:      54,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.NewNamespace(X[0], nil)
@@ -123,18 +573,98 @@ var productionsTable = ProdTab{
 	ProdTabEntry{
 		String: `Namespace : Identifier "." Namespace	<< ast.NewNamespace(X[0], X[2]) >>`,
 		Id:         "Namespace",
-		NTType:     6,
-		Index:      10,
+		NTType:     25,
+		Index:      55,
 		NumSymbols: 3,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.NewNamespace(X[0], X[2])
 		},
 	},
 	ProdTabEntry{
+		String: `Annotation : "[" Identifier "]"	<< ast.NewAnnotation(X[1], nil, nil) >>`,
+		Id:         "Annotation",
+		NTType:     26,
+		Index:      56,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotation(X[1], nil, nil)
+		},
+	},
+	ProdTabEntry{
+		String: `Annotation : "[" Identifier "(" stringLit ")" "]"	<< ast.NewAnnotation(X[1], nil, X[3]) >>`,
+		Id:         "Annotation",
+		NTType:     26,
+		Index:      57,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotation(X[1], nil, X[3])
+		},
+	},
+	ProdTabEntry{
+		String: `Annotation : "[" Identifier "(" Namespace ")" "]"	<< ast.NewAnnotation(X[1], X[3], nil) >>`,
+		Id:         "Annotation",
+		NTType:     26,
+		Index:      58,
+		NumSymbols: 6,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewAnnotation(X[1], X[3], nil)
+		},
+	},
+	ProdTabEntry{
+		String: `RepeatTerminator : terminator RepeatTerminator	<<  >>`,
+		Id:         "RepeatTerminator",
+		NTType:     27,
+		Index:      59,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `RepeatTerminator : empty	<<  >>`,
+		Id:         "RepeatTerminator",
+		NTType:     27,
+		Index:      60,
+		NumSymbols: 0,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return nil, nil
+		},
+	},
+	ProdTabEntry{
+		String: `RaiseExpr : keywordRaises IdentifierList	<< ast.NewRaiseExpr(X[1]) >>`,
+		Id:         "RaiseExpr",
+		NTType:     28,
+		Index:      61,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewRaiseExpr(X[1])
+		},
+	},
+	ProdTabEntry{
+		String: `IdentifierList : Identifier	<< ast.NewCommonList(nil, X[0]) >>`,
+		Id:         "IdentifierList",
+		NTType:     29,
+		Index:      62,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewCommonList(nil, X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `IdentifierList : IdentifierList "," Identifier	<< ast.NewCommonList(X[0], X[2]) >>`,
+		Id:         "IdentifierList",
+		NTType:     29,
+		Index:      63,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.NewCommonList(X[0], X[2])
+		},
+	},
+	ProdTabEntry{
 		String: `Identifier : identifier	<< ast.NewIdentifier(X[0]) >>`,
 		Id:         "Identifier",
-		NTType:     7,
-		Index:      11,
+		NTType:     30,
+		Index:      64,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.NewIdentifier(X[0])
