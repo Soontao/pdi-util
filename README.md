@@ -20,6 +20,8 @@ Just download latest binary files from [Github Release](https://github.com/Soont
 * [x] automatic create patch solution after assembled
 * [x] check the WCVs have been assigned to WC
 * [x] deploy solution
+* [ ] static text spell check (in progress)
+* [ ] code ast parser
 
 ## Help
 
