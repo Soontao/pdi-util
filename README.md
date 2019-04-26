@@ -1,7 +1,7 @@
 # SAP PDI Util Tools
 
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)](https://github.com/Soontao/pdi-util/releases)
 
 Cli for SAP PDI.
 
