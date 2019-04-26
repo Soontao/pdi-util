@@ -55,7 +55,10 @@ func (c *PDIClient) CheckSpellErrorAPI(solution, apiToken string, concurrent int
 	defer pool.Close()
 
 	for _, file := range uiFiles {
-		rt = append(rt, pool.Process(file).(*SpellErrorCheckResult))
+		result := pool.Process(file)
+		if result != nil {
+			rt = append(rt, result.(*SpellErrorCheckResult))
+		}
 	}
 
 	return rt
