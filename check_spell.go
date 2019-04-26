@@ -41,7 +41,7 @@ func (c *PDIClient) CheckSpellErrorAPI(solution, apiToken string, concurrent int
 		}
 	}
 
-	uiFiles := c.fetchSources(uiXrepPathes, DefaultDownloadConcurrnet)
+	uiFiles := c.fetchSources(uiXrepPathes, concurrent)
 
 	pool := tunny.NewFunc(concurrent, func(file interface{}) interface{} {
 		// ignore error
