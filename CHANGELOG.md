@@ -1,4 +1,33 @@
 
+<a name="v1.7.1"></a>
+## [v1.7.1](https://github.com/Soontao/pdi-util/compare/v1.7.0...v1.7.1) (2019-04-26)
+
+### Bug Fixes
+
+* nil pointer error
+* usage text
+* usage desc
+* **test:** parser
+
+### Code Refactoring
+
+* **var:** names
+
+### Common
+
+* normalize concurrent config
+* **bnf:** reformat for readable
+* **bnf:** defination, make it easier to read
+* **reformat:** bnf
+* **release:** new version
+
+### Features
+
+* **ast:** nodes
+* **ast:** init
+* **spell:** check init support
+
+
 <a name="v1.7.0"></a>
 ## [v1.7.0](https://github.com/Soontao/pdi-util/compare/v1.6.2...v1.7.0) (2019-04-21)
 
