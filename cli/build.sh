@@ -19,7 +19,7 @@ FAILURES=""
 SOURCE_FILE=`echo $@ | sed 's/\.go//'`
 CURRENT_DIRECTORY=${PWD##*/}
 OUTPUT=build/${SOURCE_FILE:-$OUTPUT_FILENAME} # if no src file given, use current dir name
-LDFLAGS="-ldflags \"-X main.Version=${VERSION}\""
+LDFLAGS="-ldflags \"-X main.Version=${VERSION}\" -mod=vendor"
 
 for PLATFORM in $PLATFORMS; do
   GOOS=${PLATFORM%/*}

@@ -1,0 +1,70 @@
+# baliance.com/gooxml v1.0.1
+baliance.com/gooxml/color
+baliance.com/gooxml/measurement
+baliance.com/gooxml/spreadsheet
+baliance.com/gooxml
+baliance.com/gooxml/chart
+baliance.com/gooxml/common
+baliance.com/gooxml/schema/soo/dml
+baliance.com/gooxml/schema/soo/dml/chart
+baliance.com/gooxml/schema/soo/dml/spreadsheetDrawing
+baliance.com/gooxml/schema/soo/pkg/relationships
+baliance.com/gooxml/schema/soo/sml
+baliance.com/gooxml/spreadsheet/format
+baliance.com/gooxml/spreadsheet/formula
+baliance.com/gooxml/spreadsheet/reference
+baliance.com/gooxml/vmldrawing
+baliance.com/gooxml/zippkg
+baliance.com/gooxml/algo
+baliance.com/gooxml/drawing
+baliance.com/gooxml/schema/soo/ofc/extended_properties
+baliance.com/gooxml/schema/soo/pkg/content_types
+baliance.com/gooxml/schema/soo/pkg/metadata/core_properties
+baliance.com/gooxml/schema/soo/ofc/sharedTypes
+baliance.com/gooxml/schema/soo/dml/chartDrawing
+baliance.com/gooxml/schema/urn/schemas_microsoft_com/office/excel
+baliance.com/gooxml/schema/urn/schemas_microsoft_com/vml
+baliance.com/gooxml/schema/soo/ofc/docPropsVTypes
+baliance.com/gooxml/schema/soo/wml
+baliance.com/gooxml/schema/urn/schemas_microsoft_com/office/powerpoint
+baliance.com/gooxml/schema/urn/schemas_microsoft_com/office/word
+baliance.com/gooxml/schema/soo/dml/picture
+baliance.com/gooxml/schema/soo/ofc/math
+baliance.com/gooxml/schema/soo/schemaLibrary
+# github.com/Jeffail/tunny v0.0.0-20181108205650-4921fff29480
+github.com/Jeffail/tunny
+# github.com/beevik/etree v1.1.0
+github.com/beevik/etree
+# github.com/clbanning/mxj v1.8.4
+github.com/clbanning/mxj
+# github.com/deckarep/golang-set v1.7.1
+github.com/deckarep/golang-set
+# github.com/google/go-cmp v0.2.0
+github.com/google/go-cmp/cmp
+github.com/google/go-cmp/cmp/internal/diff
+github.com/google/go-cmp/cmp/internal/function
+github.com/google/go-cmp/cmp/internal/value
+# github.com/imroc/req v0.2.3
+github.com/imroc/req
+# github.com/mattn/go-runewidth v0.0.4
+github.com/mattn/go-runewidth
+# github.com/olekukonko/tablewriter v0.0.1
+github.com/olekukonko/tablewriter
+# github.com/pkg/errors v0.8.1
+github.com/pkg/errors
+# github.com/sergi/go-diff v1.0.0
+github.com/sergi/go-diff/diffmatchpatch
+# github.com/tidwall/gjson v1.2.1
+github.com/tidwall/gjson
+# github.com/tidwall/match v1.0.1
+github.com/tidwall/match
+# github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65
+github.com/tidwall/pretty
+# github.com/urfave/cli v1.20.0
+github.com/urfave/cli
+# gotest.tools v2.2.0+incompatible
+gotest.tools/assert
+gotest.tools/assert/cmp
+gotest.tools/internal/format
+gotest.tools/internal/source
+gotest.tools/internal/difflib

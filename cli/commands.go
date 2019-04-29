@@ -37,8 +37,6 @@ var commandCheckBackend = cli.Command{
 		output := context.String("fileoutput")
 		if output == "" {
 			pdiClient.CheckBackendMessage(solutionName, concurrent)
-		} else {
-			pdiClient.CheckBackendMessageToFile(solutionName, concurrent, output)
 		}
 	}),
 }
@@ -283,10 +281,7 @@ var commandCheckCopyright = cli.Command{
 		output := context.String("fileoutput")
 		if output == "" {
 			pdiClient.CheckSolutionCopyrightHeader(solutionName, concurrent)
-		} else {
-			pdiClient.CheckSolutionCopyrightHeaderToFile(solutionName, concurrent, output)
 		}
-
 	}),
 }
 
@@ -311,8 +306,6 @@ var commandCheckNameConvention = cli.Command{
 		output := context.String("fileoutput")
 		if output == "" {
 			pdiClient.CheckNameConvention(solutionName)
-		} else {
-			pdiClient.CheckNameConventionToFile(solutionName, output)
 		}
 	}),
 }
@@ -351,8 +344,6 @@ var commandCheckTranslation = cli.Command{
 		output := context.String("fileoutput")
 		if output == "" {
 			pdiClient.CheckTranslation(solutionName, concurrent, language)
-		} else {
-			pdiClient.CheckTranslationToFile(solutionName, concurrent, language, output)
 		}
 
 	}),
