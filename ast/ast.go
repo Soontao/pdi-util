@@ -15,7 +15,7 @@ func NewProgram(eles ...interface{}) (interface{}, error) {
 	switch len(eles) {
 	case 2:
 		rt["Type"] = "Program"
-		rt["Imports"] = eles[0]
+		rt["Statements"] = eles[0]
 		rt["BODefination"] = eles[1]
 	}
 
@@ -155,6 +155,48 @@ func NewAssociationItem(id, multiplicity, target, valuation interface{}) interfa
 	}
 }
 
+// NewForeachStmt type
+func NewForeachStmt(loopObject, itemID, stmts interface{}) interface{} {
+	return &GrammerNode{
+		"Type":       "ForeachStatement",
+		"LoopObject": loopObject,
+		"ItemID":     itemID,
+		"Statements": stmts,
+	}
+}
+
+// NewIfStmt type
+func NewIfStmt(exp, stmts interface{}) interface{} {
+	return &GrammerNode{
+		"Type":        "IfStatement",
+		"IFCondition": exp,
+		"Statements":  stmts,
+	}
+}
+
+// NewFuncCallExpr type
+func NewFuncCallExpr(function, args interface{}) interface{} {
+	return &GrammerNode{
+		"Type":      "FuncCallExpr",
+		"Function":  function,
+		"Arguments": args,
+	}
+}
+
+// NewVariableDeclarationStmt type
+func NewVariableDeclarationStmt(name interface{}) interface{} {
+	return &GrammerNode{
+		"Type":    "VariableDeclarationStmt",
+		"VarName": name,
+	}
+}
+
+// GeneralAddProperty to grammer node
+func GeneralAddProperty(n interface{}, name string, value interface{}) interface{} {
+	(*n.(*GrammerNode))[name] = value
+	return n
+}
+
 // NewMessageItem type
 func NewMessageItem(id, template, types interface{}) interface{} {
 	return &GrammerNode{
@@ -189,6 +231,16 @@ func NewElementItem(tokens ...interface{}) (interface{}, error) {
 	return &rt, nil
 }
 
+// NewExpression type
+func NewExpression(op interface{}, left, right interface{}) interface{} {
+	return &GrammerNode{
+		"Type":     "Expression",
+		"Operator": op,
+		"Left":     left,
+		"Right":    right,
+	}
+}
+
 // NewBoolValue type
 func NewBoolValue(t interface{}) (interface{}, error) {
 	v, e := strconv.ParseBool(string((t.(*token.Token).Lit)))
@@ -208,6 +260,11 @@ func NewFunctionCallExpr(v interface{}) (interface{}, error) {
 // NewStringValue value
 func NewStringValue(t interface{}) (interface{}, error) {
 	return &GrammerNode{"Type": "StringValue", "Value": strings.Trim(string((t.(*token.Token).Lit)), `"`)}, nil
+}
+
+// ConvertToString type
+func ConvertToString(t interface{}) interface{} {
+	return string(t.(*token.Token).Lit)
 }
 
 // NewNumberValue value
@@ -272,6 +329,18 @@ func NewImportDeclaration(n, i interface{}) (interface{}, error) {
 	}
 	if i != nil {
 		rt["Alias"] = i
+	}
+	return &rt, nil
+}
+
+// NewSelector type
+func NewSelector(id, sub interface{}) (interface{}, error) {
+	rt := GrammerNode{"Type": "Selector"}
+	if sub != nil {
+		rt["SubSelector"] = sub
+	}
+	if id != nil {
+		rt["Identifier"] = id
 	}
 	return &rt, nil
 }

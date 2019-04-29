@@ -45,7 +45,7 @@ businessobject BO_FDNTest raises ERROR {
 "DE");
 
   association toPO [0,n] to PuchaseOrder;
-  association toPO2 to PuchaseOrder;
+  association toPO2 to PuchaseOrder using ID;
 
   
 }

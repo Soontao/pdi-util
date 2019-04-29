@@ -7,10 +7,6 @@ terminator
 
 // --- [ Keywords ] ------------------------------------------------------------
 
-keywordTo
-: 't' 'o'
-;
-
 keywordAs
 : 'a' 's'
 ;
@@ -30,15 +26,6 @@ keywordRaises
 keywordAction
 : 'a' 'c' 't' 'i' 'o' 'n'
 ;
-
-keywordAssociation
-: 'a' 's' 's' 'o' 'c' 'i' 'a' 't' 'i' 'o' 'n'
-;
-
-keywordValuation
-: 'v' 'a' 'l' 'u' 'a' 't' 'i' 'o' 'n'
-;
-
 
 // --- [ Whitespaces (suppressed) ] --------------------------------------------
 !whitespace 
@@ -200,10 +187,9 @@ ReturnStmt
 ;
 
 VariableDeclarationStmt
-: "var" Identifier << $0, nil >>
-| "var" Identifier "=" Expression
-| "var" Identifier ":" DataType
-| "var" Identifier ":" DataType "=" Expression
+: "var" Identifier << ast.NewVariableDeclarationStmt($1), nil >>
+| VariableDeclarationStmt "=" Expression  << ast.GeneralAddProperty($0, "Value", $2), nil >>
+| VariableDeclarationStmt ":" DataType << ast.GeneralAddProperty($0, "DataType", $2), nil >>
 ;
 
 AssignmentStmt
@@ -211,13 +197,13 @@ AssignmentStmt
 ;
 
 ForeachStmt
-: "foreach" "(" "var" Identifier "in" Expression ")" StatementsBlock
+: "foreach" "(" "var" Identifier "in" Expression ")" StatementsBlock << ast.NewForeachStmt($3, $5, $7), nil >>
 ;
 
 IfStmt
-: "if" "(" Expression ")" StatementsBlock
-| "if" "(" Expression ")" StatementsBlock "else" IfStmt
-| "if" "(" Expression ")" StatementsBlock "else" StatementsBlock
+: "if" "(" Expression ")" StatementsBlock << ast.NewIfStmt($2, $4), nil >>
+| IfStmt "else" StatementsBlock << ast.GeneralAddProperty($0, "Else", $2), nil >>
+| IfStmt "else" IfStmt << ast.GeneralAddProperty($0, "ElseOf", $2), nil >>
 ;
 
 RaiseStmt
@@ -257,11 +243,6 @@ BusinessObjectNode
 | keywordNode Identifier Multiplicity RaiseExpr "{" BOItemList "}" << ast.NewBusinessObjectNode($1, $5, $2, $3) >>
 ;
 
-Multiplicity
-: "[" Value "," Value "]" << ast.NewMultiplicity($1, $3) >>
-| "[" Value "," "n" "]" << ast.NewMultiplicity($1, "n") >>
-;
-
 BOItem
 : ElementItem << $0, nil >>
 | AssociationItem  << $0, nil >>
@@ -275,9 +256,11 @@ MessageItem
 ;
 
 AssociationItem
-: keywordAssociation Identifier keywordTo DataType terminator << ast.NewAssociationItem($1, nil, $3, nil), nil >>
-| keywordAssociation Identifier Multiplicity keywordTo DataType terminator << ast.NewAssociationItem($1, $2, $4, nil), nil >>
-| keywordAssociation Identifier Multiplicity keywordTo DataType keywordValuation "(" Expression ")" terminator << ast.NewAssociationItem($1, $2, $4, $7), nil >>
+: "association" MultiplicityIdentifier << ast.NewAssociationItem($1, nil, nil, nil), nil >>
+| AssociationItem "to" DataType << ast.GeneralAddProperty($0, "Target", $2), nil >>
+| AssociationItem "valuation" "(" Expression ")" << ast.GeneralAddProperty($0, "Valuation", $3), nil >>
+| AssociationItem "using" Identifier << ast.GeneralAddProperty($0, "Using", $2), nil >>
+| AssociationItem terminator << $0, nil >>
 ;
 
 ElementItem
@@ -291,47 +274,47 @@ ActionItem
 ;
 
 ExpressionList
-: Expression
-| ExpressionList "," Expression
+: Expression << ast.NewCommonList(nil, $0) >>
+| ExpressionList "," Expression << ast.NewCommonList($0, $2) >>
 ;
 
 Expression
-: Expression "||" Term1 
+: Expression "||" Term1 << ast.NewExpression("||", $0, $2), nil >>
 | Term1
 ;
 
 Term1
-: Term1 "&&" Term2
-| Term2
+: Term1 "&&" Term2 << ast.NewExpression("&&", $0, $2), nil >>
+| Term2 
 ;
 
 Term2
-: Term2 RelOp Term3
+: Term2 RelOp Term3 << ast.NewExpression($1, $0, $2), nil >>
 | Term3
 ;
 
 Term3
-: Term3 "+" Term4
+: Term3 "+" Term4 << ast.NewExpression("+", $0, $2), nil >>
 | Term4
 ;
 
 Term4
-: Term4 "-" Term5
+: Term4 "-" Term5 << ast.NewExpression("-", $0, $2), nil >>
 | Term5
 ;
 
 Term5
-: Term5 "*" Term6
+: Term5 "*" Term6 << ast.NewExpression("*", $0, $2), nil >>
 | Term6
 ;
 
 Term6
-: Term6 "/" Term7
+: Term6 "/" Term7 << ast.NewExpression("/", $0, $2), nil >>
 | Term7
 ;
 
 Term7
-: Term7 "%" Term8
+: Term7 "%" Term8 << ast.NewExpression("%", $0, $2), nil >>
 | Term8
 ;
 
@@ -346,10 +329,10 @@ UnaryExpr
 ;
 
 PrimaryExpr
-: Identifier
-| Value
-| PrimaryExpr "." Identifier
-| PrimaryExpr Arguments 
+: Identifier << $0, nil >>
+| Value << $0, nil >>
+| Selector << $0, nil >>
+| PrimaryExpr Arguments << ast.NewFuncCallExpr($0, $1), nil >>
 ;
 
 UnaryOp
@@ -361,12 +344,12 @@ UnaryOp
 ;
 
 RelOp
-: "=="
-| "!="
-| "<="
-| "<" 
-| ">="
-| ">" 
+: "==" << ast.ConvertToString($0), nil >>
+| "!=" << ast.ConvertToString($0), nil >>
+| "<=" << ast.ConvertToString($0), nil >>
+| "<"  << ast.ConvertToString($0), nil >>
+| ">=" << ast.ConvertToString($0), nil >>
+| ">"  << ast.ConvertToString($0), nil >>
 ;
 
 Arguments
@@ -380,8 +363,8 @@ DataTypeList
 ;
 
 DataType
-: Identifier << ast.NewDataType($0, nil) >>
-| Namespace ":" Identifier << ast.NewDataType($0, $2) >>
+: Namespace ":" Identifier << ast.NewDataType($0, $2) >>
+| Identifier << ast.NewDataType($0, nil) >>
 ;
 
 KeyValueList
@@ -408,22 +391,15 @@ Namespace
 | Identifier "." Namespace << ast.NewNamespace($0, $2) >>
 ;
 
+Selector
+: Identifier << ast.NewSelector($0, nil) >>
+| Identifier "." Selector << ast.NewSelector($0, $2) >>
+;
+
 Annotation
 : "[" Identifier "]"  << ast.NewAnnotation($1, nil, nil) >>
 | "[" Identifier "(" Value ")" "]" << ast.NewAnnotation($1, nil, $3) >>
 | "[" Identifier "(" Namespace ")" "]" << ast.NewAnnotation($1, $3, nil) >>
-;
-
-Value
-: floatLit << ast.NewNumberValue($0) >>
-| intLit << ast.NewNumberValue($0) >>
-| stringLit << ast.NewStringValue($0) >>
-| boolLit << ast.NewBoolValue($0) >>
-| ComplexValue << $0, nil >>
-;
-
-ComplexValue
-: "{" KeyValueList "}" << ast.NewComplexValue($1) >>
 ;
 
 RepeatTerminator
@@ -440,6 +416,28 @@ IdentifierList
 | IdentifierList "," Identifier << ast.NewCommonList($0, $2) >>
 ;
 
+MultiplicityIdentifier
+: Identifier << $0, nil >>
+| Identifier Multiplicity << ast.GeneralAddProperty($0, "Multiplicity", $1), nil >>
+;
+
 Identifier
 : identifier << ast.NewIdentifier($0) >> 
+;
+
+Multiplicity
+: "[" Value "," Value "]" << ast.NewMultiplicity($1, $3) >>
+| "[" Value "," "n" "]" << ast.NewMultiplicity($1, "n") >>
+;
+
+Value
+: floatLit << ast.NewNumberValue($0) >>
+| intLit << ast.NewNumberValue($0) >>
+| stringLit << ast.NewStringValue($0) >>
+| boolLit << ast.NewBoolValue($0) >>
+| ComplexValue << $0, nil >>
+;
+
+ComplexValue
+: "{" KeyValueList "}" << ast.NewComplexValue($1) >>
 ;
