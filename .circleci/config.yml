@@ -5,18 +5,17 @@ jobs:
     docker:
       - image: circleci/golang:1.12
 
-    working_directory: /go/src/github.com/Soontao/pdi-util
+    working_directory: ~/app
     steps:
       - checkout
-      - run: go get -v -t -d ./...
-      - run: go test -v ./...
-      - run: go build .
+      - run: go test -v -mod=vendor ./...
+      - run: go build -mod=vendor .
 
   build:
     docker:
       - image: circleci/golang:1.12
 
-    working_directory: /go/src/github.com/Soontao/pdi-util
+    working_directory: ~/app
     steps:
       - checkout
       - attach_workspace:
