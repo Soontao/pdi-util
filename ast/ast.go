@@ -15,8 +15,12 @@ func NewProgram(eles ...interface{}) (interface{}, error) {
 	switch len(eles) {
 	case 2:
 		rt["Type"] = "Program"
-		rt["Statements"] = eles[0]
-		rt["BODefination"] = eles[1]
+		if eles[0] != nil {
+			rt["Statements"] = eles[0]
+		}
+		if eles[1] != nil {
+			rt["BODefination"] = eles[1]
+		}
 	}
 
 	return &rt, nil

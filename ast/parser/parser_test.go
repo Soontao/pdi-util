@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"testing"
 
@@ -22,8 +21,6 @@ func TestParserABSL(t *testing.T) {
 	c, _ := ioutil.ReadFile("../test_data/sample_absl.absl")
 	s := lexer.NewLexer(c)
 	p := NewParser()
-	r, err := p.Parse(s)
-	j, _ := json.Marshal(r)
-	ioutil.WriteFile("./output.json", j, 0644)
+	_, err := p.Parse(s)
 	assert.NilError(t, err)
 }
