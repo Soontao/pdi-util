@@ -1,4 +1,20 @@
 
+<a name="v1.7.2"></a>
+## [v1.7.2](https://github.com/Soontao/pdi-util/compare/v1.7.1...v1.7.2) (2019-04-29)
+
+### Common
+
+* **CI:** update
+* **doc:** update
+* **doc:** update
+* **release:** new version
+
+### Features
+
+* ast parser for ABSL
+* **vendor:** move to vendor build logic
+
+
 <a name="v1.7.1"></a>
 ## [v1.7.1](https://github.com/Soontao/pdi-util/compare/v1.7.0...v1.7.1) (2019-04-26)
 
@@ -155,7 +171,7 @@
 
 
 <a name="v1.3.0"></a>
-## [v1.3.0](https://github.com/Soontao/pdi-util/compare/v1.1.4...v1.3.0) (2019-04-09)
+## [v1.3.0](https://github.com/Soontao/pdi-util/compare/v1.1.3...v1.3.0) (2019-04-09)
 
 ### Bug Fixes
 
@@ -179,12 +195,12 @@
 * **refactor:** code for reuse
 
 
-<a name="v1.1.4"></a>
-## [v1.1.4](https://github.com/Soontao/pdi-util/compare/v1.1.3...v1.1.4) (2019-03-27)
-
-
 <a name="v1.1.3"></a>
-## [v1.1.3](https://github.com/Soontao/pdi-util/compare/v1.1.2...v1.1.3) (2019-03-27)
+## [v1.1.3](https://github.com/Soontao/pdi-util/compare/v1.1.4...v1.1.3) (2019-03-27)
+
+
+<a name="v1.1.4"></a>
+## [v1.1.4](https://github.com/Soontao/pdi-util/compare/v1.1.2...v1.1.4) (2019-03-27)
 
 ### Common
 
