@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/Soontao/pdi-util/ast/token"
 )
@@ -15,7 +16,7 @@ func NewProgram(eles ...interface{}) (interface{}, error) {
 	case 2:
 		rt["Type"] = "Program"
 		rt["Imports"] = eles[0]
-		rt["Defination"] = eles[1]
+		rt["BODefination"] = eles[1]
 	}
 
 	return &rt, nil
@@ -81,7 +82,7 @@ func NewAnnotation(id, paramNamespace, paramText interface{}) (interface{}, erro
 		rt["ParamIdentifier"] = paramNamespace
 	}
 	if paramText != nil {
-		rt["ParamText"] = string((paramText.(*token.Token)).Lit)
+		rt["ParamText"] = paramText
 	}
 	return &rt, nil
 }
@@ -106,7 +107,7 @@ func NewActionItem(action, raises interface{}) interface{} {
 func NewBODefination(annnotations, name, raises, elements interface{}) (interface{}, error) {
 	rt := GrammerNode{"Type": "BusinessObjectDefination"}
 	if annnotations != nil {
-		rt["Annotation"] = annnotations
+		rt["Annotations"] = annnotations
 	}
 	rt["BOName"] = name
 	if raises != nil {
@@ -154,6 +155,16 @@ func NewAssociationItem(id, multiplicity, target, valuation interface{}) interfa
 	}
 }
 
+// NewMessageItem type
+func NewMessageItem(id, template, types interface{}) interface{} {
+	return &GrammerNode{
+		"Type":       "MessageItem",
+		"Name":       id,
+		"Template":   template,
+		"ValueTypes": types,
+	}
+}
+
 // NewAnnotatedBOItem type
 func NewAnnotatedBOItem(annotations, element interface{}) (interface{}, error) {
 	rt := *element.(*GrammerNode)
@@ -180,17 +191,29 @@ func NewElementItem(tokens ...interface{}) (interface{}, error) {
 
 // NewBoolValue type
 func NewBoolValue(t interface{}) (interface{}, error) {
-	return strconv.ParseBool(string((t.(*token.Token).Lit)))
+	v, e := strconv.ParseBool(string((t.(*token.Token).Lit)))
+	return &GrammerNode{"Type": "BoolValue", "Value": v}, e
+}
+
+// NewObjectReference type
+func NewObjectReference(v interface{}) (interface{}, error) {
+	return &GrammerNode{"Type": "ObjectReference", "Value": v}, nil
+}
+
+// NewFunctionCallExpr type
+func NewFunctionCallExpr(v interface{}) (interface{}, error) {
+	return &GrammerNode{"Type": "FunctionCallExpression", "Value": v}, nil
 }
 
 // NewStringValue value
 func NewStringValue(t interface{}) (interface{}, error) {
-	return string((t.(*token.Token).Lit)), nil
+	return &GrammerNode{"Type": "StringValue", "Value": strings.Trim(string((t.(*token.Token).Lit)), `"`)}, nil
 }
 
 // NewNumberValue value
 func NewNumberValue(t interface{}) (interface{}, error) {
-	return strconv.ParseFloat(string((t.(*token.Token).Lit)), 64)
+	v, e := strconv.ParseFloat(string((t.(*token.Token).Lit)), 64)
+	return &GrammerNode{"Type": "NumberValue", "Value": v}, e
 }
 
 // NewMultiplicity type
