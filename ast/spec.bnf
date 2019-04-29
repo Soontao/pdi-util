@@ -275,9 +275,9 @@ MessageItem
 ;
 
 AssociationItem
-: keywordAssociation Identifier keywordTo Identifier terminator << ast.NewAssociationItem($1, nil, $3, nil), nil >>
-| keywordAssociation Identifier Multiplicity keywordTo Identifier terminator << ast.NewAssociationItem($1, $2, $4, nil), nil >>
-| keywordAssociation Identifier Multiplicity keywordTo Identifier keywordValuation "(" Expression ")" terminator << ast.NewAssociationItem($1, $2, $4, $7), nil >>
+: keywordAssociation Identifier keywordTo DataType terminator << ast.NewAssociationItem($1, nil, $3, nil), nil >>
+| keywordAssociation Identifier Multiplicity keywordTo DataType terminator << ast.NewAssociationItem($1, $2, $4, nil), nil >>
+| keywordAssociation Identifier Multiplicity keywordTo DataType keywordValuation "(" Expression ")" terminator << ast.NewAssociationItem($1, $2, $4, $7), nil >>
 ;
 
 ElementItem

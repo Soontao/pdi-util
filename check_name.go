@@ -2,10 +2,7 @@ package pdiutil
 
 import (
 	"log"
-	"strconv"
 	"strings"
-
-	"baliance.com/gooxml/spreadsheet"
 )
 
 // maybe these rules can be loaded by external
@@ -134,23 +131,4 @@ func (c *PDIClient) CheckNameConvention(solution string) {
 	}
 
 	c.exitCode = count
-}
-
-// CheckNameConventionToFile output
-func (c *PDIClient) CheckNameConventionToFile(solution, output string) {
-
-	tableData := [][]string{}
-
-	for _, r := range c.CheckNameConventionAPI(solution) {
-		row := []string{shortenPath2(r.IncludePath), strconv.FormatBool(r.Correct), r.CorrectName}
-		tableData = append(tableData, row)
-
-	}
-
-	ss := spreadsheet.New()
-
-	addSheetTo(ss, "Name Convension Check Result", []string{"File", "Correct", "Correct Name"}, tableData)
-
-	ss.SaveToFile(output)
-
 }

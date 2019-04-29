@@ -6,8 +6,6 @@ import (
 	"strconv"
 	"strings"
 
-	"baliance.com/gooxml/spreadsheet"
-
 	"github.com/tidwall/gjson"
 )
 
@@ -91,29 +89,6 @@ func (c *PDIClient) CheckTranslationAPI(solution string, concurrent int) []Trans
 	}
 
 	return responses
-
-}
-
-// CheckTranslationToFile output
-func (c *PDIClient) CheckTranslationToFile(solution string, concurrent int, language, outputFile string) {
-
-	responses := c.CheckTranslationAPI(solution, concurrent)
-
-	tableData := [][]string{}
-
-	for _, r := range responses {
-
-		row := []string{shortenPath2(r.FileName), r.AllTextCount, r.Info["Chinese"].TranslatedCount, r.Info["English"].TranslatedCount}
-
-		tableData = append(tableData, row)
-
-	}
-
-	ss := spreadsheet.New()
-
-	addSheetTo(ss, "Translation Check Result", []string{"File", "All Field", "Chinese", "English"}, tableData)
-
-	ss.SaveToFile(outputFile)
 
 }
 

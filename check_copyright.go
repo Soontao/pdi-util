@@ -3,10 +3,7 @@ package pdiutil
 import (
 	"log"
 	"regexp"
-	"strconv"
 	"strings"
-
-	"baliance.com/gooxml/spreadsheet"
 )
 
 var reg = regexp.MustCompile(`/\*([^*]|[\r\n]|(\*([^/]|[\r\n])))*(Function|Author)([^*]|[\r\n]|(\*([^/]|[\r\n])))*\*/`)
@@ -65,29 +62,6 @@ func (c *PDIClient) CheckSolutionCopyrightHeaderAPI(solutionName string, concurr
 		check.HaveHeader = c.checkCopyrightHeader(fileContent.Source)
 	}
 	return rt
-}
-
-// CheckSolutionCopyrightHeaderToFile content
-func (c *PDIClient) CheckSolutionCopyrightHeaderToFile(solutionName string, concurrent int, output string) {
-
-	responses := c.CheckSolutionCopyrightHeaderAPI(solutionName, concurrent)
-
-	tableData := [][]string{}
-
-	for _, r := range responses {
-
-		row := []string{shortenPath2(r.File.FilePath), strconv.FormatBool(r.HaveHeader), r.File.CreatedBy, r.File.LastChangedBy}
-
-		tableData = append(tableData, row)
-
-	}
-
-	ss := spreadsheet.New()
-
-	addSheetTo(ss, "Copyright Header Check Result", []string{"File", "With Copyright header", "Created By", "Changed By"}, tableData)
-
-	ss.SaveToFile(output)
-
 }
 
 // CheckSolutionCopyrightHeader content

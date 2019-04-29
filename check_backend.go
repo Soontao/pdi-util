@@ -1,13 +1,11 @@
 package pdiutil
 
 import (
-	"fmt"
 	"log"
 	"path/filepath"
 	"regexp"
 	"strings"
 
-	"baliance.com/gooxml/spreadsheet"
 	"github.com/tidwall/gjson"
 )
 
@@ -129,26 +127,6 @@ func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []Ch
 
 	return responses
 
-}
-
-// CheckBackendMessageToFile to output result file
-func (c *PDIClient) CheckBackendMessageToFile(solution string, concurrent int, output string) {
-
-	responses := c.CheckBackendMessageAPI(solution, concurrent)
-
-	tableData := [][]string{}
-
-	for _, r := range responses {
-
-		row := []string{r.GetMessageLevel(), r.GetMessageCategory(), fmt.Sprintf("%s (%s,%s)", shortenPath2(r.FileName), r.Row, r.Column), r.Message}
-
-		tableData = append(tableData, row)
-
-	}
-
-	ss := spreadsheet.New()
-	addSheetTo(ss, "Backend Check Result", []string{"Level", "Category", "Location", "Message"}, tableData)
-	ss.SaveToFile(output)
 }
 
 // CheckBackendMessage information
