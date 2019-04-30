@@ -31,13 +31,20 @@ func (c *PDIClient) xrepRequest(code string, payload interface{}) string {
 	query := c.query(code)
 	resp, err := req.Post(url, req.BodyJSON(payload), query)
 	if err != nil {
-		panic(fmt.Errorf("error with %s, with payload %+v", err, payload))
+		panic(fmt.Errorf("Request endpoint: %v with error: %s", code, err))
 	}
 	respBody, _ := resp.ToString()
 	return respBody
 }
 
 func (c *PDIClient) xrepRequestE(code string, payload interface{}) (res string, err error) {
+
+	defer func() {
+		if e := recover(); e != nil {
+			err = fmt.Errorf("%v", e)
+		}
+	}()
+
 	res = c.xrepRequest(code, payload)
 
 	success := gjson.Get(res, "EXPORTING.EV_SUCCESS").String() == "X"

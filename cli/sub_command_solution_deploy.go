@@ -74,17 +74,20 @@ var commandSolutionDeploy = cli.Command{
 		if assembledPackage == "" {
 			panic(fmt.Errorf("Not found solution %v package with version %v", sourceSolutionID, version))
 		} else {
-			log.Printf("Assmebled packaged downloaded from source tenant")
+			log.Printf("Assmebled packaged downloaded from source tenant, version: %v", version)
 		}
+
+		log.Println("Uploading assmebled packaged to target system")
 
 		// after deploy, the solution must be existed in target tenant
 		err = targetClient.DeploySolution(assembledPackage)
 
-		log.Println("Assmebled packaged uploaded to target system")
-
 		if err != nil {
 			// even successful, server sometimes also response error
-			log.Println(err)
+			log.Printf("Uploaded to target tenant with error: %v", err)
+			log.Println("Even successful, server sometimes also will response error/reset connection")
+		} else {
+			log.Println("Assmebled packaged uploaded to target system")
 		}
 
 		// use source solution name to find target solution
@@ -94,9 +97,9 @@ var commandSolutionDeploy = cli.Command{
 
 		if !targetStatus.IsRunningUploading() {
 			panic("Package uploaded but system not processed, please check log in system")
+		} else {
+			log.Println("Package uploaded, system is processing the uploaded package")
 		}
-
-		log.Println("Package uploaded, system is processing the uploaded package")
 
 		// wait uploading finished
 		for {
@@ -122,13 +125,17 @@ var commandSolutionDeploy = cli.Command{
 			panic(err)
 		}
 
+		// wait a minute
+		time.Sleep(pdiutil.DefaultPackageCheckInterval)
+
 		targetStatus = targetClient.GetSolutionStatus(targetSolution)
 
 		if !targetStatus.IsRunningActivation() {
 			panic("Activate the solution, but seems system not in progress")
+		} else {
+			log.Println("Activate the solution now")
 		}
 
-		log.Println("Activate the solution now")
 		// wait activation finished
 		for {
 			time.Sleep(pdiutil.DefaultPackageCheckInterval)
