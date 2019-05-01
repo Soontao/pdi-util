@@ -20,7 +20,7 @@ else
   echo "this script will not commit current workspace un-commit files"
   git tag $1 >/dev/null
   git-chglog -o CHANGELOG.md >/dev/null
-  git add -A >/dev/null
+  git add CHANGELOG.md >/dev/null
   git commit -m "chore(release): new version" >/dev/null
   git push >/dev/null
   git push --tags >/dev/null
