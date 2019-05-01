@@ -17,7 +17,7 @@ const S_STATUS_IN_DEV = SolutionStatus("1")
 // S_STATUS_IN_DEV Assembled
 const S_STATUS_ASSEMBLED = SolutionStatus("2")
 
-// S_STATUS_IN_DEPLOYEMENT In Deployement
+// S_STATUS_IN_DEPLOYEMENT In Deployment
 const S_STATUS_IN_DEPLOYEMENT = SolutionStatus("3")
 
 // S_STATUS_DEPLOYED Deployed
@@ -95,7 +95,7 @@ func (h *SolutionHeader) IsRunningActivation() bool {
 }
 
 // IsRunningDateUpdate process
-func (h *SolutionHeader) IsRunningDateUpdate() bool {
+func (h *SolutionHeader) IsRunningDataUpdate() bool {
 	if h.Phase == S_PHASE_DATA_UPDATE && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
 		return true
 	}
