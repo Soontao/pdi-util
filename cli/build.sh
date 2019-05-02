@@ -4,9 +4,9 @@
 OUTPUT_FILENAME="pdiutil"
 
 # platforms
-PLATFORMS="darwin/amd64" # amd64 only as of go1.5
-PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
-PLATFORMS="$PLATFORMS linux/amd64 linux/386"
+PLATFORMS="darwin/amd64"
+PLATFORMS="$PLATFORMS windows/amd64"
+PLATFORMS="$PLATFORMS linux/amd64"
 PLATFORMS_ARM="linux"
 
 # default version as 'snapshot'
@@ -46,7 +46,7 @@ fi
 for GOOS in $PLATFORMS_ARM; do
   GOARCH="arm"
   # build for each ARM version
-  for GOARM in 7 6 5; do
+  for GOARM in 7 6; do
     BIN_FILENAME="${OUTPUT}-${VERSION}-${GOOS}-${GOARCH}${GOARM}"
     CMD="GOARM=${GOARM} GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
     echo "${CMD}"

@@ -11,7 +11,7 @@ import (
 
 // DefaultPackageCheckInterval for set the default interval for status checking
 // unit is second
-const DefaultPackageCheckInterval = 5
+const DefaultPackageCheckInterval = 10
 
 // ActivationSolution sync
 func (c *PDIClient) ActivationSolution(solution string) (err error) {

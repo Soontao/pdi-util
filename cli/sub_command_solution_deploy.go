@@ -36,6 +36,10 @@ var commandSolutionDeploy = cli.Command{
 		},
 	},
 	Action: PDIAction(func(sourceClient *pdiutil.PDIClient, ctx *cli.Context) {
+
+		// check solution status every 20 seconds
+		checkInterval := time.Second * 20
+
 		targetClient, err := pdiutil.NewPDIClient(
 			ctx.String("targetuser"),
 			ctx.String("targetpassword"),
@@ -56,8 +60,9 @@ var commandSolutionDeploy = cli.Command{
 
 		sourceSolutionStatus := sourceClient.GetSolutionStatus(sourceSolutionID)
 
-		if sourceSolutionStatus.Status == pdiutil.S_STATUS_ASSEMBLED {
+		if sourceSolutionStatus.Status == pdiutil.S_STATUS_ASSEMBLED || sourceSolutionStatus.IsCreatingPatch {
 			// if current solution is 'Assembled'
+			// or in patch creation
 			// Download current version
 			version = fmt.Sprintf("%v", sourceSolutionStatus.Version)
 		} else {
@@ -92,7 +97,7 @@ var commandSolutionDeploy = cli.Command{
 		}
 
 		// wait seconds
-		time.Sleep(pdiutil.DefaultPackageCheckInterval)
+		time.Sleep(checkInterval)
 
 		// use source solution name to find target solution
 		targetS := targetClient.GetSolutionByIDOrDescription(sourceSolutionDescription)
@@ -111,7 +116,7 @@ var commandSolutionDeploy = cli.Command{
 
 			// wait uploading finished
 			for {
-				time.Sleep(pdiutil.DefaultPackageCheckInterval)
+				time.Sleep(checkInterval)
 				targetStatus = targetClient.GetSolutionStatus(targetSolution)
 				if targetStatus.IsUploadingSuccessful() {
 					// not in running mode, break loop
@@ -129,48 +134,19 @@ var commandSolutionDeploy = cli.Command{
 			panic(err)
 		}
 
-		// wait seconds
-		time.Sleep(pdiutil.DefaultPackageCheckInterval)
+		log.Println("Activation triggered, wait solution activation & data update now")
 
-		targetStatus = targetClient.GetSolutionStatus(targetSolution)
-
-		if !targetStatus.IsRunningActivation() {
-			panic("Activate the solution, but seems system not in progress")
-		} else {
-			log.Println("Activation running now")
-		}
-
-		// wait activation finished
 		for {
-			time.Sleep(pdiutil.DefaultPackageCheckInterval)
+
+			time.Sleep(checkInterval)
+
 			targetStatus = targetClient.GetSolutionStatus(targetSolution)
-			// not in activation now
-			if !targetStatus.IsRunningActivation() {
-				log.Println("Activation finished")
+
+			if targetStatus.Status == pdiutil.S_STATUS_DEPLOYED {
+				log.Println("Deployed")
 				break
 			}
-		}
 
-		if targetStatus.Status == pdiutil.S_STATUS_DEPLOYED {
-			// if data update finished so quickly, solution status will be 'Deployed' directly
-			log.Println("Deployed")
-		} else if targetStatus.IsRunningDataUpdate() {
-			// if  data update need time
-			log.Println("Data update now")
-
-			// wait data update finished
-			for {
-				time.Sleep(pdiutil.DefaultPackageCheckInterval)
-				targetStatus = targetClient.GetSolutionStatus(targetSolution)
-
-				if !targetStatus.IsRunningDataUpdate() {
-					log.Println("Data update finished")
-					break
-				}
-			}
-
-		} else {
-			panic("Unknown status, target tenant not deployed but also not in data update, please check the target tenant status")
 		}
 
 		log.Println("Finished")

@@ -44,7 +44,7 @@ var commandPackageDownload = cli.Command{
 
 		if downloadVersion == "" {
 			// default download current version
-			if header.Status == pdiutil.S_STATUS_ASSEMBLED {
+			if header.Status == pdiutil.S_STATUS_ASSEMBLED || header.IsCreatingPatch {
 				downloadVersion = fmt.Sprintf("%v", header.Version)
 			} else {
 				// or latest version
