@@ -1,4 +1,16 @@
 
+<a name="v1.9.9"></a>
+## [v1.9.9](https://github.com/Soontao/pdi-util/compare/v1.7.7...v1.9.9) (2019-05-02)
+
+### Code Refactoring
+
+* **deployment:** logic, and remove uncommonly used platform
+
+### Common
+
+* **release:** new version
+
+
 <a name="v1.7.7"></a>
 ## [v1.7.7](https://github.com/Soontao/pdi-util/compare/v1.7.4...v1.7.7) (2019-05-02)
 
