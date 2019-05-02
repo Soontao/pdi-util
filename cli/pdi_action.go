@@ -5,6 +5,9 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/imroc/req"
 
 	pdiutil "github.com/Soontao/pdi-util"
 	"github.com/urfave/cli"
@@ -21,6 +24,9 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 				os.Exit(1)
 			}
 		}()
+
+		// set long timeout
+		req.SetTimeout(time.Hour * 6)
 
 		// overwrite here
 		username := c.GlobalString("username")
