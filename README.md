@@ -7,7 +7,7 @@ Cli for SAP PDI.
 
 ## Latest Build
 
-Just download latest binary files from [Github Release](https://github.com/Soontao/pdi-util/releases) Page
+Just download latest binary files from the [Github Release](https://github.com/Soontao/pdi-util/releases) page
 
 ## Features
 
