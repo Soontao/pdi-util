@@ -84,7 +84,6 @@ func (c *PDIClient) login() (*PDIClient, error) {
 	return c, nil
 }
 
-// Destroy PDI session
 func (c *PDIClient) getIvUser() *PDIClient {
 	url := c.path("/sap/ap/xrep/json_pdi")
 	query := c.query("0000000000011ED19CEC5BA760AEE530")
