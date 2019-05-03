@@ -35,8 +35,6 @@ baliance.com/gooxml/schema/soo/schemaLibrary
 github.com/Jeffail/tunny
 # github.com/beevik/etree v1.1.0
 github.com/beevik/etree
-# github.com/clbanning/mxj v1.8.4
-github.com/clbanning/mxj
 # github.com/deckarep/golang-set v1.7.1
 github.com/deckarep/golang-set
 # github.com/google/go-cmp v0.2.0
