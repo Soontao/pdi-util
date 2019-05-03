@@ -145,12 +145,12 @@ var commandPackageAssemble = cli.Command{
 			if len(content) != 0 {
 				bytes, _ := base64.StdEncoding.DecodeString(content)
 				ioutil.WriteFile(output, bytes, 0644)
-				log.Println("Finished")
+				log.Printf("File saved to %v", output)
 			} else {
 				log.Printf("Not found content, please check your version")
 			}
-
 		}
+
 		// start create patch solution
 		log.Println("Start create patch solution")
 

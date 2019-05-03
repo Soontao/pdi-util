@@ -17,7 +17,7 @@ var commandSolutionDeploy = cli.Command{
 		cli.StringFlag{
 			Name:   "solution, s",
 			EnvVar: "SOURCE_SOLUTION_NAME",
-			Usage:  "The Source Tenant Solution Name",
+			Usage:  "The source tenant solution name, recommend to use the readable solution description",
 		},
 		cli.Int64Flag{
 			Name:   "version",
@@ -33,12 +33,12 @@ var commandSolutionDeploy = cli.Command{
 		cli.StringFlag{
 			Name:   "targetuser",
 			EnvVar: "TARGET_TENANT_USER",
-			Usage:  "The target tenant",
+			Usage:  "The target tenant user",
 		},
 		cli.StringFlag{
 			Name:   "targetpassword",
 			EnvVar: "TARGET_TENANT_PASSWORD",
-			Usage:  "The target tenant",
+			Usage:  "The target tenant user password",
 		},
 	},
 	Action: PDIAction(func(sourceClient *pdiutil.PDIClient, ctx *cli.Context) {
