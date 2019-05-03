@@ -76,6 +76,14 @@ func (h *SolutionHeader) IsRunningUploading() bool {
 	return false
 }
 
+// GetSolutionLatestAssembledVersion id
+func (h *SolutionHeader) GetSolutionLatestAssembledVersion() int64 {
+	if h.Status == S_STATUS_ASSEMBLED || h.IsCreatingPatch {
+		return h.Version
+	}
+	return (h.Version - 1)
+}
+
 // IsUploadingSuccessful file upload finished
 func (h *SolutionHeader) IsUploadingSuccessful() bool {
 	if h.Phase == S_PHASE_IMPORT && h.PhaseStatus == S_PHASE_STATUS_SUCCESSFUL {

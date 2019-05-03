@@ -12,12 +12,18 @@ import (
 var commandSolutionDeploy = cli.Command{
 	Name:        "deploy",
 	Usage:       "deploy solution",
-	Description: "Deploy solution without package file, it will download current version package from source tenant, and deploy it to target tenant. Please ensure source & target tenant both are in same release version.",
+	Description: "Deploy solution without package file, it will download assembled package from source tenant, and deploy it to target tenant. Please ensure source & target tenant both are in same release version.",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
 			EnvVar: "SOURCE_SOLUTION_NAME",
 			Usage:  "The Source Tenant Solution Name",
+		},
+		cli.Int64Flag{
+			Name:   "version",
+			EnvVar: "SOURCE_SOLUTION_VERSION",
+			Value:  -1,
+			Usage:  "The specific solution version to deploy, if empty, use the latest assembled version",
 		},
 		cli.StringFlag{
 			Name:   "target",
@@ -56,21 +62,16 @@ var commandSolutionDeploy = cli.Command{
 		sourceSolutionID := s.Name
 		sourceSolutionDescription := s.Description
 
-		version := ""
-
 		sourceSolutionStatus := sourceClient.GetSolutionStatus(sourceSolutionID)
 
-		if sourceSolutionStatus.Status == pdiutil.S_STATUS_ASSEMBLED || sourceSolutionStatus.IsCreatingPatch {
-			// if current solution is 'Assembled'
-			// or in patch creation
-			// Download current version
-			version = fmt.Sprintf("%v", sourceSolutionStatus.Version)
-		} else {
-			// or the latest assembled package
-			version = fmt.Sprintf("%v", sourceSolutionStatus.Version-1)
+		version := ctx.Int64("version")
+
+		// if not specific external version
+		if version < 0 {
+			version = sourceSolutionStatus.GetSolutionLatestAssembledVersion()
 		}
 
-		err, assembledPackage := sourceClient.DownloadSolution(sourceSolutionID, version)
+		err, assembledPackage := sourceClient.DownloadSolution(sourceSolutionID, fmt.Sprintf("%v", version))
 
 		if err != nil {
 			panic(err)
