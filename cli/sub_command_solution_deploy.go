@@ -71,6 +71,8 @@ var commandSolutionDeploy = cli.Command{
 			version = sourceSolutionStatus.GetSolutionLatestAssembledVersion()
 		}
 
+		log.Printf("Downloading the assembled package from source tenant, version: %v", version)
+
 		err, assembledPackage := sourceClient.DownloadSolution(sourceSolutionID, fmt.Sprintf("%v", version))
 
 		if err != nil {
@@ -80,11 +82,9 @@ var commandSolutionDeploy = cli.Command{
 		// content is empty
 		if assembledPackage == "" {
 			panic(fmt.Errorf("Not found solution %v package with version %v", sourceSolutionID, version))
-		} else {
-			log.Printf("Assembled packaged downloaded from source tenant, version: %v", version)
 		}
 
-		log.Println("Uploading assembled packaged to target system")
+		log.Println("Uploading assembled package to target system")
 
 		// after deploy, the solution must be existed in target tenant
 		err = targetClient.DeploySolution(assembledPackage)
@@ -92,9 +92,9 @@ var commandSolutionDeploy = cli.Command{
 		if err != nil {
 			// even successful, server sometimes also response error
 			log.Printf("Uploaded to target tenant with error: %v", err)
-			log.Println("Even successful, xrep server sometimes also will reset connection")
+			log.Println("Even successful, the xrep server sometimes also will reset connection")
 		} else {
-			log.Println("Assembled packaged uploaded to target system")
+			log.Println("Uploaded")
 		}
 
 		// wait seconds
@@ -113,7 +113,7 @@ var commandSolutionDeploy = cli.Command{
 		// still in background processing
 		if targetStatus.IsRunningUploading() {
 
-			log.Println("Package uploaded, system is processing the uploaded package now")
+			log.Println("The system is processing the uploaded package now")
 
 			// wait uploading finished
 			for {
