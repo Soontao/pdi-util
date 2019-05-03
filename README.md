@@ -4,7 +4,7 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)](https://github.com/Soontao/pdi-util/releases)
 [![](https://godoc.org/github.com/Soontao/pdi-util?status.svg)](http://godoc.org/github.com/Soontao/pdi-util)
 
-![Docker Automated build](https://img.shields.io/docker/cloud/automated/theosun/pdiutil.svg)
+[![Docker Automated build](https://img.shields.io/docker/cloud/automated/theosun/pdiutil.svg)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
 [![Size](https://shields.beevelop.com/docker/image/image-size/theosun/pdiutil/latest.svg?style=flat-square)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
 
 
@@ -26,7 +26,7 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] check all `Work Center Views` have been assigned to WC
 * [x] deploy solution
 * [x] static text spell check
-* [x] CI/CD Jenkinsfile provided
+* [x] CI/CD [Jenkinsfile](./jenkins) provided
 * [ ] code ast parser (in progress)
 
 ## Help
