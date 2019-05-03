@@ -1,4 +1,23 @@
 
+<a name="v1.9.12"></a>
+## [v1.9.12](https://github.com/Soontao/pdi-util/compare/v1.9.10...v1.9.12) (2019-05-03)
+
+### Common
+
+* **doc:** update
+* **docker:** image
+* **little:** doc & message change
+* **release:** new version
+
+### Features
+
+* **CI:** jenkins file provided
+
+### Remove
+
+* **unused:** sources
+
+
 <a name="v1.9.10"></a>
 ## [v1.9.10](https://github.com/Soontao/pdi-util/compare/v1.9.9...v1.9.10) (2019-05-03)
 
