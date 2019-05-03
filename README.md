@@ -22,10 +22,11 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] download assembled package (in history)
 * [x] view single file history
 * [x] activate, assemble and download assembled package
-* [x] automatic create patch solution after assembled
-* [x] check the WCVs have been assigned to WC
+* [x] create patch solution
+* [x] check all `Work Center Views` have been assigned to WC
 * [x] deploy solution
 * [x] static text spell check
+* [x] CI/CD Jenkinsfile provided
 * [ ] code ast parser (in progress)
 
 ## Help
@@ -37,8 +38,7 @@ Almost all options can be configured in the system environment variables.
 ## To Do
 
 * [ ] Documents
-* [ ] CI Jenkinefile
 
-## [CHNAGELOG](./CHANGELOG.md)
+## [CHANGELOG](./CHANGELOG.md)
 
 ## [LICENSE](./LICENSE)
