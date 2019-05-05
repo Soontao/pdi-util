@@ -19,10 +19,11 @@ var commandPackageDownload = cli.Command{
 			EnvVar: "SOLUTION_NAME",
 			Usage:  "The PDI Solution Name",
 		},
-		cli.StringFlag{
+		cli.Int64Flag{
 			Name:   "version, v",
 			EnvVar: "SOLUTION_VERSION",
-			Usage:  "Target download version",
+			Value:  -1,
+			Usage:  "Target download version, if empty, download the latest assembled version",
 		},
 		cli.StringFlag{
 			Name:   "output, o",
@@ -40,15 +41,15 @@ var commandPackageDownload = cli.Command{
 			solutionID = header.OriginSolutionID
 		}
 		output := ctx.String("output")
-		downloadVersion := ctx.String("version")
+		downloadVersion := ctx.Int64("version")
 
-		if downloadVersion == "" {
+		if downloadVersion < 0 {
 			// default download current version
 			if header.Status == pdiutil.S_STATUS_ASSEMBLED || header.IsCreatingPatch {
-				downloadVersion = fmt.Sprintf("%v", header.Version)
+				downloadVersion = header.Version
 			} else {
 				// or latest version
-				downloadVersion = fmt.Sprintf("%v", header.Version-1)
+				downloadVersion = (header.Version - 1)
 			}
 		}
 
@@ -57,7 +58,7 @@ var commandPackageDownload = cli.Command{
 		}
 
 		log.Printf("Start download %v(%v)", solutionName, downloadVersion)
-		err, content := c.DownloadSolution(solution, downloadVersion)
+		err, content := c.DownloadSolution(solution, fmt.Sprintf("%v", downloadVersion))
 
 		if err != nil {
 			log.Panic(err)
