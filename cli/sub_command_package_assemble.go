@@ -24,9 +24,15 @@ var commandPackageAssemble = cli.Command{
 			EnvVar: "FILENAME_OUTPUT",
 			Usage:  "Output file name, if not set, tool will use a default one",
 		},
+		cli.BoolFlag{
+			Name:   "check, c",
+			EnvVar: "CHECK_ONLY",
+			Usage:  "Do necessary checks for assembly operation only",
+		},
 	},
 	Action: PDIAction(func(c *pdiutil.PDIClient, ctx *cli.Context) {
 		solution := c.GetSolutionIDByString(ctx.String("solution"))
+		checkOnly := ctx.Bool("check")
 
 		log.Println("Start current solution status check")
 		// check status
@@ -39,7 +45,7 @@ var commandPackageAssemble = cli.Command{
 			panic(fmt.Sprintf("Solution %v can not do activation in: '%v' status", solution, s.StatusText))
 		}
 		if !s.IsSplitEnabled {
-			panic("You need do 'Enabel Assembly Split' manually in PDI.")
+			panic("You need do 'Enable Assembly Split' manually in PDI.")
 		}
 		if s.IsRunningJob {
 			panic("Another activation/assemble job is running now.")
@@ -99,18 +105,25 @@ var commandPackageAssemble = cli.Command{
 
 		}
 
+		// only do check
+		if checkOnly {
+			log.Println("Check Finished, all things seems well")
+			return
+		}
+
 		// start activation
 		log.Println("Start activation")
 		if err := c.ActivationSolution(solution); err != nil {
 			panic(err)
 		}
+
 		// start assemble
 		log.Println("Start assemble")
 		if err := c.AssembleSolution(solution); err != nil {
 			panic(err)
 		}
 
-		// start downlaod
+		// start download
 		header := c.GetSolutionStatus(solution)
 		solutionName := header.SolutionName
 		output := ctx.String("output")

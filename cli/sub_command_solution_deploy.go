@@ -87,12 +87,8 @@ var commandSolutionDeploy = cli.Command{
 		log.Println("Uploading assembled package to target system")
 
 		// after deploy, the solution must be existed in target tenant
-		err = targetClient.DeploySolution(assembledPackage)
-
-		if err != nil {
-			// even successful, server sometimes also response error
-			log.Printf("Uploaded to target tenant with error: %v", err)
-			log.Println("Even successful, the xrep server sometimes also will reset connection")
+		if err = targetClient.DeploySolution(assembledPackage); err != nil {
+			panic(err)
 		} else {
 			log.Println("Uploaded")
 		}
@@ -106,28 +102,8 @@ var commandSolutionDeploy = cli.Command{
 		targetStatus := targetClient.GetSolutionStatus(targetSolution)
 
 		// if not in uploading and not in uploaded
-		if !targetStatus.IsRunningUploading() && !targetStatus.IsUploadingSuccessful() {
+		if !targetStatus.IsUploadingSuccessful() {
 			panic("Package uploaded but system not processed, please check the log in system")
-		}
-
-		// still in background processing
-		if targetStatus.IsRunningUploading() {
-
-			log.Println("The system is processing the uploaded package now")
-
-			// wait uploading finished
-			for {
-				time.Sleep(checkInterval)
-				targetStatus = targetClient.GetSolutionStatus(targetSolution)
-				if targetStatus.IsUploadingSuccessful() {
-					// not in running mode, break loop
-					log.Println("Uploading progress finished")
-					break
-				} else {
-					panic("Upload progress finished, but can not do activation")
-				}
-			}
-
 		}
 
 		// activate target solution

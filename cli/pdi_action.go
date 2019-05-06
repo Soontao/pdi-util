@@ -26,7 +26,7 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 		}()
 
 		// set long timeout
-		req.SetTimeout(time.Hour * 6)
+		req.SetTimeout(time.Hour * 12)
 
 		// overwrite here
 		username := c.GlobalString("username")
