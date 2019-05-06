@@ -1,4 +1,19 @@
 
+<a name="v1.9.14"></a>
+## [v1.9.14](https://github.com/Soontao/pdi-util/compare/v1.9.12...v1.9.14) (2019-05-06)
+
+### Code Refactoring
+
+* assemble & deploy logic
+
+### Common
+
+* **doc:** meesage refactor
+* **doc:** update
+* **message:** refactor
+* **release:** new version
+
+
 <a name="v1.9.12"></a>
 ## [v1.9.12](https://github.com/Soontao/pdi-util/compare/v1.9.10...v1.9.12) (2019-05-03)
 
