@@ -1,6 +1,7 @@
 package pdiutil
 
 import (
+	"log"
 	"strconv"
 	"time"
 
@@ -14,11 +15,11 @@ type SolutionPhaseStatus string
 // S_STATUS_IN_DEV Solution In Development
 const S_STATUS_IN_DEV = SolutionStatus("1")
 
-// S_STATUS_IN_DEV Assembled
+// S_STATUS_ASSEMBLED Assembled
 const S_STATUS_ASSEMBLED = SolutionStatus("2")
 
-// S_STATUS_IN_DEPLOYEMENT In Deployment
-const S_STATUS_IN_DEPLOYEMENT = SolutionStatus("3")
+// S_STATUS_IN_DEPLOYMENT In Deployment
+const S_STATUS_IN_DEPLOYMENT = SolutionStatus("3")
 
 // S_STATUS_DEPLOYED Deployed
 const S_STATUS_DEPLOYED = SolutionStatus("4")
@@ -38,8 +39,8 @@ const S_PHASE_DATA_UPDATE = SolutionPhase("POS")
 // S_PHASE_STATUS_SUCCESSFUL
 const S_PHASE_STATUS_SUCCESSFUL = SolutionPhaseStatus("S")
 
-// S_PAHSE_STATUS_RUNNING
-const S_PAHSE_STATUS_RUNNING = SolutionPhaseStatus("R")
+// S_PHASE_STATUS_RUNNING
+const S_PHASE_STATUS_RUNNING = SolutionPhaseStatus("R")
 
 // SolutionHeader information
 //
@@ -70,7 +71,7 @@ type SolutionHeader struct {
 
 // IsRunningUploading file upload process
 func (h *SolutionHeader) IsRunningUploading() bool {
-	if h.Phase == S_PHASE_IMPORT && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
+	if h.Phase == S_PHASE_IMPORT && h.PhaseStatus == S_PHASE_STATUS_RUNNING {
 		return true
 	}
 	return false
@@ -96,15 +97,15 @@ func (h *SolutionHeader) IsUploadingSuccessful() bool {
 //
 // just used for deployment scenario
 func (h *SolutionHeader) IsRunningActivation() bool {
-	if h.Phase == S_PHASE_ACTIVATION && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
+	if h.Phase == S_PHASE_ACTIVATION && h.PhaseStatus == S_PHASE_STATUS_RUNNING {
 		return true
 	}
 	return false
 }
 
-// IsRunningDateUpdate process
+// IsRunningDataUpdate process
 func (h *SolutionHeader) IsRunningDataUpdate() bool {
-	if h.Phase == S_PHASE_DATA_UPDATE && h.PhaseStatus == S_PAHSE_STATUS_RUNNING {
+	if h.Phase == S_PHASE_DATA_UPDATE && h.PhaseStatus == S_PHASE_STATUS_RUNNING {
 		return true
 	}
 	return false
@@ -114,7 +115,7 @@ func (h *SolutionHeader) IsRunningDataUpdate() bool {
 func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 
 	solutionID := c.GetSolutionIDByString(solution)
-
+	endpoint := "00163E0123D21EE092C936CC65A49BA4"
 	payload := JSONObject{
 		"IMPORTING": JSONObject{
 			"IV_LANGUAGE":      "E",
@@ -123,7 +124,21 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 		},
 	}
 
-	respBody := c.xrepRequest("00163E0123D21EE092C936CC65A49BA4", payload)
+	respBody, err := c.xrepRequestE(endpoint, payload)
+
+	if err != nil {
+		log.Println(err)
+		log.Println("Some errors occurred when retrieve solution status information, will retry one time")
+		// wait some seconds
+		time.Sleep(DefaultPackageCheckInterval * time.Second)
+		// retry once, maybe system is in busy
+		respBody, err = c.xrepRequestE(endpoint, payload)
+	}
+
+	if err != nil {
+		panic(err)
+	}
+
 	solutionHeader := gjson.Get(respBody, "EXPORTING.ES_SOLUTION_HEADER")
 
 	changeDateTime := ParseXrepDateString(solutionHeader.Get("CHANGE_DATETIME").String())

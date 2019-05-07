@@ -11,7 +11,7 @@ import (
 
 // DefaultPackageCheckInterval for set the default interval for status checking
 // unit is second
-const DefaultPackageCheckInterval = 10
+const DefaultPackageCheckInterval = 20
 
 // ActivationSolution sync
 func (c *PDIClient) ActivationSolution(solution string) (err error) {
@@ -147,7 +147,7 @@ func (c *PDIClient) AssembleSolution(solution string) (err error) {
 }
 
 // DownloadSolution from tenant
-// return base64 banary zip file
+// return base64 binary zip file
 func (c *PDIClient) DownloadSolution(solution, version string) (err error, output string) {
 
 	res := c.xrepRequest("00163E0975CB1ED4B79AD6AC1C161314", JSONObject{
@@ -171,6 +171,7 @@ func (c *PDIClient) DownloadSolution(solution, version string) (err error, outpu
 
 // CreatePatch solution
 func (c *PDIClient) CreatePatch(solution string) (err error) {
+	checkInterval := DefaultPackageCheckInterval * time.Second
 
 	payload := JSONObject{
 		"IMPORTING": JSONObject{
@@ -185,31 +186,29 @@ func (c *PDIClient) CreatePatch(solution string) (err error) {
 		m := "Create patch solution failed."
 		log.Printf(m)
 		err = fmt.Errorf(m)
+		return err
 	}
+
+	time.Sleep(checkInterval)
 
 	// wait patch solution created
 	for {
+
+		// retrieve status
 		solutionHeader := c.GetSolutionStatus(solution)
-		// sometimes, firstly status retrive will be failed after patch creation
-		retried := false
 
 		if solutionHeader.IsCreatingPatch {
 			// still in running
 			// wait interval then check it.
-			time.Sleep(DefaultPackageCheckInterval * time.Second)
+			time.Sleep(checkInterval)
 		} else {
 			// finished
-			if solutionHeader.Status != S_STATUS_IN_DEV {
-				if !retried {
-					// retry once
-					retried = true
-					continue
-				}
-				// finished but not in development
-				// error happened
-				err = fmt.Errorf("Create patch solution failed, please check at PDI UI")
+			// in development now
+			if solutionHeader.Status == S_STATUS_IN_DEV {
+				break
+			} else {
+				err = fmt.Errorf("Patch created, but not in development")
 			}
-			break
 		}
 	}
 
