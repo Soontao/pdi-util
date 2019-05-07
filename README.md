@@ -27,6 +27,7 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] deploy solution
 * [x] static text spell check
 * [x] CI/CD [Jenkinsfile](./jenkins) provided
+* [x] source statistics
 * [ ] code ast parser (in progress)
 
 ## Help
