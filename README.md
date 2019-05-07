@@ -7,7 +7,6 @@
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/theosun/pdiutil.svg)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
 [![Size](https://shields.beevelop.com/docker/image/image-size/theosun/pdiutil/latest.svg?style=flat-square)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
 
-
 Cli for SAP PDI.
 
 ## Latest Build
@@ -28,7 +27,7 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] static text spell check
 * [x] CI/CD [Jenkinsfile](./jenkins) provided
 * [x] source statistics
-* [ ] code ast parser (in progress)
+* [ ] [code ast parser](./ast) (in progress)
 
 ## Help
 

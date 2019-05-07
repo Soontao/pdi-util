@@ -151,7 +151,7 @@ _relOp      : '=' '=' | '!' '=' | '<' | '<' '=' | '>' | '>' '=' ;
 _addOp      : '+' | '-' | '|' | '^' ;
 _mulOp      : '*' | '/' | '%' | '<' '<' | '>' '>' | '&' | '&' '^' ;
 
-<< import "github.com/Soontao/pdi-util/ast" >> 
+<< import ast "github.com/Soontao/pdi-util/ast/types" >> 
 
 // === [ Syntax part] ==========================================================
 

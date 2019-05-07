@@ -20,6 +20,13 @@ type SolutionStatisticsResult struct {
 	BCOCount                   int64
 }
 
+// CountElementForBODL type
+func CountElementForBODL(bodl []byte) int {
+	rt := 0
+
+	return rt
+}
+
 // Statistics solution
 func (c *PDIClient) Statistics(solution string, concurrent int) *SolutionStatisticsResult {
 	s := c.GetSolutionByIDOrDescription(solution)

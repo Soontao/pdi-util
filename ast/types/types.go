@@ -1,4 +1,4 @@
-package ast
+package types
 
 // GrammerNode type
 type GrammerNode map[string]interface{}

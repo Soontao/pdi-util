@@ -2,7 +2,7 @@
 
 package parser
 
-import "github.com/Soontao/pdi-util/ast"
+import ast "github.com/Soontao/pdi-util/ast/types"
 
 type (
 	//TODO: change type and variable names to be consistent with other tables
@@ -307,7 +307,7 @@ var productionsTable = ProdTab{
 		Index:      28,
 		NumSymbols: 5,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return ast.NewBODefination(nil, X[1], nil, X[3] )
+			return ast.NewBODefination(nil, X[1], nil, X[3])
 		},
 	},
 	ProdTabEntry{
@@ -317,7 +317,7 @@ var productionsTable = ProdTab{
 		Index:      29,
 		NumSymbols: 6,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return ast.NewBODefination(nil, X[1], X[2], X[5] )
+			return ast.NewBODefination(nil, X[1], X[2], X[5])
 		},
 	},
 	ProdTabEntry{
@@ -327,7 +327,7 @@ var productionsTable = ProdTab{
 		Index:      30,
 		NumSymbols: 6,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return ast.NewBODefination(X[0], X[2], nil, X[4] )
+			return ast.NewBODefination(X[0], X[2], nil, X[4])
 		},
 	},
 	ProdTabEntry{
@@ -337,7 +337,7 @@ var productionsTable = ProdTab{
 		Index:      31,
 		NumSymbols: 7,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return ast.NewBODefination(X[0], X[2], X[3], X[5] )
+			return ast.NewBODefination(X[0], X[2], X[3], X[5])
 		},
 	},
 	ProdTabEntry{
