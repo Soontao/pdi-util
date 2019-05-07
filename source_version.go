@@ -27,10 +27,9 @@ type FileVersion struct {
 	client     *PDIClient
 }
 
+// GetModificationDateTime obj
 func (v *FileVersion) GetModificationDateTime() time.Time {
-	sDateTime := strings.Split(v.Timestamp, ".")[0]
-	t, _ := time.Parse("20060102150405", sDateTime)
-	return t
+	return ParseXrepDateString(v.Timestamp)
 }
 
 func (v *FileVersion) GetUserName() string {
@@ -75,7 +74,10 @@ func (c *PDIClient) DownloadVersionFileSource(path, branch, solution, timestamp 
 	return &XrepFile{path, fileContent, attrs}
 }
 
-func (c *PDIClient) ViewFileVerionContent(version FileVersion) {
+// ViewFileVersionContent text
+//
+// print it to stdout
+func (c *PDIClient) ViewFileVersionContent(version FileVersion) {
 	file := version.GetVersionContent()
 	fmt.Println(string(file.Source))
 }

@@ -391,6 +391,7 @@ var commandSource = cli.Command{
 	Subcommands: []cli.Command{
 		commandListFileVersion,
 		commandDownloadSource,
+		commandSourceStatistics,
 	},
 }
 
@@ -441,7 +442,7 @@ var commandListFileVersion = cli.Command{
 
 			if path, found := pdiClient.GetXrepPathByFuzzyName(solutionName, filename); found {
 				if version, foundVersion := pdiClient.GetVersionByFuzzyVersion(path, sVersion); foundVersion {
-					pdiClient.ViewFileVerionContent(version)
+					pdiClient.ViewFileVersionContent(version)
 				}
 			}
 

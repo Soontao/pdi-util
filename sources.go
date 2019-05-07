@@ -28,6 +28,10 @@ type XrepFile struct {
 	Attributes map[string]string
 }
 
+func (f *XrepFile) String() string {
+	return string(f.Source)
+}
+
 // ListAllLockedFile list all checked out files name
 func (c *PDIClient) ListAllLockedFile(solutionName string) []string {
 	rt := []string{}
