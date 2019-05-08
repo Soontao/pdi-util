@@ -1,6 +1,7 @@
 package pdiutil
 
 import (
+	"github.com/Soontao/pdi-util/ast"
 	"path/filepath"
 	"strings"
 )
@@ -13,16 +14,31 @@ type SolutionStatisticsResult struct {
 	WebServicesCount int64
 	UIComponentCount int64
 	BOCount          int64
-	// not use now
+	// not used now
 	BOFieldsCount              int64
 	CommunicationScenarioCount int64
 	CodeListCount              int64
 	BCOCount                   int64
+	InternalCommunicationCount int64
 }
 
 // CountElementForBODL type
-func CountElementForBODL(bodl []byte) int {
+// if parse failed, return zero
+func CountElementForBODL(source []byte) int {
 	rt := 0
+
+	if n, err := ast.ParseAST(source); err == nil && n != nil {
+		if bo := n.GetNode("BODefinition"); bo != nil {
+			if elements := bo.GetNodeList("Elements"); elements != nil {
+				for _, e := range elements {
+					switch e.GetType() {
+					case "ElementItem":
+						rt++
+					}
+				}
+			}
+		}
+	}
 
 	return rt
 }
@@ -56,7 +72,10 @@ func (c *PDIClient) Statistics(solution string, concurrent int) *SolutionStatist
 			rt.CodeListCount++
 		case "csd":
 			rt.CommunicationScenarioCount++
+		case "pid":
+			rt.InternalCommunicationCount++
 		}
+
 	}
 
 	for _, abslCode := range c.fetchSources(abslList, concurrent) {

@@ -19,7 +19,7 @@ func NewProgram(eles ...interface{}) (interface{}, error) {
 			rt["Statements"] = eles[0]
 		}
 		if eles[1] != nil {
-			rt["BODefination"] = eles[1]
+			rt["BODefinition"] = eles[1]
 		}
 	}
 
@@ -109,7 +109,7 @@ func NewActionItem(action, raises interface{}) interface{} {
 
 // NewBODefination type
 func NewBODefination(annnotations, name, raises, elements interface{}) (interface{}, error) {
-	rt := GrammerNode{"Type": "BusinessObjectDefination"}
+	rt := GrammerNode{"Type": "BusinessObjectDefinition"}
 	if annnotations != nil {
 		rt["Annotations"] = annnotations
 	}
@@ -291,7 +291,7 @@ func NewBusinessObjectNode(tokens ...interface{}) (interface{}, error) {
 	}
 
 	rt["NodeName"] = tokens[0]
-	rt["NodeElements"] = tokens[1]
+	rt["Elements"] = tokens[1]
 
 	if len(tokens) == 3 && tokens[2] != nil {
 		rt["Multiplicity"] = tokens[2]

@@ -13,7 +13,6 @@ func ParseAST(source []byte) (*types.GrammerNode, error) {
 	n, err := p.Parse(s)
 	if err != nil {
 		return nil, err
-	} else {
-		return n.(*types.GrammerNode), err
 	}
+	return n.(*types.GrammerNode), err
 }

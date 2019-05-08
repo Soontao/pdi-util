@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -27,6 +28,9 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 
 		// set long timeout
 		req.SetTimeout(time.Hour * 12)
+
+		// set long tls handshake timeout
+		req.Client().Transport.(*http.Transport).TLSHandshakeTimeout = (time.Minute * 30)
 
 		// overwrite here
 		username := c.GlobalString("username")
