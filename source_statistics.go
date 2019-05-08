@@ -2,24 +2,25 @@ package pdiutil
 
 import (
 	"github.com/Soontao/pdi-util/ast"
+	"github.com/Soontao/pdi-util/ast/types"
 	"path/filepath"
 	"strings"
 )
 
 // SolutionStatisticsResult type
 type SolutionStatisticsResult struct {
-	Solution         *Solution
-	ABSLCodeLines    int
-	ABSLFileCount    int64
-	WebServicesCount int64
-	UIComponentCount int64
-	BOCount          int64
-	// not used now
-	BOFieldsCount              int64
-	CommunicationScenarioCount int64
-	CodeListCount              int64
-	BCOCount                   int64
-	InternalCommunicationCount int64
+	Solution                   *Solution
+	ABSLCodeLines              int
+	ABSLFileCount              int
+	WebServicesCount           int
+	UIComponentCount           int
+	BOCount                    int
+	BOFieldsCount              int
+	CommunicationScenarioCount int
+	CodeListCount              int
+	BCOCount                   int
+	InternalCommunicationCount int
+	UIComplexity               int
 }
 
 // CountElementForBODL type
@@ -29,17 +30,25 @@ func CountElementForBODL(source []byte) int {
 
 	if n, err := ast.ParseAST(source); err == nil && n != nil {
 		if bo := n.GetNode("BODefinition"); bo != nil {
-			if elements := bo.GetNodeList("Elements"); elements != nil {
-				for _, e := range elements {
-					switch e.GetType() {
-					case "ElementItem":
-						rt++
-					}
-				}
-			}
+			rt = countNodeInnerElements(bo)
 		}
 	}
 
+	return rt
+}
+
+func countNodeInnerElements(n *types.GrammerNode) int {
+	rt := 0
+	if elements := n.GetNodeList("Elements"); elements != nil {
+		for _, e := range elements {
+			switch e.GetType() {
+			case "ElementItem":
+				rt++
+			case "BusinessObjectNode":
+				rt += countNodeInnerElements(e)
+			}
+		}
+	}
 	return rt
 }
 
@@ -54,10 +63,13 @@ func (c *PDIClient) Statistics(solution string, concurrent int) *SolutionStatist
 
 	boList := []string{}
 
+	uiList := []string{}
+
 	for _, f := range files {
 		switch strings.TrimPrefix(filepath.Ext(f), ".") {
 		case "uicomponent", "xuicomponent", "uiwoc", "uiwocview":
 			rt.UIComponentCount++
+			uiList = append(uiList, f)
 		case "bo", "xbo":
 			rt.BOCount++
 			boList = append(boList, f)
@@ -80,6 +92,14 @@ func (c *PDIClient) Statistics(solution string, concurrent int) *SolutionStatist
 
 	for _, abslCode := range c.fetchSources(abslList, concurrent) {
 		rt.ABSLCodeLines += len(strings.Split(abslCode.String(), "\n"))
+	}
+
+	for _, boCode := range c.fetchSources(boList, concurrent) {
+		rt.BOFieldsCount += CountElementForBODL(boCode.Source)
+	}
+
+	for _, uiCode := range c.fetchSources(uiList, concurrent) {
+		rt.UIComplexity += CountXMLComplexity(uiCode.Source)
 	}
 
 	return rt

@@ -3,6 +3,7 @@ package pdiutil
 import (
 	"encoding/base64"
 	"fmt"
+	"github.com/spkg/bom"
 	"io/ioutil"
 	"log"
 	"os"
@@ -66,6 +67,8 @@ func (c *PDIClient) DownloadFileSource(xrepPath string) *XrepFile {
 	if err != nil {
 		panic(err)
 	}
+	// remove MS UTF8-BOM bytes
+	fileContent = bom.Clean(fileContent)
 	return &XrepFile{xrepPath, fileContent, attrs}
 }
 

@@ -8,8 +8,9 @@ import (
 )
 
 var commandSourceStatistics = cli.Command{
-	Name:  "statistics",
-	Usage: "statistics code scale",
+	Name:    "statistics",
+	Usage:   "statistics code scale",
+	Aliases: []string{"scale"},
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
@@ -29,12 +30,11 @@ var commandSourceStatistics = cli.Command{
 		log.Println("Start statistics")
 		result := c.Statistics(solution, concurrent)
 		log.Printf("Solution: %v", result.Solution.Name)
-		log.Printf("ABSL File Count: %v", result.ABSLFileCount)
-		log.Printf("ABSL Code Lines: %v", result.ABSLCodeLines)
-		log.Printf("UI/XUI File Count: %v", result.UIComponentCount)
-		log.Printf("BO/XBO Count: %v", result.BOCount)
-		log.Printf("Web Service Count: %v", result.WebServicesCount)
-		log.Printf("Communication Scenario Count: %v", result.CommunicationScenarioCount)
+		log.Printf("ABSL File Count: %v (%v lines)", result.ABSLFileCount, result.ABSLCodeLines)
+		log.Printf("UI/XUI File Count: %v (%v complexity)", result.UIComponentCount, result.UIComplexity)
+		log.Printf("BO/XBO Count: %v (%v fields)", result.BOCount, result.BOFieldsCount)
+		log.Printf("Communication Scenario Count: %v (%v WebServices)", result.CommunicationScenarioCount, result.WebServicesCount)
+		log.Printf("Code List/BCO Count: %v/%v", result.CodeListCount, result.BCOCount)
 
 		log.Println("Finished")
 	}),
