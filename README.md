@@ -15,14 +15,12 @@ Just download latest binary files from the [Github Release](https://github.com/S
 
 ## Features
 
-* [x] list all solutions
-* [x] static check & export results to excel
+* [x] [list all solutions](https://github.com/Soontao/pdi-util/wiki/How-to-list-all-solutions)
+* [x] [static check & export results to excel](https://github.com/Soontao/pdi-util/wiki/How-to-do-static-check)
 * [x] download current sources in solution
 * [x] download assembled package (in history)
 * [x] view single file history
 * [x] [activate, assemble and download assembled package](https://github.com/Soontao/pdi-util/wiki/How-to-assemble-solution)
-* [x] create patch solution
-* [x] check all `Work Center Views` have been assigned to `Work Centers`
 * [x] [deploy solution](https://github.com/Soontao/pdi-util/wiki/How-to-deploy-solution)
 * [x] static text spell check
 * [x] CI/CD [Jenkinsfile](./jenkins) provided
