@@ -23,4 +23,4 @@ RUN apk --no-cache add ca-certificates
 COPY --from=build-env /app/cli/cli .
 
 # start
-CMD ["./cli", "start"]
+CMD ["./cli"]
