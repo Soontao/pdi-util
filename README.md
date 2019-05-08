@@ -20,13 +20,13 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] download current sources in solution
 * [x] download assembled package (in history)
 * [x] view single file history
-* [x] activate, assemble and download assembled package
+* [x] [activate, assemble and download assembled package](https://github.com/Soontao/pdi-util/wiki/How-to-assemble-solution)
 * [x] create patch solution
-* [x] check all `Work Center Views` have been assigned to WC
-* [x] deploy solution
+* [x] check all `Work Center Views` have been assigned to `Work Centers`
+* [x] [deploy solution](https://github.com/Soontao/pdi-util/wiki/How-to-deploy-solution)
 * [x] static text spell check
 * [x] CI/CD [Jenkinsfile](./jenkins) provided
-* [x] source statistics
+* [x] [source statistics](https://github.com/Soontao/pdi-util/wiki/How-to-statistics-solution-scale)
 * [ ] [code ast parser](./ast) (in progress)
 
 ## Help
