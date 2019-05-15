@@ -27,7 +27,7 @@ var checkMessageCategoryReg = map[string]*regexp.Regexp{
 	"Performation Warning":    regexp.MustCompile("Performance Alert: .*?$"),
 	"Database Length Warning": regexp.MustCompile("Length of data type '.*?' is restricted to [\\d]+ characters in the data base"),
 	"Query Warning":           regexp.MustCompile("Query is not using any selection parameters, which may lead to a long runtime."),
-	"Defination Warning":      regexp.MustCompile("Definition of value '.*?' not found; Default value can not be verified."),
+	"Definition Warning":      regexp.MustCompile("Definition of value '.*?' not found; Default value can not be verified."),
 	"Namespace Warning":       regexp.MustCompile("Namespace '.*?' already imported"),
 }
 
@@ -108,15 +108,15 @@ func (c *PDIClient) CheckBackendMessageAPI(solution string, concurrent int) []Ch
 	responses := []CheckMessage{}
 
 	asyncResponses := make([]chan *[]CheckMessage, fileCount)
-	parallexController := make(chan bool, concurrent)
+	parallelController := make(chan bool, concurrent)
 
 	for idx, file := range files {
 		asyncResponses[idx] = make(chan *[]CheckMessage, 1)
-		parallexController <- true
+		parallelController <- true
 		go func(file string, done chan *[]CheckMessage) {
 			_, checkMessage := c.backendCheck(file)
 			done <- checkMessage
-			<-parallexController
+			<-parallelController
 		}(file, asyncResponses[idx])
 	}
 
