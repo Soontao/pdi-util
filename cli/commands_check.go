@@ -13,5 +13,6 @@ var commandCheck = cli.Command{
 		commandCheckNameConvention,
 		commandCheckUnAssignedWCV,
 		commandCheckSpelling,
+		commandCheckLocks,
 	},
 }

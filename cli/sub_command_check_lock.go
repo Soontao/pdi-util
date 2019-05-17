@@ -2,26 +2,19 @@ package main
 
 import (
 	"log"
-	"strings"
 
 	pdiutil "github.com/Soontao/pdi-util"
 	"github.com/urfave/cli"
 )
 
-var commandCheckSpelling = cli.Command{
-	Name:  "spell",
-	Usage: "check english spelling",
+var commandCheckLocks = cli.Command{
+	Name:  "lock",
+	Usage: "check solution locks",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
 			EnvVar: "SOLUTION_NAME",
 			Usage:  "The PDI Solution Name",
-		},
-		cli.StringFlag{
-			Name:   "token",
-			EnvVar: "RAPID_API_TOKEN",
-			Value:  pdiutil.DefaultRapidAPIToken,
-			Usage:  "The Rapid API Token",
 		},
 		cli.IntFlag{
 			Name:   "concurrent, c",
@@ -33,14 +26,15 @@ var commandCheckSpelling = cli.Command{
 	Action: PDIAction(func(c *pdiutil.PDIClient, ctx *cli.Context) {
 		solution := c.GetSolutionIDByString(ctx.String("solution"))
 		log.Println("Start check spelling in UI")
-		results := c.CheckSpellErrorAPI(solution, ctx.String("token"), ctx.Int("concurrent"))
+		results := c.CheckLockedFilesAPI(solution)
 
 		if len(results) > 0 {
-			for _, f := range results {
-				log.Printf("File %s mis-spelling words: [ %s ]", f.File.XrepPath, strings.Join(f.ErrorSpellingWords, ", "))
+			for _, lock := range results {
+				log.Printf("File %s is locked by %s", lock.FilePath, lock.EditByUserID)
 			}
-			log.Panicln("Some words mis-spelling")
+			log.Panicln("Some files are locked")
 		}
+
 		log.Println("Finished")
 
 	}),
