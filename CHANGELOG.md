@@ -1,4 +1,25 @@
 
+<a name="v2.0.0"></a>
+## [v2.0.0](https://github.com/Soontao/pdi-util/compare/v1.9.16...v2.0.0) (2019-05-08)
+
+### Code Refactoring
+
+* **ast:** module
+
+### Common
+
+* **doc:** update
+* **doc:** update
+* **doc:** update
+* **release:** new version
+* **update:** features
+* **vendor:** source
+
+### Features
+
+* **statistics:** BO Fields & UI Complexity
+
+
 <a name="v1.9.16"></a>
 ## [v1.9.16](https://github.com/Soontao/pdi-util/compare/v1.9.15...v1.9.16) (2019-05-07)
 

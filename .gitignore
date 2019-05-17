@@ -21,6 +21,7 @@ output.*
 cli/*cli*
 cli/build
 cli/*.zip
+cli/output
 
 # launch 
 .vscode/launch.json

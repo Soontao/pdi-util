@@ -151,7 +151,7 @@ _relOp      : '=' '=' | '!' '=' | '<' | '<' '=' | '>' | '>' '=' ;
 _addOp      : '+' | '-' | '|' | '^' ;
 _mulOp      : '*' | '/' | '%' | '<' '<' | '>' '>' | '&' | '&' '^' ;
 
-<< import "github.com/Soontao/pdi-util/ast" >> 
+<< import ast "github.com/Soontao/pdi-util/ast/types" >> 
 
 // === [ Syntax part] ==========================================================
 
@@ -220,9 +220,12 @@ StatementsBlock
 
 BusinessObjectDefination
 : keywordBusinessObject DataType "{" BOItemList "}" << ast.NewBODefination(nil, $1, nil, $3 ) >>
+| keywordBusinessObject DataType "{" "}" << ast.NewBODefination(nil, $1, nil, nil ) >>
 | keywordBusinessObject DataType RaiseExpr "{" BOItemList "}" << ast.NewBODefination(nil, $1, $2, $5 ) >>
 | AnnotationList keywordBusinessObject DataType "{" BOItemList "}" << ast.NewBODefination($0, $2, nil, $4 ) >>
+| AnnotationList keywordBusinessObject DataType "{" "}" << ast.NewBODefination($0, $2, nil, nil ) >>
 | AnnotationList keywordBusinessObject DataType RaiseExpr "{" BOItemList "}"  << ast.NewBODefination($0, $2, $3, $5 ) >>
+| AnnotationList keywordBusinessObject DataType RaiseExpr "{"  "}"  << ast.NewBODefination($0, $2, $3, nil ) >>
 ;
 
 BOItemList
@@ -238,6 +241,7 @@ AnnotatedBOItem
 
 BusinessObjectNode
 : keywordNode Identifier "{" BOItemList "}" << ast.NewBusinessObjectNode($1, $3) >>
+| keywordNode Identifier "{" "}" << ast.NewBusinessObjectNode($1, nil) >>
 | keywordNode Identifier Multiplicity "{" BOItemList "}" << ast.NewBusinessObjectNode($1, $4, $2) >>
 | keywordNode Identifier RaiseExpr "{" BOItemList "}" << ast.NewBusinessObjectNode($1, $4, nil, $2) >>
 | keywordNode Identifier Multiplicity RaiseExpr "{" BOItemList "}" << ast.NewBusinessObjectNode($1, $5, $2, $3) >>
