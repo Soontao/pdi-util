@@ -2,7 +2,7 @@ package pdiutil
 
 import (
 	"fmt"
-	"log"
+	"regexp"
 	"strings"
 
 	"github.com/imroc/req"
@@ -27,6 +27,11 @@ type PDIClient struct {
 	exitCode int
 	// user session id
 	sessionID string
+}
+
+// GetReleaseVersion for this tenant
+func (c *PDIClient) GetReleaseVersion() string {
+	return c.release
 }
 
 // GetExitCode for client
@@ -61,6 +66,7 @@ func (c *PDIClient) login() (*PDIClient, error) {
 	c.sapClient = param["sap-client"].(string)
 
 	resp, err = req.Post(url, param)
+
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +100,6 @@ func (c *PDIClient) getIvUser() *PDIClient {
 	}
 	respBody, _ := resp.ToString()
 	c.ivUser = gjson.Get(respBody, "EXPORTING.EV_USER").String()
-	log.Printf("Login to %v as %v(%v)", c.hostname, c.ivUser, c.username)
 	return c
 }
 
@@ -104,13 +109,60 @@ func ensure(v interface{}, name string) {
 	}
 }
 
+var c4cTitle = "SAP Cloud for Customer"
+var bydTitle = "SAP Business ByDesign"
+var bydLoginReleaseReg = regexp.MustCompile(`data-sap-b-clientVersion="(.*?)"`)
+
+// GetReleaseVersionForTenant host
+func GetReleaseVersionForTenant(host string) (rt string, err error) {
+	appCfgResponse, err := req.Get(fmt.Sprintf("https://%s/sap/public/ap/ui/appcfg", host))
+	if err == nil {
+		appCfg := &OberonApplication{}
+		if err = appCfgResponse.ToXML(appCfg); err == nil {
+			switch appCfg.LoginDialog.TitleText {
+			case c4cTitle:
+				// for c4c, get release version in config directly
+				rt = appCfg.SolutionInfo.Codeline
+			case bydTitle:
+				// for byd, get release from home page
+				loginPageResponse, err := req.Get(fmt.Sprintf("https://%s", host))
+				if err == nil {
+					loginPage, _ := loginPageResponse.ToString()
+					match := bydLoginReleaseReg.FindStringSubmatch(loginPage)
+					if len(match) == 2 {
+						longVersion := match[1]
+						if longVersion != "" {
+							longVersionParts := strings.Split(longVersion, ".")
+							if len(longVersionParts) > 0 {
+								rt = longVersionParts[0]
+							}
+						}
+					} else {
+						rt = ""
+					}
+				}
+			default:
+				err = fmt.Errorf("This tool not support for '%s'", appCfg.LoginDialog.TitleText)
+			}
+		}
+	}
+	return rt, err
+}
+
 // NewPDIClient instance
 func NewPDIClient(username, password, hostname, release string) (c *PDIClient, err error) {
 
 	ensure(username, "username")
 	ensure(password, "password")
 	ensure(hostname, "hostname")
-	ensure(release, "release")
+
+	// try to get release if not set
+	if release == "" {
+		if release, err = GetReleaseVersionForTenant(hostname); err != nil {
+			return nil, err
+		}
+	}
+
 	c = &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0}
 
 	_, err = c.login()

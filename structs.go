@@ -262,3 +262,190 @@ type BCPartnerSolution struct {
 		Internal    string `xml:"Internal"`
 	} `xml:"Content"`
 }
+
+// OberonApplication config
+type OberonApplication struct {
+	XMLName                         xml.Name `xml:"OberonApplication"`
+	Text                            string   `xml:",chardata"`
+	Xmlns                           string   `xml:"xmlns,attr"`
+	StartComponent                  string   `xml:"startComponent,attr"`
+	AllowTabbedBrowsing             string   `xml:"allowTabbedBrowsing,attr"`
+	SuppressTabbedBrowsingControl   string   `xml:"suppressTabbedBrowsingControl,attr"`
+	SuppressControlCenterHome       string   `xml:"suppressControlCenterHome,attr"`
+	TextBundleResourceUriPrefix     string   `xml:"textBundleResourceUriPrefix,attr"`
+	SuppressSystemMessages          string   `xml:"suppressSystemMessages,attr"`
+	CapitalizeHeaderTexts           string   `xml:"capitalizeHeaderTexts,attr"`
+	DefaultFeedsSearchCategory      string   `xml:"defaultFeedsSearchCategory,attr"`
+	DefaultAddresseesSearchCategory string   `xml:"defaultAddresseesSearchCategory,attr"`
+	RightAlignedLabels              string   `xml:"rightAlignedLabels,attr"`
+	BasedOnBuiltInTheme             string   `xml:"basedOnBuiltInTheme,attr"`
+	HasListSelectionColumn          string   `xml:"hasListSelectionColumn,attr"`
+	UseBreadcrumbNavigationTitles   string   `xml:"useBreadcrumbNavigationTitles,attr"`
+	ThemeUri                        string   `xml:"themeUri,attr"`
+	ThemeHighContrastBlackUri       string   `xml:"themeHighContrastBlackUri,attr"`
+	IsAutomationActive              string   `xml:"isAutomationActive,attr"`
+	SolutionInfo                    struct {
+		Text            string `xml:",chardata"`
+		AssemblyVersion string `xml:"assemblyVersion,attr"`
+		Changelist      string `xml:"changelist,attr"`
+		Timestamp       string `xml:"timestamp,attr"`
+		Codeline        string `xml:"codeline,attr"`
+	} `xml:"SolutionInfo"`
+	ProductSettings struct {
+		Text                        string `xml:",chardata"`
+		TitlePropertyName           string `xml:"titlePropertyName,attr"`
+		AboutDialogImageResourceUri string `xml:"aboutDialogImageResourceUri,attr"`
+		LogoResourceUri             string `xml:"logoResourceUri,attr"`
+		LogoWhiteResourceUri        string `xml:"logoWhiteResourceUri,attr"`
+		LogoutImageResourceUri      string `xml:"logoutImageResourceUri,attr"`
+		SmartPhoneLoginLogo         string `xml:"smartPhoneLoginLogo,attr"`
+		SmartPhoneLoginImage        string `xml:"smartPhoneLoginImage,attr"`
+		SAPStandardText             string `xml:"SAPStandardText,attr"`
+	} `xml:"ProductSettings"`
+	LoginDialog struct {
+		Text      string `xml:",chardata"`
+		TitleText string `xml:"titleText,attr"`
+		ImageUrl  string `xml:"imageUrl,attr"`
+	} `xml:"LoginDialog"`
+	SideCarPanels struct {
+		Text                   string `xml:",chardata"`
+		InitialWidth           string `xml:"initialWidth,attr"`
+		ControllerSideCarPanel []struct {
+			Text                      string `xml:",chardata"`
+			ID                        string `xml:"id,attr"`
+			ComponentName             string `xml:"componentName,attr"`
+			SortIndex                 string `xml:"sortIndex,attr"`
+			StartupTitleTextBundleKey string `xml:"startupTitleTextBundleKey,attr"`
+			SupportOnly               string `xml:"supportOnly,attr"`
+		} `xml:"ControllerSideCarPanel"`
+		BuiltinSideCarPanel []struct {
+			Text      string `xml:",chardata"`
+			ID        string `xml:"id,attr"`
+			Type      string `xml:"type,attr"`
+			SortIndex string `xml:"sortIndex,attr"`
+			IsModal   string `xml:"isModal,attr"`
+		} `xml:"BuiltinSideCarPanel"`
+	} `xml:"SideCarPanels"`
+	ToolPaletteItems struct {
+		Text                   string `xml:",chardata"`
+		BuiltinToolPaletteItem []struct {
+			Text string `xml:",chardata"`
+			ID   string `xml:"id,attr"`
+			Type string `xml:"type,attr"`
+		} `xml:"BuiltinToolPaletteItem"`
+		NotificationCounterToolPaletteItem struct {
+			Text       string `xml:",chardata"`
+			ID         string `xml:"id,attr"`
+			Icon       string `xml:"icon,attr"`
+			TextPoolId string `xml:"textPoolId,attr"`
+		} `xml:"NotificationCounterToolPaletteItem"`
+		ToolPaletteSeparator struct {
+			Text string `xml:",chardata"`
+			ID   string `xml:"id,attr"`
+		} `xml:"ToolPaletteSeparator"`
+	} `xml:"ToolPaletteItems"`
+	MenuItems struct {
+		Text     string `xml:",chardata"`
+		MenuItem []struct {
+			Text               string `xml:",chardata"`
+			ID                 string `xml:"id,attr"`
+			TextKey            string `xml:"textKey,attr"`
+			DefaultText        string `xml:"defaultText,attr"`
+			ModeVisibility     string `xml:"modeVisibility,attr"`
+			KeyUserOnly        string `xml:"keyUserOnly,attr"`
+			NavigationMenuItem struct {
+				Text            string `xml:",chardata"`
+				ID              string `xml:"id,attr"`
+				ComponentName   string `xml:"componentName,attr"`
+				StartupPortName string `xml:"startupPortName,attr"`
+				DefaultText     string `xml:"defaultText,attr"`
+				TextKey         string `xml:"textKey,attr"`
+			} `xml:"NavigationMenuItem"`
+			BuiltinMenuItem []struct {
+				Text           string `xml:",chardata"`
+				ID             string `xml:"id,attr"`
+				Type           string `xml:"type,attr"`
+				DefaultText    string `xml:"defaultText,attr"`
+				ModeVisibility string `xml:"modeVisibility,attr"`
+				SupportOnly    string `xml:"supportOnly,attr"`
+			} `xml:"BuiltinMenuItem"`
+			BackgroundImageMenuItem struct {
+				Text        string `xml:",chardata"`
+				ID          string `xml:"id,attr"`
+				DefaultText string `xml:"defaultText,attr"`
+				KeyUser     string `xml:"keyUser,attr"`
+			} `xml:"BackgroundImageMenuItem"`
+			Separator []struct {
+				Text string `xml:",chardata"`
+				ID   string `xml:"id,attr"`
+			} `xml:"Separator"`
+			ExternalLinkMenuItem []struct {
+				Text                   string `xml:",chardata"`
+				ID                     string `xml:"id,attr"`
+				Type                   string `xml:"type,attr"`
+				CalculatedResourceName string `xml:"calculatedResourceName,attr"`
+				Target                 string `xml:"target,attr"`
+				DefaultText            string `xml:"defaultText,attr"`
+				TextKey                string `xml:"textKey,attr"`
+			} `xml:"ExternalLinkMenuItem"`
+		} `xml:"MenuItem"`
+		Separator []struct {
+			Text string `xml:",chardata"`
+			ID   string `xml:"id,attr"`
+		} `xml:"Separator"`
+		BuiltinMenuItem struct {
+			Text        string `xml:",chardata"`
+			ID          string `xml:"id,attr"`
+			Type        string `xml:"type,attr"`
+			DefaultText string `xml:"defaultText,attr"`
+		} `xml:"BuiltinMenuItem"`
+		NavigationMenuItem struct {
+			Text          string `xml:",chardata"`
+			ID            string `xml:"id,attr"`
+			ComponentName string `xml:"componentName,attr"`
+			DefaultText   string `xml:"defaultText,attr"`
+			TextKey       string `xml:"textKey,attr"`
+		} `xml:"NavigationMenuItem"`
+	} `xml:"MenuItems"`
+	NotificationSettings struct {
+		Text                       string `xml:",chardata"`
+		NotificationCounterSetting struct {
+			Text                           string `xml:",chardata"`
+			ID                             string `xml:"id,attr"`
+			NotificationCounterSettingItem struct {
+				Text                   string `xml:",chardata"`
+				ID                     string `xml:"id,attr"`
+				TargetComponent        string `xml:"targetComponent,attr"`
+				BTMNotificationCounter []struct {
+					Text          string `xml:",chardata"`
+					BtmTaskTypeID string `xml:"btmTaskTypeID,attr"`
+				} `xml:"BTMNotificationCounter"`
+			} `xml:"NotificationCounterSettingItem"`
+		} `xml:"NotificationCounterSetting"`
+	} `xml:"NotificationSettings"`
+	ShellSettings struct {
+		Text              string `xml:",chardata"`
+		HideStartMenu     string `xml:"hideStartMenu,attr"`
+		HideCommonTasks   string `xml:"hideCommonTasks,attr"`
+		HideSingleHomeTab string `xml:"hideSingleHomeTab,attr"`
+	} `xml:"ShellSettings"`
+	Resources struct {
+		Text               string `xml:",chardata"`
+		CalculatedResource struct {
+			Text string `xml:",chardata"`
+			Name string `xml:"name,attr"`
+		} `xml:"CalculatedResource"`
+	} `xml:"Resources"`
+	ApplicationIcons struct {
+		Text string `xml:",chardata"`
+		Icon []struct {
+			Text              string `xml:",chardata"`
+			SymbolicName      string `xml:"symbolicName,attr"`
+			ResourceUri       string `xml:"resourceUri,attr"`
+			Width             string `xml:"width,attr"`
+			Height            string `xml:"height,attr"`
+			DedicatedForTheme string `xml:"dedicatedForTheme,attr"`
+			HoverResourceUri  string `xml:"hoverResourceUri,attr"`
+		} `xml:"Icon"`
+	} `xml:"ApplicationIcons"`
+}

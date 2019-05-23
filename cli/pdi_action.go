@@ -47,6 +47,8 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 			return err
 		}
 
+		log.Printf("Login to %v as %v", hostname, username)
+
 		action(pdiClient, c) // do process
 
 		if pdiClient.GetExitCode() > 0 {

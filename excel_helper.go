@@ -12,14 +12,15 @@ import (
 type OverviewStatus string
 
 const (
-	// Successful
+	// Successful status
 	Successful OverviewStatus = "Successful"
-	// Warning
+	// Warning status
 	Warning = "Warning"
-	// FatalError
+	// FatalError status
 	FatalError = "Fatal Error"
 )
 
+// OverviewItem type
 type OverviewItem struct {
 	ItemName        string
 	ItemDescription string
