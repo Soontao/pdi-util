@@ -1,4 +1,21 @@
 
+<a name="v2.0.1"></a>
+## [v2.0.1](https://github.com/Soontao/pdi-util/compare/v2.0.0...v2.0.1) (2019-05-23)
+
+### Common
+
+* **doc:** update
+* **doc:** update
+* **release:** new version
+* **spell:** check
+
+### Features
+
+* **command:** check lock
+* **docker:** image
+* **release:** automated retrive it.
+
+
 <a name="v2.0.0"></a>
 ## [v2.0.0](https://github.com/Soontao/pdi-util/compare/v1.9.16...v2.0.0) (2019-05-08)
 
