@@ -11,7 +11,7 @@
 // This pipeline will assemble a new package in the source tenant and popup a new version (create patch)
 // This pipeline will deploy the assembled package to target tenant and activate it after uploading
 
-def cliVersion = "v1.9.10"
+def cliVersion = "v2.0.2"
 
 def utilDownloadURI = "https://oss-theo.oss-cn-shenzhen.aliyuncs.com/download/pdiutil-${cliVersion}-darwin-amd64.zip"
 
@@ -35,16 +35,12 @@ def devUserCredentialId = ''
 // Jenkins user/password credential ID
 def targetUserCredentialId = ''
 
-// specific the current ByD/C4C release version
-def releaseVersion = ''
-
 pipeline {
 
 	agent any
 
 	environment { 
-		// tenant release version
-		TENANT_RELEASE = "${releaseVersion}"
+
 		// for assemble 
 		PDI_TENANT_HOST = "${devTenant}"
 		// for assemble
