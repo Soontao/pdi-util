@@ -74,6 +74,8 @@ func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 
 	contentType := contentTypeMapping[filepath.Ext(xrepPath)]
 
+	_, filename := filepath.Split(xrepPath)
+
 	if contentType != "" {
 		canCheck = true
 		payload := map[string]interface{}{
@@ -84,17 +86,32 @@ func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 		}
 
 		respBody := c.xrepRequest("00163E0115B01DDFB194EC88B8EE8C9B", payload)
-		msgList := gjson.Get(respBody, "EXPORTING.ET_MSG_LIST").Array()
-		for _, msg := range msgList {
-			checkMessage := CheckMessage{
-				Column:   strings.TrimSpace(msg.Get("COLUMN_NO").String()),
-				Row:      strings.TrimSpace(msg.Get("LINE_NO").String()),
-				Severity: msg.Get("SEVERITY").String(),
-				Message:  msg.Get("TEXT").String(),
-				FileName: msg.Get("FILE_NAME").String(),
+
+		switch contentType {
+		case "UICOMPONENT":
+			msgList := gjson.Get(respBody, "EXPORTING.ET_MESSAGES").Array()
+			for _, msg := range msgList {
+				checkMessage := CheckMessage{
+					Severity: msg.Get("SEVERITY").String(),
+					Message:  msg.Get("TEXT").String(),
+					FileName: filename,
+				}
+				msgLst = append(msgLst, checkMessage)
 			}
-			msgLst = append(msgLst, checkMessage)
+		default:
+			msgList := gjson.Get(respBody, "EXPORTING.ET_MSG_LIST").Array()
+			for _, msg := range msgList {
+				checkMessage := CheckMessage{
+					Column:   strings.TrimSpace(msg.Get("COLUMN_NO").String()),
+					Row:      strings.TrimSpace(msg.Get("LINE_NO").String()),
+					Severity: msg.Get("SEVERITY").String(),
+					Message:  msg.Get("TEXT").String(),
+					FileName: filename,
+				}
+				msgLst = append(msgLst, checkMessage)
+			}
 		}
+
 	}
 
 	return canCheck, &msgLst
