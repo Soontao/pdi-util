@@ -77,7 +77,11 @@ func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 	_, filename := filepath.Split(xrepPath)
 
 	if contentType != "" {
+
+		// available file types
+
 		canCheck = true
+
 		payload := map[string]interface{}{
 			"IMPORTING": map[string]interface{}{
 				"IV_CONTENT_TYPE": contentType,
@@ -87,29 +91,27 @@ func (c *PDIClient) backendCheck(xrepPath string) (bool, *[]CheckMessage) {
 
 		respBody := c.xrepRequest("00163E0115B01DDFB194EC88B8EE8C9B", payload)
 
-		switch contentType {
-		case "UICOMPONENT":
-			msgList := gjson.Get(respBody, "EXPORTING.ET_MESSAGES").Array()
-			for _, msg := range msgList {
-				checkMessage := CheckMessage{
-					Severity: msg.Get("SEVERITY").String(),
-					Message:  msg.Get("TEXT").String(),
-					FileName: filename,
-				}
-				msgLst = append(msgLst, checkMessage)
+		// try to get all messages
+		msgList := gjson.Get(respBody, "EXPORTING.ET_MESSAGES").Array()
+		for _, msg := range msgList {
+			checkMessage := CheckMessage{
+				Severity: msg.Get("SEVERITY").String(),
+				Message:  msg.Get("TEXT").String(),
+				FileName: filename,
 			}
-		default:
-			msgList := gjson.Get(respBody, "EXPORTING.ET_MSG_LIST").Array()
-			for _, msg := range msgList {
-				checkMessage := CheckMessage{
-					Column:   strings.TrimSpace(msg.Get("COLUMN_NO").String()),
-					Row:      strings.TrimSpace(msg.Get("LINE_NO").String()),
-					Severity: msg.Get("SEVERITY").String(),
-					Message:  msg.Get("TEXT").String(),
-					FileName: filename,
-				}
-				msgLst = append(msgLst, checkMessage)
+			msgLst = append(msgLst, checkMessage)
+		}
+
+		msgList = gjson.Get(respBody, "EXPORTING.ET_MSG_LIST").Array()
+		for _, msg := range msgList {
+			checkMessage := CheckMessage{
+				Column:   strings.TrimSpace(msg.Get("COLUMN_NO").String()),
+				Row:      strings.TrimSpace(msg.Get("LINE_NO").String()),
+				Severity: msg.Get("SEVERITY").String(),
+				Message:  msg.Get("TEXT").String(),
+				FileName: filename,
 			}
+			msgLst = append(msgLst, checkMessage)
 		}
 
 	}
