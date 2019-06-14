@@ -13,6 +13,114 @@ import (
 // unit is second
 const DefaultPackageCheckInterval = 20
 
+// BuildCheckError type
+type BuildCheckError struct {
+	Catalog string
+	Message string
+}
+
+// CheckBuildErrors api
+//
+// check activation & assemble could be executed before run
+func (c *PDIClient) CheckBuildErrors(solution string) (errs []*BuildCheckError) {
+
+	// >> check status
+	s := c.GetSolutionStatus(solution)
+
+	if s.NeedCreatePatch {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Solution",
+			Message: "Solultion need create patch firstly.",
+		})
+	}
+
+	if !s.CanActivation && !s.CanAssemble {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Solution",
+			Message: fmt.Sprintf("Solution %v can not do activation in: '%v' status", solution, s.StatusText),
+		})
+	}
+
+	if !s.IsSplitEnabled {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Solution",
+			Message: "You need do 'Enable Assembly Split' manually in PDI.",
+		})
+	}
+
+	if s.IsRunningJob {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Solution",
+			Message: "Another activation/assemble job is running now.",
+		})
+	}
+
+	if s.IsCreatingPatch {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Solution",
+			Message: fmt.Sprintf("Solution %v is creating patch now.", solution),
+		})
+	}
+
+	for _, lock := range c.CheckLockedFilesAPI(solution) {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Lock",
+			Message: lock.ToString(),
+		})
+	}
+
+	if outOfDate, bacErrors := c.CheckBacOutOfDate(solution); outOfDate {
+
+		for _, e := range bacErrors {
+			errs = append(errs, &BuildCheckError{
+				Catalog: "BAC File",
+				Message: e.Error(),
+			})
+		}
+
+		errs = append(errs, &BuildCheckError{
+			Catalog: "BAC File",
+			Message: "BAC file is out of date, please update your BAC file in PDI.",
+		})
+
+	}
+
+	if r := c.FindUnAssignedWCV(solution); r.UnAssignedWCVCount > 0 {
+		for _, u := range r.UnAssignedWCVs {
+			errs = append(errs, &BuildCheckError{
+				Catalog: "WCV Assignment",
+				Message: fmt.Sprintf("Un assigned WCV file: %v", u),
+			})
+		}
+		errs = append(errs, &BuildCheckError{
+			Catalog: "WCV Assignment",
+			Message: "Please make sure all WCV have been assigned.",
+		})
+	}
+
+	checkMessages := c.CheckBackendMessageAPI(solution, DefaultDownloadConcurrnet)
+	checkErrorCount := 0
+
+	for _, m := range checkMessages {
+		if m.IsError() {
+			checkErrorCount++
+			errs = append(errs, &BuildCheckError{
+				Catalog: "Backend Check",
+				Message: fmt.Sprintf("%v: %v", m.FileName, m.Message),
+			})
+		}
+	}
+
+	if checkErrorCount > 0 {
+		errs = append(errs, &BuildCheckError{
+			Catalog: "Backend Check",
+			Message: "Backend code check failed.",
+		})
+	}
+
+	return errs
+}
+
 // ActivationSolution sync
 func (c *PDIClient) ActivationSolution(solution string) (err error) {
 
@@ -63,7 +171,9 @@ func (c *PDIClient) ActivationSolution(solution string) (err error) {
 
 }
 
-// FindBACAndActivateIt
+// FindBACAndActivateIt func
+// DO NOT USE
+// use PDI to activate it, because PDI will refresh content for it.
 func (c *PDIClient) FindBACAndActivateIt(solution string) (err error) {
 
 	// NEED do more update

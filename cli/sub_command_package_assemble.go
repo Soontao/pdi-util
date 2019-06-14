@@ -60,7 +60,7 @@ var commandPackageAssemble = cli.Command{
 		locks := c.CheckLockedFilesAPI(solution)
 
 		for _, l := range locks {
-			log.Printf("%v is locked by %v(%v) at %v", l.FileName, l.EditByUserID, l.EditBy, l.EditOnDate)
+			log.Println(l.ToString())
 		}
 
 		if len(locks) > 0 {
@@ -74,7 +74,7 @@ var commandPackageAssemble = cli.Command{
 			for _, e := range errs {
 				log.Println(e.Error())
 			}
-			panic("Please update your BAC file")
+			panic("BAC file is out of date, please update your BAC file in PDI.")
 		}
 
 		// do check all WCVs have been assigned

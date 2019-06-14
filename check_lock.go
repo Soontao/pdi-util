@@ -18,6 +18,11 @@ type EtLock struct {
 	EditOnDate   time.Time
 }
 
+// ToString itr
+func (lock *EtLock) ToString() string {
+	return fmt.Sprintf("%v is locked by %v(%v) at %v", lock.FileName, lock.EditByUserID, lock.EditBy, lock.EditOnDate)
+}
+
 // CheckLockedFilesAPI to get locked files
 func (c *PDIClient) CheckLockedFilesAPI(solution string) []EtLock {
 
