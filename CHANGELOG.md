@@ -1,4 +1,17 @@
 
+<a name="v2.0.4"></a>
+## [v2.0.4](https://github.com/Soontao/pdi-util/compare/v2.0.3...v2.0.4) (2019-06-20)
+
+### Bug Fixes
+
+* deploy logic
+
+### Common
+
+* log error if necessary
+* **release:** new version
+
+
 <a name="v2.0.3"></a>
 ## [v2.0.3](https://github.com/Soontao/pdi-util/compare/v2.0.2...v2.0.3) (2019-06-14)
 
@@ -359,7 +372,7 @@
 
 
 <a name="v1.3.0"></a>
-## [v1.3.0](https://github.com/Soontao/pdi-util/compare/v1.1.4...v1.3.0) (2019-04-09)
+## [v1.3.0](https://github.com/Soontao/pdi-util/compare/v1.1.3...v1.3.0) (2019-04-09)
 
 ### Bug Fixes
 
@@ -383,12 +396,12 @@
 * **refactor:** code for reuse
 
 
-<a name="v1.1.4"></a>
-## [v1.1.4](https://github.com/Soontao/pdi-util/compare/v1.1.3...v1.1.4) (2019-03-27)
-
-
 <a name="v1.1.3"></a>
-## [v1.1.3](https://github.com/Soontao/pdi-util/compare/v1.1.2...v1.1.3) (2019-03-27)
+## [v1.1.3](https://github.com/Soontao/pdi-util/compare/v1.1.4...v1.1.3) (2019-03-27)
+
+
+<a name="v1.1.4"></a>
+## [v1.1.4](https://github.com/Soontao/pdi-util/compare/v1.1.2...v1.1.4) (2019-03-27)
 
 ### Common
 
