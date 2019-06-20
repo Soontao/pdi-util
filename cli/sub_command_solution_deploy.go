@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	pdiutil "github.com/Soontao/pdi-util"
@@ -88,7 +89,15 @@ var commandSolutionDeploy = cli.Command{
 
 		// after deploy, the solution must be existed in target tenant
 		// ignore upload error
-		targetClient.DeploySolution(assembledPackage)
+		if err = targetClient.DeploySolution(assembledPackage); err != nil {
+
+			sError := strings.TrimSpace(err.Error())
+
+			if sError != "" {
+				log.Println(sError)
+			}
+
+		}
 		log.Println("Uploaded")
 
 		// wait seconds
