@@ -87,11 +87,9 @@ var commandSolutionDeploy = cli.Command{
 		log.Println("Uploading assembled package to target system")
 
 		// after deploy, the solution must be existed in target tenant
-		if err = targetClient.DeploySolution(assembledPackage); err != nil {
-			panic(err)
-		} else {
-			log.Println("Uploaded")
-		}
+		// ignore upload error
+		targetClient.DeploySolution(assembledPackage)
+		log.Println("Uploaded")
 
 		// wait seconds
 		time.Sleep(checkInterval)
@@ -100,6 +98,24 @@ var commandSolutionDeploy = cli.Command{
 		targetS := targetClient.GetSolutionByIDOrDescription(sourceSolutionDescription)
 		targetSolution := targetS.Name
 		targetStatus := targetClient.GetSolutionStatus(targetSolution)
+
+		// still in uploading (extract content)
+		if targetStatus.IsRunningUploading() {
+
+			// wait uploading finished
+			for {
+				// wait seconds
+				time.Sleep(checkInterval)
+				targetStatus = targetClient.GetSolutionStatus(targetSolution)
+
+				// uploading finished
+				if !targetStatus.IsRunningUploading() {
+					break
+				}
+
+			}
+
+		}
 
 		// if not in uploading and not in uploaded
 		if !targetStatus.IsUploadingSuccessful() {
