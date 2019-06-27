@@ -98,7 +98,7 @@ func (c *PDIClient) CheckBuildErrors(solution string) (errs []*BuildCheckError) 
 		})
 	}
 
-	checkMessages := c.CheckBackendMessageAPI(solution, DefaultDownloadConcurrnet)
+	checkMessages := c.CheckBackendMessageAPI(solution, DefaultDownloadConcurrent)
 	checkErrorCount := 0
 
 	for _, m := range checkMessages {

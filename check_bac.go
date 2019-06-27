@@ -9,8 +9,8 @@ import (
 
 // CheckBacOutOfDate func
 // if the BAC file out of date, assemble will be failed
-func (c *PDIClient) CheckBacOutOfDate(solution string) (outofdate bool, errors []error) {
-	outofdate = false
+func (c *PDIClient) CheckBacOutOfDate(solution string) (isOutOfDate bool, errors []error) {
+	isOutOfDate = false
 
 	boInformation := c.QueryBOInformation(solution)
 	bacInformation := c.GetSolutionBACFile(solution)
@@ -32,7 +32,7 @@ func (c *PDIClient) CheckBacOutOfDate(solution string) (outofdate bool, errors [
 			// not found in bac file
 			e := fmt.Errorf("Not found BO %v in BAC file", i.NAME)
 			errors = append(errors, e)
-			outofdate = true
+			isOutOfDate = true
 		}
 	}
 
@@ -42,12 +42,12 @@ func (c *PDIClient) CheckBacOutOfDate(solution string) (outofdate bool, errors [
 			if _, found := bacMap[fNameWithoutExt]; !found {
 				e := fmt.Errorf("Not found BC Set: %v in BAC file", fNameWithoutExt)
 				errors = append(errors, e)
-				outofdate = true
+				isOutOfDate = true
 			}
 		}
 	}
 
-	return outofdate, errors
+	return isOutOfDate, errors
 }
 
 // GetSolutionBACFile content

@@ -17,14 +17,14 @@ type XrepActivateCheckResult struct {
 	LastChangedOnTime   time.Time
 }
 
-type XrepAddionalActiveCheckResult struct {
+type XrepAdditionalActiveCheckResult struct {
 	FileName string
 	FilePath string
 	Active   bool
 }
 
-func (c *PDIClient) checkAddionalActiveStatus(solutionName string) map[string]XrepAddionalActiveCheckResult {
-	rt := map[string]XrepAddionalActiveCheckResult{}
+func (c *PDIClient) checkAdditionalActiveStatus(solutionName string) map[string]XrepAdditionalActiveCheckResult {
+	rt := map[string]XrepAdditionalActiveCheckResult{}
 	payload := map[string]interface{}{
 		"IMPORTING": map[string]interface{}{
 			"IV_SOLUTION_PREFIX": solutionName,
@@ -49,7 +49,7 @@ func (c *PDIClient) checkAddionalActiveStatus(solutionName string) map[string]Xr
 		default:
 			log.Printf("For file %s, have unexpected Runtime Status %s", filePath, runtimeStatus)
 		}
-		rt[fileName] = XrepAddionalActiveCheckResult{fileName, filePath, active}
+		rt[fileName] = XrepAdditionalActiveCheckResult{fileName, filePath, active}
 	}
 
 	return rt
@@ -61,13 +61,13 @@ func (c *PDIClient) CheckInActiveFilesAPI(solutionName string) []XrepActivateChe
 
 	fileAttrs := c.GetSolutionFileAttrs(solutionName)
 
-	addtionalActiveCheckResult := c.checkAddionalActiveStatus(solutionName)
+	additionalActiveCheckResult := c.checkAdditionalActiveStatus(solutionName)
 
-	// merge addional active check result
-	for _, addionalCheck := range addtionalActiveCheckResult {
+	// merge additional active check result
+	for _, additionalCheck := range additionalActiveCheckResult {
 
-		if fileAttr, existed := fileAttrs[addionalCheck.FileName]; existed {
-			if fileAttr.Active && (!addionalCheck.Active) {
+		if fileAttr, existed := fileAttrs[additionalCheck.FileName]; existed {
+			if fileAttr.Active && (!additionalCheck.Active) {
 				fileAttr.Active = false
 			}
 		}

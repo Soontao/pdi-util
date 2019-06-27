@@ -9,10 +9,10 @@ import (
 )
 
 const (
-	// DefaultDownloadConcurrnet value
+	// DefaultDownloadConcurrent value
 	//
 	// used to limit the download concurrent
-	DefaultDownloadConcurrnet = 20
+	DefaultDownloadConcurrent = 20
 	// SuffixWCV
 	//
 	// Work Center View suffix
@@ -38,19 +38,19 @@ type WCVAssignCheckResult struct {
 // FindUnAssignedWCV api
 func (c *PDIClient) FindUnAssignedWCV(solution string) *WCVAssignCheckResult {
 	files := c.GetSolutionXrepFileList(solution)
-	allWockCenters := []string{}
+	allWorkCenters := []string{}
 	allWorkCenterViews := []string{}
 	usedWorkCenterViews := mapset.NewSet()
 	unusedWorkCenterViews := []string{}
 	for _, f := range files {
 		if strings.HasSuffix(f, SuffixWoC) {
-			allWockCenters = append(allWockCenters, f)
+			allWorkCenters = append(allWorkCenters, f)
 		} else if strings.HasSuffix(f, SuffixWCV) {
 			allWorkCenterViews = append(allWorkCenterViews, f)
 		}
 	}
 
-	wcSources := c.fetchSources(allWockCenters, DefaultDownloadConcurrnet)
+	wcSources := c.fetchSources(allWorkCenters, DefaultDownloadConcurrent)
 
 	// extract used WCV in WoC
 	for _, wcSource := range wcSources {
@@ -73,7 +73,7 @@ func (c *PDIClient) FindUnAssignedWCV(solution string) *WCVAssignCheckResult {
 	}
 
 	return &WCVAssignCheckResult{
-		WCCount:            len(allWockCenters),
+		WCCount:            len(allWorkCenters),
 		WCVCount:           len(allWorkCenterViews),
 		AssignedWCVCount:   len(usedWorkCenterViews.ToSlice()),
 		UnAssignedWCVCount: len(unusedWorkCenterViews),

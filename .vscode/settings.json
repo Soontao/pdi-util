@@ -1,7 +1,9 @@
 {
   "go.formatTool": "goimports",
   "cSpell.words": [
-    "UICOMPONENT"
+    "UICOMPONENT",
+    "gjson",
+    "tidwall"
   ],
   "go.useLanguageServer": true,
   "[go]": {

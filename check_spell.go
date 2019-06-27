@@ -15,8 +15,8 @@ import (
 // DefaultRapidAPIToken test key, maybe deprecated
 var DefaultRapidAPIToken = "92227c001emsh8847b5b6c9eced3p1163b0jsnc6a4f3a23aaa"
 
-// UISuffixs list
-var UISuffixs = []string{".uicomponent", ".uiwoc", ".uiwocview"}
+// UISuffixes list
+var UISuffixes = []string{".uicomponent", ".uiwoc", ".uiwocview"}
 
 // SpellErrorCheckResult type
 type SpellErrorCheckResult struct {
@@ -33,7 +33,7 @@ func (c *PDIClient) CheckSpellErrorAPI(solution, apiToken string, concurrent int
 	uiXrepPathes := []string{}
 
 	for _, p := range xrepPathes {
-		for _, s := range UISuffixs {
+		for _, s := range UISuffixes {
 			if strings.HasSuffix(p, s) {
 				uiXrepPathes = append(uiXrepPathes, p)
 				break
