@@ -1,16 +1,19 @@
 package pdiutil
 
 import (
+	"context"
 	"encoding/base64"
 	"fmt"
-	"github.com/spkg/bom"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 
-	"github.com/Jeffail/tunny"
+	"github.com/cheggaaa/pb"
+	"github.com/spkg/bom"
+	"golang.org/x/sync/semaphore"
 
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
@@ -134,18 +137,36 @@ func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 
 // fetchSources list
 func (c *PDIClient) fetchSources(xrepPathes []string, concurrent int) []*XrepFile {
-	rt := []*XrepFile{}
 
-	pool := tunny.NewFunc(concurrent, func(xrepPath interface{}) interface{} {
-		return c.DownloadFileSource(xrepPath.(string))
-	})
+	log.Printf("Downloading %v items from repository", len(xrepPathes))
 
-	defer pool.Close()
+	rt := make([]*XrepFile, len(xrepPathes))
 
-	for _, f := range xrepPathes {
-		rt = append(rt, pool.Process(f).(*XrepFile))
+	bar := pb.StartNew(len(xrepPathes))
+
+	var wg sync.WaitGroup
+
+	ctx := context.TODO()
+
+	sem := semaphore.NewWeighted(int64(concurrent))
+
+	for idx, xrepPath := range xrepPathes {
+		wg.Add(1)
+		sem.Acquire(ctx, 1)
+
+		go func(i string, s *semaphore.Weighted, w *sync.WaitGroup, payloadIndex int) {
+
+			defer wg.Done()
+			rt[payloadIndex] = c.DownloadFileSource(i)
+			s.Release(1)
+			bar.Increment()
+
+		}(xrepPath, sem, &wg, idx)
 	}
 
+	wg.Wait() // wait all requests finished
+	bar.Finish()
+	log.Println("Download Finished")
 	return rt
 }
 

@@ -30,37 +30,23 @@ type CopyRightHeaderCheckResult struct {
 // CheckSolutionCopyrightHeaderAPI content
 func (c *PDIClient) CheckSolutionCopyrightHeaderAPI(solutionName string, concurrent int) []CopyRightHeaderCheckResult {
 	rt := []CopyRightHeaderCheckResult{}
+	pathes := []string{}
 
-	files := c.GetSolutionFileAttrs(solutionName)
+	fileAttrs := c.GetSolutionFileAttrs(solutionName)
 
-	for _, file := range files {
+	for _, file := range fileAttrs {
 		if strings.HasSuffix(file.FilePath, ".absl") || strings.HasSuffix(file.FilePath, ".bo") || strings.HasSuffix(file.FilePath, ".xbo") {
-			rt = append(rt, CopyRightHeaderCheckResult{File: file})
+			pathes = append(pathes, file.FilePath)
 		}
 	}
 
-	fileCount := len(rt)
-	// > request and download
-	asyncResponses := make([]chan bool, fileCount)
-	parallexController := make(chan bool, concurrent)
-	for idx, task := range rt {
-		asyncResponses[idx] = make(chan bool, 1)
-		parallexController <- true
-		go func(task CopyRightHeaderCheckResult, done chan bool) {
-			task.FileContent = *(c.DownloadFileSource(task.File.FilePath))
-			done <- true
-			<-parallexController
-		}(task, asyncResponses[idx])
-	}
-	// await all go-routines finished
-	for _, response := range asyncResponses {
-		<-response
+	sources := c.fetchSources(pathes, concurrent)
+
+	for _, file := range sources {
+		check := CopyRightHeaderCheckResult{File: fileAttrs[file.XrepPath], FileContent: *file, HaveHeader: c.checkCopyrightHeader(file.Source)}
+		rt = append(rt, check)
 	}
 
-	for _, check := range rt {
-		fileContent := check.FileContent
-		check.HaveHeader = c.checkCopyrightHeader(fileContent.Source)
-	}
 	return rt
 }
 

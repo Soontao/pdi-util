@@ -16,6 +16,7 @@ import (
 
 // PDIAction wrapper
 func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c *cli.Context) error {
+
 	return func(c *cli.Context) error {
 
 		defer func() {
@@ -25,6 +26,8 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 				os.Exit(1)
 			}
 		}()
+
+		log.Printf("%v %v", AppName, Version) // header information
 
 		// set long timeout
 		req.SetTimeout(time.Hour * 12)

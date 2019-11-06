@@ -87,7 +87,8 @@ func (c *PDIClient) GetSolutionFileAttrs(solutionName string) map[string]XrepFil
 
 			}
 		}
-		rt[xrepFileAttr.FileName] = xrepFileAttr
+
+		rt[xrepFileAttr.FilePath] = xrepFileAttr
 	}
 
 	return rt
