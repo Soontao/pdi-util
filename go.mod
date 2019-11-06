@@ -3,7 +3,6 @@ module github.com/Soontao/pdi-util
 go 1.12
 
 require (
-	baliance.com/gooxml v1.0.1
 	github.com/Jeffail/tunny v0.0.0-20181108205650-4921fff29480
 	github.com/beevik/etree v1.1.0
 	github.com/deckarep/golang-set v1.7.1
@@ -18,6 +17,7 @@ require (
 	github.com/tidwall/gjson v1.2.1
 	github.com/tidwall/match v1.0.1 // indirect
 	github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65 // indirect
+	github.com/unidoc/unioffice v1.2.1
 	github.com/urfave/cli v1.20.0
 	gotest.tools v2.2.0+incompatible
 )

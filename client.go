@@ -114,6 +114,8 @@ var bydTitle = "SAP Business ByDesign"
 var bydLoginReleaseReg = regexp.MustCompile(`data-sap-b-clientVersion="(.*?)"`)
 
 // GetReleaseVersionForTenant host
+//
+// The release version will be used in login process
 func GetReleaseVersionForTenant(host string) (rt string, err error) {
 	appCfgResponse, err := req.Get(fmt.Sprintf("https://%s/sap/public/ap/ui/appcfg", host))
 	if err == nil {

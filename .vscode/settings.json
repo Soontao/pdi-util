@@ -3,6 +3,7 @@
   "cSpell.words": [
     "UICOMPONENT",
     "gjson",
+    "saml",
     "tidwall"
   ],
   "go.useLanguageServer": true,

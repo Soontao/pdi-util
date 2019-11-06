@@ -3,9 +3,9 @@ package pdiutil
 import (
 	"strconv"
 
-	"baliance.com/gooxml/color"
-	"baliance.com/gooxml/measurement"
-	"baliance.com/gooxml/spreadsheet"
+	"github.com/unidoc/unioffice/color"
+	"github.com/unidoc/unioffice/measurement"
+	"github.com/unidoc/unioffice/spreadsheet"
 )
 
 // OverviewStatus enum
