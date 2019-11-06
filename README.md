@@ -25,7 +25,7 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] static text spell check
 * [x] CI/CD [Jenkinsfile](./jenkins) provided
 * [x] [solution source statistics](https://github.com/Soontao/pdi-util/wiki/How-to-statistics-solution-scale)
-* [ ] [code ast parser](./ast) (in progress)
+* [ ] [code ast parser](https://github.com/Soontao/grammar-pdi) (in progress)
 
 ## Help
 
