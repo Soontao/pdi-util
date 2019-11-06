@@ -36,8 +36,11 @@ func (c *PDIClient) CheckBacOutOfDate(solution string) (isOutOfDate bool, errors
 		}
 	}
 
+	haveBcc := false
+
 	for _, f := range c.GetSolutionXrepFileList(solution) {
 		if strings.HasSuffix(f, ".bcc") {
+			haveBcc = true
 			fNameWithoutExt := strings.TrimSuffix(filepath.Base(f), filepath.Ext(f))
 			if _, found := bacMap[fNameWithoutExt]; !found {
 				e := fmt.Errorf("Not found BC Set: %v in BAC file", fNameWithoutExt)
@@ -45,6 +48,12 @@ func (c *PDIClient) CheckBacOutOfDate(solution string) (isOutOfDate bool, errors
 				isOutOfDate = true
 			}
 		}
+	}
+
+	if bacInformation.Bac.VisibleFineTuning == "true" && !haveBcc {
+		e := fmt.Errorf("If user selected 'Visible in Fine Tuning', the solution must have at least one BC View")
+		errors = append(errors, e)
+		isOutOfDate = true
 	}
 
 	return isOutOfDate, errors

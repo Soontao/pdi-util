@@ -156,7 +156,7 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	isRunningJob := solutionHeader.Get("EV_IS_SPLIT_JOB_RUNNING").String() == "X"
 	isCreatingPatch := solutionHeader.Get("EV_IS_PATCH_JOB_RUNNING").String() == "X"
 	isSplitEnabled := solutionHeader.Get("EV_IS_SPLIT_ENABLED").String() == "X"
-	needCreatePatch := solutionHeader.Get("IS_PATCHSOL_REQUIRED").String() == "X"
+	needCreatePatch := status == S_STATUS_ASSEMBLED
 	originSolutionID := solutionHeader.Get("ORIGIN_PROJECT_NAME").String()
 	originSolutionName := solutionHeader.Get("ORIGIN_PROJECT_DESCRIPTION").String()
 

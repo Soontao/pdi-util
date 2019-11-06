@@ -34,6 +34,10 @@ var commandPackageAssemble = cli.Command{
 		solution := c.GetSolutionIDByString(ctx.String("solution"))
 		checkOnly := ctx.Bool("check")
 
+		if checkOnly {
+			log.Println("Dry run mode")
+		}
+
 		log.Println("Start current solution status check")
 		// check status
 		s := c.GetSolutionStatus(solution)
