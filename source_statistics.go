@@ -1,8 +1,6 @@
 package pdiutil
 
 import (
-	"github.com/Soontao/pdi-util/ast"
-	"github.com/Soontao/pdi-util/ast/types"
 	"path/filepath"
 	"strings"
 )
@@ -21,35 +19,6 @@ type SolutionStatisticsResult struct {
 	BCOCount                   int
 	InternalCommunicationCount int
 	UIComplexity               int
-}
-
-// CountElementForBODL type
-// if parse failed, return zero
-func CountElementForBODL(source []byte) int {
-	rt := 0
-
-	if n, err := ast.ParseAST(source); err == nil && n != nil {
-		if bo := n.GetNode("BODefinition"); bo != nil {
-			rt = countNodeInnerElements(bo)
-		}
-	}
-
-	return rt
-}
-
-func countNodeInnerElements(n *types.GrammerNode) int {
-	rt := 0
-	if elements := n.GetNodeList("Elements"); elements != nil {
-		for _, e := range elements {
-			switch e.GetType() {
-			case "ElementItem":
-				rt++
-			case "BusinessObjectNode":
-				rt += countNodeInnerElements(e)
-			}
-		}
-	}
-	return rt
 }
 
 // Statistics solution
@@ -92,14 +61,6 @@ func (c *PDIClient) Statistics(solution string, concurrent int) *SolutionStatist
 
 	for _, abslCode := range c.fetchSources(abslList, concurrent) {
 		rt.ABSLCodeLines += len(strings.Split(abslCode.String(), "\n"))
-	}
-
-	for _, boCode := range c.fetchSources(boList, concurrent) {
-		rt.BOFieldsCount += CountElementForBODL(boCode.Source)
-	}
-
-	for _, uiCode := range c.fetchSources(uiList, concurrent) {
-		rt.UIComplexity += CountXMLComplexity(uiCode.Source)
 	}
 
 	return rt
