@@ -1,4 +1,27 @@
 
+<a name="v2.0.5"></a>
+## [v2.0.5](https://github.com/Soontao/pdi-util/compare/v2.0.4...v2.0.5) (2019-11-07)
+
+### Bug Fixes
+
+* ast module remove issue
+* office doc issue
+
+### Common
+
+* remove ast module
+* vendor resource
+* doc
+* [#5](https://github.com/Soontao/pdi-util/issues/5) and progressbar
+* change some spelling
+* update config
+* **release:** new version
+
+### Features
+
+* [#6](https://github.com/Soontao/pdi-util/issues/6) check bc view exist
+
+
 <a name="v2.0.4"></a>
 ## [v2.0.4](https://github.com/Soontao/pdi-util/compare/v2.0.3...v2.0.4) (2019-06-20)
 
