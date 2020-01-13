@@ -1,13 +1,6 @@
 {
   "go.formatTool": "goimports",
-  "cSpell.words": [
-    "UICOMPONENT",
-    "Xrep",
-    "absl",
-    "gjson",
-    "saml",
-    "tidwall"
-  ],
+  "cSpell.enabled": false,
   "go.useLanguageServer": true,
   "[go]": {
     "editor.snippetSuggestions": "none",
