@@ -138,35 +138,39 @@ func (c *PDIClient) GetSolutionXrepFileList(solutionName string) []string {
 // fetchSources list
 func (c *PDIClient) fetchSources(xrepPathes []string, concurrent int) []*XrepFile {
 
-	log.Printf("Downloading %v items from repository", len(xrepPathes))
+	count := len(xrepPathes)
 
 	rt := make([]*XrepFile, len(xrepPathes))
 
-	bar := pb.StartNew(len(xrepPathes))
+	if count > 0 { // with something need to be download
+		log.Printf("Downloading %v items from repository", count)
 
-	var wg sync.WaitGroup
+		bar := pb.StartNew(len(xrepPathes))
 
-	ctx := context.TODO()
+		var wg sync.WaitGroup
 
-	sem := semaphore.NewWeighted(int64(concurrent))
+		ctx := context.TODO()
 
-	for idx, xrepPath := range xrepPathes {
-		wg.Add(1)
-		sem.Acquire(ctx, 1)
+		sem := semaphore.NewWeighted(int64(concurrent))
 
-		go func(i string, s *semaphore.Weighted, w *sync.WaitGroup, payloadIndex int) {
+		for idx, xrepPath := range xrepPathes {
+			wg.Add(1)
+			sem.Acquire(ctx, 1)
 
-			defer wg.Done()
-			rt[payloadIndex] = c.DownloadFileSource(i)
-			s.Release(1)
-			bar.Increment()
+			go func(i string, s *semaphore.Weighted, w *sync.WaitGroup, payloadIndex int) {
 
-		}(xrepPath, sem, &wg, idx)
+				defer wg.Done()
+				rt[payloadIndex] = c.DownloadFileSource(i)
+				s.Release(1)
+				bar.Increment()
+
+			}(xrepPath, sem, &wg, idx)
+		}
+
+		wg.Wait() // wait all requests finished
+		bar.Finish()
+		log.Println("Download Finished")
 	}
-
-	wg.Wait() // wait all requests finished
-	bar.Finish()
-	log.Println("Download Finished")
 	return rt
 }
 
