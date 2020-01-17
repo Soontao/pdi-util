@@ -23,10 +23,10 @@ def utilZipFileName = "pdiutil.zip"
 // so that pdi-util tool can auto detect the correct solution id after patch solution created
 def solution = ""
 
-// source tenant
+// source tenant, like my000000.sapbyd.cn
 def devTenant = ""
 
-// target tenant
+// target tenant, like my000001.sapbyd.cn
 def targetTenant = ""
 
 // Jenkins user/password credential ID
