@@ -105,9 +105,6 @@ func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
 // GetSolutionIDByString for ensure solution ID
 func (c *PDIClient) GetSolutionIDByString(input string) string {
 	// fast return if length matched
-	if len(input) == 10 {
-		return input
-	}
 	return c.GetSolutionByIDOrDescription(input).Name
 }
 
