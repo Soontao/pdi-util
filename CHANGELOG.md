@@ -1,4 +1,21 @@
 
+<a name="v2.0.6"></a>
+## [v2.0.6](https://github.com/Soontao/pdi-util/compare/v2.0.5...v2.0.6) (2020-02-12)
+
+### Bug Fixes
+
+* short name can not found ID
+
+### Common
+
+* update pipeline
+* CI image
+* update CI image
+* **config:** update
+* **label:** update
+* **release:** new version
+
+
 <a name="v2.0.5"></a>
 ## [v2.0.5](https://github.com/Soontao/pdi-util/compare/v2.0.4...v2.0.5) (2019-11-07)
 
