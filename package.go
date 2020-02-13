@@ -281,6 +281,7 @@ func (c *PDIClient) DownloadSolution(solution, version string) (err error, outpu
 
 // CreatePatch solution
 func (c *PDIClient) CreatePatch(solution string) (err error) {
+
 	checkInterval := DefaultPackageCheckInterval * time.Second
 
 	payload := JSONObject{
@@ -301,23 +302,31 @@ func (c *PDIClient) CreatePatch(solution string) (err error) {
 
 	time.Sleep(checkInterval)
 
+	failedCount := 0
+
 	// wait patch solution created
 	for {
 
 		// retrieve status
 		solutionHeader := c.GetSolutionStatus(solution)
 
-		if solutionHeader.IsCreatingPatch {
-			// still in running
-			// wait interval then check it.
-			time.Sleep(checkInterval)
-		} else {
-			// finished
-			// in development now
+		// still in running
+		// wait interval then check it.
+		time.Sleep(checkInterval)
+
+		// patch created
+		if !solutionHeader.IsCreatingPatch {
 			if solutionHeader.Status == S_STATUS_IN_DEV || (solutionHeader.Phase == S_PHASE_DEVELOPMENT && solutionHeader.PhaseStatus == S_PHASE_STATUS_RUNNING) {
+				// in development now
 				break
 			} else {
-				err = fmt.Errorf("Patch created, but not in development")
+				failedCount++
+				if failedCount > 20 {
+					err = fmt.Errorf("Patch created, but not in development")
+					break
+				} else {
+					log.Printf("Still in patch creation, status: '%s'.", solutionHeader.StatusText)
+				}
 			}
 		}
 	}
