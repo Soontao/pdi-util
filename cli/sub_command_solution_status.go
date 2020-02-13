@@ -86,8 +86,8 @@ var commandSolutionStatusWatch = cli.Command{
 				log.Printf("Now solution %v status is '%v'.", header.SolutionID, header.StatusText)
 			}
 
-			// wait
-			time.Sleep(pdiutil.DefaultPackageCheckInterval)
+			// wait default 20 seconds
+			time.Sleep(pdiutil.DefaultPackageCheckInterval * time.Second)
 
 		}
 	}),

@@ -27,6 +27,8 @@ type PDIClient struct {
 	exitCode int
 	// user session id
 	sessionID string
+	// solution id map
+	solutionIDMap map[string]string
 }
 
 // GetReleaseVersion for this tenant
@@ -165,7 +167,7 @@ func NewPDIClient(username, password, hostname, release string) (c *PDIClient, e
 		}
 	}
 
-	c = &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0}
+	c = &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0, solutionIDMap: map[string]string{}}
 
 	_, err = c.login()
 

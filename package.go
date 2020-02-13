@@ -314,7 +314,7 @@ func (c *PDIClient) CreatePatch(solution string) (err error) {
 		} else {
 			// finished
 			// in development now
-			if solutionHeader.Status == S_STATUS_IN_DEV {
+			if solutionHeader.Status == S_STATUS_IN_DEV || (solutionHeader.Phase == S_PHASE_DEVELOPMENT && solutionHeader.PhaseStatus == S_PHASE_STATUS_RUNNING) {
 				break
 			} else {
 				err = fmt.Errorf("Patch created, but not in development")

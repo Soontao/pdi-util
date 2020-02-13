@@ -104,8 +104,14 @@ func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
 
 // GetSolutionIDByString for ensure solution ID
 func (c *PDIClient) GetSolutionIDByString(input string) string {
-	// fast return if length matched
-	return c.GetSolutionByIDOrDescription(input).Name
+	if s, exist := c.solutionIDMap[input]; exist {
+		// use cache
+		return s
+	}
+
+	s := c.GetSolutionByIDOrDescription(input).Name
+	c.solutionIDMap[input] = s // cache it
+	return s
 }
 
 // ListSolutions detail information

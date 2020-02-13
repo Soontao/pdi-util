@@ -27,6 +27,12 @@ const S_STATUS_DEPLOYED = SolutionStatus("4")
 // S_PHASE_ACTIVATION
 const S_PHASE_ACTIVATION = SolutionPhase("ACT")
 
+// S_PHASE_ASSEMBLE
+const S_PHASE_ASSEMBLE = SolutionPhase("EXP")
+
+// S_PHASE_PATCH_CREATION
+const S_PHASE_PATCH_CREATION = SolutionPhase("PTCH_CRT")
+
 // S_PHASE_DEVELOPMENT
 const S_PHASE_DEVELOPMENT = SolutionPhase("DEV")
 
@@ -152,9 +158,10 @@ func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 	enabled := solutionHeader.Get("IS_ENABLED").String() == "X"
 	canActivation := solutionHeader.Get("EV_ACT_STATUS").String() == "X"
 	canAssemble := solutionHeader.Get("EV_ASSEMBLE_STATUS").String() == "X"
-	canDownload := solutionHeader.Get("EV_DOWNLOAD_STATUS").String() == "X"
+	// fix for new c4c release
+	canDownload := ((phase == S_PHASE_ASSEMBLE) && (phaseStatus == S_PHASE_STATUS_SUCCESSFUL))
 	isRunningJob := solutionHeader.Get("EV_IS_SPLIT_JOB_RUNNING").String() == "X"
-	isCreatingPatch := solutionHeader.Get("EV_IS_PATCH_JOB_RUNNING").String() == "X"
+	isCreatingPatch := (solutionHeader.Get("EV_IS_PATCH_JOB_RUNNING").String() == "X" || phase == S_PHASE_PATCH_CREATION)
 	isSplitEnabled := solutionHeader.Get("EV_IS_SPLIT_ENABLED").String() == "X"
 	needCreatePatch := status == S_STATUS_ASSEMBLED
 	originSolutionID := solutionHeader.Get("ORIGIN_PROJECT_NAME").String()
