@@ -1,4 +1,16 @@
 
+<a name="v2.0.12"></a>
+## [v2.0.12](https://github.com/Soontao/pdi-util/compare/v2.0.11...v2.0.12) (2020-02-13)
+
+### Bug Fixes
+
+* status not refresh correct in some tenants.
+
+### Common
+
+* **release:** new version
+
+
 <a name="v2.0.11"></a>
 ## [v2.0.11](https://github.com/Soontao/pdi-util/compare/v2.0.6...v2.0.11) (2020-02-13)
 
