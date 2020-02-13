@@ -1,4 +1,16 @@
 
+<a name="v2.0.11"></a>
+## [v2.0.11](https://github.com/Soontao/pdi-util/compare/v2.0.6...v2.0.11) (2020-02-13)
+
+### Bug Fixes
+
+* unexpected error on assemble/patch
+
+### Common
+
+* **release:** new version
+
+
 <a name="v2.0.6"></a>
 ## [v2.0.6](https://github.com/Soontao/pdi-util/compare/v2.0.5...v2.0.6) (2020-02-12)
 
