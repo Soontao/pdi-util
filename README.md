@@ -1,7 +1,7 @@
 # SAP PDI Util Tools
 
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
-[![Snapshot Build](https://github.com/Soontao/yaptranslator/workflows/Snapshot%20Build/badge.svg)](https://github.com/Soontao/yaptranslator/actions?query=workflow%3A%22Snapshot+Build%22)
+[![Snapshot Build](https://github.com/Soontao/pdi-util/workflows/Snapshot%20Build/badge.svg)](https://github.com/Soontao/pdi-util/actions?query=workflow%3A%22Snapshot+Build%22)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)](https://github.com/Soontao/pdi-util/releases)
 [![](https://godoc.org/github.com/Soontao/pdi-util?status.svg)](http://godoc.org/github.com/Soontao/pdi-util)
 
