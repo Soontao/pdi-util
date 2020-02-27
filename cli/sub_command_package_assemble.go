@@ -127,8 +127,13 @@ var commandPackageAssemble = cli.Command{
 
 		// start assemble
 		log.Println("assemble package running")
+
 		if err := c.AssembleSolution(solution); err != nil {
 			panic(err)
+		}
+
+		for _, slog := range c.GetSolutionLogs(solution, s.Version) {
+			log.Printf(">>> Server Log [%v]: %v", slog.Severity, slog.Text)
 		}
 
 		// start download
@@ -179,7 +184,7 @@ var commandPackageAssemble = cli.Command{
 			panic(err)
 		}
 
-		log.Println("Finished, everything works fine")
+		log.Println("finished, everything works fine")
 
 	}),
 }

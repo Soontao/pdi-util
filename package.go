@@ -121,7 +121,8 @@ func (c *PDIClient) CheckBuildErrors(solution string) (errs []*BuildCheckError) 
 	return errs
 }
 
-// ActivationSolution sync
+// ActivationSolution sync.
+// DONT use this action to activate solution for target tenant
 func (c *PDIClient) ActivationSolution(solution string) (err error) {
 
 	if c.sessionID == "" {
@@ -132,7 +133,7 @@ func (c *PDIClient) ActivationSolution(solution string) (err error) {
 		"IMPORTING": JSONObject{
 			"IV_ACT_SPLIT":    "X",
 			"IV_CALLER":       "AssembleAndDownload",
-			"IV_DELTA_MODE":   "X",
+			"IV_DELTA_MODE":   nil, // enable: "X", disable: nil
 			"IV_MODE":         "D",
 			"IV_PRODUCT_NAME": solution,
 			"IV_SESSION_ID":   c.sessionID,

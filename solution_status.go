@@ -117,6 +117,57 @@ func (h *SolutionHeader) IsRunningDataUpdate() bool {
 	return false
 }
 
+// PDILog Type
+type PDILog struct {
+	Sequence int
+	Text     string
+	Level    int
+	Severity string
+}
+
+// GetSolutionLogs sync
+func (c *PDIClient) GetSolutionLogs(solution string, version int64) []*PDILog {
+	rt := []*PDILog{}
+	solutionID := c.GetSolutionIDByString(solution)
+	endpoint := "00163E0123D21EE092C936CC65A49BA4"
+	payload := JSONObject{
+		"IMPORTING": JSONObject{
+			"IV_LANGUAGE":      "E",
+			"IV_LOGLEVEL":      "4",
+			"IV_SOLUTION_NAME": solutionID,
+		},
+	}
+	respBody, err := c.xrepRequestE(endpoint, payload)
+
+	if err != nil {
+		panic(err)
+	}
+
+	versionList := gjson.Get(respBody, "EXPORTING.ES_SOLUTION_HEADER.SOLUTION_VERSION_LIST")
+
+	for _, item := range versionList.Array() {
+		versionID, _ := strconv.ParseInt(item.Get("VERSION_ID").String(), 10, 32)
+		if version == versionID {
+			for _, serverLog := range item.Get("SOLUTION_VERS_STATUS_LIST.0.SOLUTION_VERS_STATUS_LOG_LIST").Array() {
+				seqNumber, _ := strconv.ParseInt(serverLog.Get("SEQUENCE_NUMBER").String(), 10, 32)
+				logLevel, _ := strconv.ParseInt(serverLog.Get("LOGLEVEL").String(), 10, 32)
+				severity := serverLog.Get("SEVERITY").String()
+				text := serverLog.Get("TEXT").String()
+
+				rt = append(rt, &PDILog{
+					Sequence: int(seqNumber),
+					Level:    int(logLevel),
+					Text:     text,
+					Severity: severity,
+				})
+			}
+			break
+		}
+	}
+
+	return rt
+}
+
 // GetSolutionStatus exported
 func (c *PDIClient) GetSolutionStatus(solution string) *SolutionHeader {
 

@@ -164,4 +164,10 @@ func (c *PDIClient) CheckBackendMessage(solution string, concurrent int) {
 		log.Printf("[%s]\t%s(%s,%s): %s\n", r.GetMessageLevel(), filename, r.Row, r.Column, r.Message)
 	}
 
+	if c.exitCode > 0 {
+
+	} else {
+
+	}
+
 }

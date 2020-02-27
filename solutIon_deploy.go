@@ -17,7 +17,7 @@ func (c *PDIClient) DeploySolution(solutionBase64String string) (err error) {
 }
 
 // ActivateDeployedSolution func
-// after deploy a solution to target tenant, when uploading progress finished, please active it.
+// after deploy a solution to target tenant, when uploading progress finished, please activate it.
 func (c *PDIClient) ActivateDeployedSolution(solution string) (err error) {
 	payload := JSONObject{
 		"IMPORTING": JSONObject{
