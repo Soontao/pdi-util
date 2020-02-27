@@ -2,7 +2,9 @@ package pdiutil
 
 import (
 	"fmt"
+	"log"
 	"strings"
+	"time"
 
 	"github.com/imroc/req"
 	"github.com/tidwall/gjson"
@@ -39,6 +41,8 @@ func (c *PDIClient) xrepRequest(code string, payload interface{}) string {
 
 func (c *PDIClient) xrepRequestE(code string, payload interface{}) (res string, err error) {
 
+	checkInterval := time.Second * DefaultPackageCheckInterval
+
 	defer func() {
 		if e := recover(); e != nil {
 			err = fmt.Errorf("%v", e)
@@ -46,6 +50,16 @@ func (c *PDIClient) xrepRequestE(code string, payload interface{}) (res string, 
 	}()
 
 	res = c.xrepRequest(code, payload)
+
+	for { // retry if server on maintenance
+		if strings.Contains(res, "System Maintenance / Temporary System Downtime") {
+			log.Println("Server is under maintenance, please wait resume")
+			time.Sleep(checkInterval)
+			res = c.xrepRequest(code, payload)
+		} else {
+			break
+		}
+	}
 
 	success := gjson.Get(res, "EXPORTING.EV_SUCCESS").String() == "X"
 

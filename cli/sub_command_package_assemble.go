@@ -38,7 +38,7 @@ var commandPackageAssemble = cli.Command{
 			log.Println("Dry run mode")
 		}
 
-		log.Println("Start current solution status check")
+		log.Println("current solution status check")
 		// check status
 		s := c.GetSolutionStatus(solution)
 
@@ -60,7 +60,7 @@ var commandPackageAssemble = cli.Command{
 
 		// do checkout check
 		// all files must check in, so that you can assemble
-		log.Println("Start locks check")
+		log.Println("locks check running")
 		locks := c.CheckLockedFilesAPI(solution)
 
 		for _, l := range locks {
@@ -72,7 +72,7 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		// do check BAC file
-		log.Println("Start BAC check")
+		log.Println("BAC check running")
 
 		if outOfDate, errs := c.CheckBacOutOfDate(solution); outOfDate {
 			for _, e := range errs {
@@ -82,7 +82,7 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		// do check all WCVs have been assigned
-		log.Println("Start Check WCV assignment")
+		log.Println("WCV assignment check running")
 
 		if r := c.FindUnAssignedWCV(solution); r.UnAssignedWCVCount > 0 {
 			for _, u := range r.UnAssignedWCVs {
@@ -92,7 +92,7 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		// do backend check
-		log.Println("Start backend check")
+		log.Println("backend check running")
 		checkMessages := c.CheckBackendMessageAPI(solution, 30)
 		checkErrorCount := 0
 
@@ -115,14 +115,18 @@ var commandPackageAssemble = cli.Command{
 			return
 		}
 
-		// start activation
-		log.Println("Start activation")
-		if err := c.ActivationSolution(solution); err != nil {
-			panic(err)
+		if s.CanActivation {
+			// start activation
+			log.Println("activation running")
+			if err := c.ActivationSolution(solution); err != nil {
+				panic(err)
+			}
+		} else {
+			log.Println("WARN: The solution is no require to activate, skipped")
 		}
 
 		// start assemble
-		log.Println("Start assemble")
+		log.Println("assemble package running")
 		if err := c.AssembleSolution(solution); err != nil {
 			panic(err)
 		}
@@ -153,7 +157,7 @@ var commandPackageAssemble = cli.Command{
 			output = fmt.Sprintf("%v_V%v(%v).zip", outputID, downloadVersion, header.SolutionName)
 		}
 
-		log.Printf("Start download %v(%v)", solutionName, downloadVersion)
+		log.Printf("downloading package %v(%v)", solutionName, downloadVersion)
 		err, content := c.DownloadSolution(solution, downloadVersion)
 
 		if err != nil {
@@ -169,13 +173,13 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		// start create patch solution
-		log.Println("Start create patch solution")
+		log.Println("patch solution creating")
 
 		if err := c.CreatePatch(solution); err != nil {
 			panic(err)
 		}
 
-		log.Println("Finished")
+		log.Println("Finished, everything works fine")
 
 	}),
 }
