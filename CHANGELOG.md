@@ -1,4 +1,19 @@
 
+<a name="v2.0.13"></a>
+## [v2.0.13](https://github.com/Soontao/pdi-util/compare/v2.0.12...v2.0.13) (2020-02-27)
+
+### Common
+
+* **ci:** snapshot build
+* **doc:** update
+* **release:** new version
+
+### Features
+
+* server log
+* [#7](https://github.com/Soontao/pdi-util/issues/7) & [#9](https://github.com/Soontao/pdi-util/issues/9) activation logic
+
+
 <a name="v2.0.12"></a>
 ## [v2.0.12](https://github.com/Soontao/pdi-util/compare/v2.0.11...v2.0.12) (2020-02-13)
 
