@@ -11,12 +11,12 @@
 // This pipeline will assemble a new package in the source tenant and popup a new version (create patch)
 // This pipeline will deploy the assembled package to target tenant and activate it after uploading
 
-def cliVersion = "v2.0.11"
+def cliVersion = "v2.0.13"
 
 // depends on the jenkins server OS
 
 def os = "darwin" // MacOS
-// def os = "windows" // windows
+// def os = "windows" // windows, for windows, please make sure the utilDownloadURI & cliName has .exe suffix 
 // def os = "linux" // linux
 
 def utilDownloadURI = "https://oss-theo.oss-cn-shenzhen.aliyuncs.com/download/pdiutil-${cliVersion}-${os}-amd64.zip"
@@ -96,6 +96,20 @@ pipeline {
 			}
 
 		}
+
+
+		stage('Check afte deployment') {
+
+			steps {
+				lock(targetTenant) {
+					withCredentials([usernamePassword(credentialsId: targetUserCredentialId, passwordVariable: 'PDI_PASSWORD', usernameVariable: 'PDI_USER')]) {
+						sh script: "./${cliName} check backend", label: "Target Tenant Backend Check"
+					}
+				}
+			}
+
+		}
+
 
 		stage('Clean') {
 

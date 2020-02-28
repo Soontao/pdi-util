@@ -20,13 +20,13 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] [static check & export results to excel](https://github.com/Soontao/pdi-util/wiki/How-to-do-static-check)
 * [x] download current sources in solution
 * [x] download assembled package (in history)
-* [x] view single file history
+* [x] view single file history (PDI from release 2002 has support this feature)
 * [x] [activate, assemble and download assembled package](https://github.com/Soontao/pdi-util/wiki/How-to-assemble-solution)
 * [x] [deploy solution](https://github.com/Soontao/pdi-util/wiki/How-to-deploy-solution)
 * [x] static text spell check
-* [x] CI/CD [Jenkinsfile](./jenkins) provided
+* [x] CI/CD [Jenkinsfile](./jenkins) pipeline provided
 * [x] [solution source statistics](https://github.com/Soontao/pdi-util/wiki/How-to-statistics-solution-scale)
-* [ ] [code ast parser](https://github.com/Soontao/grammar-pdi) (in progress)
+* [x] [code ast parser](https://github.com/Soontao/grammar-pdi)
 
 ## Help
 
