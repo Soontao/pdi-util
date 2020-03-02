@@ -8,8 +8,6 @@
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/theosun/pdiutil.svg)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
 [![Size](https://shields.beevelop.com/docker/image/image-size/theosun/pdiutil/latest.svg?style=flat-square)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/Soontao/pdi-util.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Soontao/pdi-util/alerts/)
-
 Cli for SAP PDI.
 
 ## Latest Build
