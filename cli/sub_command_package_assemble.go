@@ -144,14 +144,12 @@ var commandPackageAssemble = cli.Command{
 		// the version of download
 		downloadVersion := ""
 
-		if downloadVersion == "" {
-			// default download current version
-			if header.Status == pdiutil.S_STATUS_ASSEMBLED {
-				downloadVersion = fmt.Sprintf("%v", header.Version)
-			} else {
-				// or latest version
-				downloadVersion = fmt.Sprintf("%v", header.Version-1)
-			}
+		// default download current version
+		if header.Status == pdiutil.S_STATUS_ASSEMBLED {
+			downloadVersion = fmt.Sprintf("%v", header.Version)
+		} else {
+			// or latest version
+			downloadVersion = fmt.Sprintf("%v", header.Version-1)
 		}
 
 		if output == "" {
