@@ -104,8 +104,7 @@ var commandSolutionDeploy = cli.Command{
 		time.Sleep(checkInterval)
 
 		// use source solution name to find target solution
-		targetS := targetClient.GetSolutionByIDOrDescription(sourceSolutionDescription)
-		targetSolution := targetS.Name
+		targetSolution := targetClient.GetSolutionIDByString(sourceSolutionDescription)
 		targetStatus := targetClient.GetSolutionStatus(targetSolution)
 
 		// still in uploading (extract content)

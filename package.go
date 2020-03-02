@@ -261,11 +261,14 @@ func (c *PDIClient) AssembleSolution(solution string) (err error) {
 // return base64 binary zip file
 func (c *PDIClient) DownloadSolution(solution, version string) (err error, output string) {
 
+	sID := c.GetSolutionIDByString(solution)
+
 	res := c.xrepRequest("00163E0975CB1ED4B79AD6AC1C161314", JSONObject{
 		"IMPORTING": JSONObject{
 			"IV_MINOR_VERSION": version,
-			"IV_PROJECT_NAME":  solution,
+			"IV_PROJECT_NAME":  sID,
 			"IV_PROJECT_TYPE":  "ONE_OFF",
+			"IV_DODO_MODE":     false,
 		},
 	})
 
