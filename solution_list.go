@@ -88,7 +88,8 @@ func (c *PDIClient) GetSolutionByIDOrDescription(input string) Solution {
 		for _, s := range matched {
 			if s.PatchSolution {
 				log.Printf(
-					"Get solution %s by description %s, default use patch solution",
+					"Get solution %s/%s by description %s, default use patch solution",
+					c.hostname,
 					s.Name,
 					input,
 				)
