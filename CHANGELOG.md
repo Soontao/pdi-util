@@ -1,4 +1,22 @@
 
+<a name="v2.0.15"></a>
+## [v2.0.15](https://github.com/Soontao/pdi-util/compare/v2.0.14...v2.0.15) (2020-03-03)
+
+### Bug Fixes
+
+* qa
+
+### Common
+
+* doc
+* doc
+* **release:** new version
+
+### Features
+
+* activation log
+
+
 <a name="v2.0.14"></a>
 ## [v2.0.14](https://github.com/Soontao/pdi-util/compare/v2.0.13...v2.0.14) (2020-03-02)
 
