@@ -118,9 +118,18 @@ var commandPackageAssemble = cli.Command{
 		if s.CanActivation {
 			// start activation
 			log.Println("activation running")
-			if err := c.ActivationSolution(solution); err != nil {
+
+			err := c.ActivationSolution(solution)
+
+			// print server log
+			for _, slog := range c.GetSolutionLogs(solution, s.Version) {
+				log.Printf(">>> Server Log [%v]: %v", slog.Severity, slog.Text)
+			}
+
+			if err != nil {
 				panic(err)
 			}
+
 		} else {
 			log.Println("WARN: The solution is no require to activate, skipped")
 		}
@@ -128,12 +137,15 @@ var commandPackageAssemble = cli.Command{
 		// start assemble
 		log.Println("assemble package running")
 
-		if err := c.AssembleSolution(solution); err != nil {
-			panic(err)
-		}
+		err := c.AssembleSolution(solution)
 
+		// print server log
 		for _, slog := range c.GetSolutionLogs(solution, s.Version) {
 			log.Printf(">>> Server Log [%v]: %v", slog.Severity, slog.Text)
+		}
+
+		if err != nil {
+			panic(err)
 		}
 
 		// start download
