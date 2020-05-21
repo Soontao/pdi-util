@@ -1,4 +1,17 @@
 
+<a name="v2.0.16"></a>
+## [v2.0.16](https://github.com/Soontao/pdi-util/compare/v2.0.15...v2.0.16) (2020-05-21)
+
+### Bug Fixes
+
+* [#12](https://github.com/Soontao/pdi-util/issues/12) c4c release version check failed
+
+### Common
+
+* log status
+* **release:** new version
+
+
 <a name="v2.0.15"></a>
 ## [v2.0.15](https://github.com/Soontao/pdi-util/compare/v2.0.14...v2.0.15) (2020-03-03)
 
