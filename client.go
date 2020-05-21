@@ -2,6 +2,7 @@ package pdiutil
 
 import (
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
 
@@ -114,6 +115,7 @@ func ensure(v interface{}, name string) {
 var c4cTitle = "SAP Cloud for Customer"
 var bydTitle = "SAP Business ByDesign"
 var bydLoginReleaseReg = regexp.MustCompile(`data-sap-b-clientVersion="(.*?)"`)
+var c4cLoginReleaseReg = regexp.MustCompile(`https://c4cstatic\.hana\.ondemand\.com/resourcesvc/(\d{4})`)
 
 // GetReleaseVersionForTenant host
 //
@@ -123,27 +125,38 @@ func GetReleaseVersionForTenant(host string) (rt string, err error) {
 	if err == nil {
 		appCfg := &OberonApplication{}
 		if err = appCfgResponse.ToXML(appCfg); err == nil {
+			loginPageResponse, err := req.Get(fmt.Sprintf("https://%s", host))
+
+			if err != nil {
+				log.Fatalf("Get release version for %v failed: %v", host, err)
+			}
+
+			loginPage, _ := loginPageResponse.ToString()
+
 			switch appCfg.LoginDialog.TitleText {
 			case c4cTitle:
 				// for c4c, get release version in config directly
-				rt = appCfg.SolutionInfo.Codeline
+				rt = appCfg.SolutionInfo.Codeline // fallback value
+
+				// from homepage
+				match := c4cLoginReleaseReg.FindStringSubmatch(loginPage)
+				if len(match) >= 2 {
+					rt = match[1]
+				}
+
 			case bydTitle:
 				// for byd, get release from home page
-				loginPageResponse, err := req.Get(fmt.Sprintf("https://%s", host))
-				if err == nil {
-					loginPage, _ := loginPageResponse.ToString()
-					match := bydLoginReleaseReg.FindStringSubmatch(loginPage)
-					if len(match) == 2 {
-						longVersion := match[1]
-						if longVersion != "" {
-							longVersionParts := strings.Split(longVersion, ".")
-							if len(longVersionParts) > 0 {
-								rt = longVersionParts[0]
-							}
+				match := bydLoginReleaseReg.FindStringSubmatch(loginPage)
+				if len(match) == 2 {
+					longVersion := match[1]
+					if longVersion != "" {
+						longVersionParts := strings.Split(longVersion, ".")
+						if len(longVersionParts) > 0 {
+							rt = longVersionParts[0]
 						}
-					} else {
-						rt = ""
 					}
+				} else {
+					rt = ""
 				}
 			default:
 				err = fmt.Errorf("This tool not support for '%s'", appCfg.LoginDialog.TitleText)
