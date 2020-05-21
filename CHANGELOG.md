@@ -1,4 +1,16 @@
 
+<a name="v2.0.17"></a>
+## [v2.0.17](https://github.com/Soontao/pdi-util/compare/v2.0.16...v2.0.17) (2020-05-21)
+
+### Code Refactoring
+
+* for new releases
+
+### Common
+
+* **release:** new version
+
+
 <a name="v2.0.16"></a>
 ## [v2.0.16](https://github.com/Soontao/pdi-util/compare/v2.0.15...v2.0.16) (2020-05-21)
 
