@@ -131,12 +131,13 @@ func (c *PDIClient) ActivationSolution(solution string) (err error) {
 
 	res := c.xrepRequest("00163E028DAE1EE1ABE2189C1FF64B07", JSONObject{
 		"IMPORTING": JSONObject{
-			"IV_ACT_SPLIT":    "X",
-			"IV_CALLER":       "AssembleAndDownload",
-			"IV_DELTA_MODE":   nil, // enable: "X", disable: nil
-			"IV_MODE":         "D",
-			"IV_PRODUCT_NAME": solution,
-			"IV_SESSION_ID":   c.sessionID,
+			"IV_ACT_SPLIT":      "X",
+			"IV_CALLER":         "AssembleAndDownload",
+			"IV_DELTA_MODE":     nil, // enable: "X", disable: nil
+			"IV_DELTA_ASSEMBLE": false,
+			"IV_MODE":           "D",
+			"IV_PRODUCT_NAME":   solution,
+			"IV_SESSION_ID":     c.sessionID,
 		},
 	})
 
@@ -220,9 +221,10 @@ func (c *PDIClient) AssembleSolution(solution string) (err error) {
 
 	res := c.xrepRequest("00163E0975CB1ED4B79AD60DC0D91314", JSONObject{
 		"IMPORTING": JSONObject{
-			"IV_PRODUCT_NAME": solution,
-			"IV_SESSION_ID":   c.sessionID,
-			"IV_USER":         nil,
+			"IV_DELTA_ASSEMBLE": false,
+			"IV_PRODUCT_NAME":   solution,
+			"IV_SESSION_ID":     c.sessionID,
+			"IV_USER":           nil,
 		},
 	})
 

@@ -12,7 +12,7 @@ import (
 
 var commandPackageAssemble = cli.Command{
 	Name:  "assemble",
-	Usage: "assemble and download assembled package",
+	Usage: "activate, assemble, download and craete-patch solution",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:   "solution, s",
@@ -38,7 +38,8 @@ var commandPackageAssemble = cli.Command{
 			log.Println("Dry run mode")
 		}
 
-		log.Println("current solution status check")
+		log.Printf("Run checks for solution: '%v'", solution)
+
 		// check status
 		s := c.GetSolutionStatus(solution)
 
@@ -60,7 +61,7 @@ var commandPackageAssemble = cli.Command{
 
 		// do checkout check
 		// all files must check in, so that you can assemble
-		log.Println("locks check running")
+		log.Println("Locks check running")
 		locks := c.CheckLockedFilesAPI(solution)
 
 		for _, l := range locks {
@@ -70,6 +71,21 @@ var commandPackageAssemble = cli.Command{
 		if len(locks) > 0 {
 			panic("Solution or solution files are locked by user, please check in them firstly.")
 		}
+		log.Println("Locks check finished")
+
+		log.Println("In-active file check running")
+		inActiveFiles := c.CheckInActiveFilesAPI(solution)
+
+		if len(inActiveFiles) > 0 {
+
+			for _, inActiveFile := range inActiveFiles {
+				log.Printf("File '%v', is in-active", inActiveFile.FilePath)
+			}
+
+			panic(fmt.Errorf("%v files are in-active, please activate them by PDI firstly", len(inActiveFiles)))
+
+		}
+		log.Println("In-active file check finished")
 
 		// do check BAC file
 		log.Println("BAC check running")
@@ -78,8 +94,10 @@ var commandPackageAssemble = cli.Command{
 			for _, e := range errs {
 				log.Println(e.Error())
 			}
-			panic("BAC file is out of date, please update your BAC file in PDI.")
+			panic("BAC file is out of date, please open your BAC file and activate it in PDI.")
 		}
+
+		log.Println("BAC check finished")
 
 		// do check all WCVs have been assigned
 		log.Println("WCV assignment check running")
@@ -91,8 +109,10 @@ var commandPackageAssemble = cli.Command{
 			panic("Please make sure all WCV have been assigned")
 		}
 
+		log.Println("WCV assignment check finished")
+
 		// do backend check
-		log.Println("backend check running")
+		log.Println("Backend check running")
 		checkMessages := c.CheckBackendMessageAPI(solution, 30)
 		checkErrorCount := 0
 
@@ -108,16 +128,17 @@ var commandPackageAssemble = cli.Command{
 		} else {
 
 		}
+		log.Println("Backend check finished")
 
 		// only do check
 		if checkOnly {
-			log.Println("Check Finished, all things seems well")
+			log.Println("Check Finished, all things seems fine")
 			return
 		}
 
 		if s.CanActivation {
 			// start activation
-			log.Println("activation running")
+			log.Println("Activation running")
 
 			err := c.ActivationSolution(solution)
 
@@ -130,12 +151,16 @@ var commandPackageAssemble = cli.Command{
 				panic(err)
 			}
 
+			log.Println("Activation finished")
+
 		} else {
+
 			log.Println("WARN: The solution is no require to activate, skipped")
+
 		}
 
 		// start assemble
-		log.Println("assemble package running")
+		log.Println("Assemble running")
 
 		err := c.AssembleSolution(solution)
 
@@ -147,6 +172,8 @@ var commandPackageAssemble = cli.Command{
 		if err != nil {
 			panic(err)
 		}
+
+		log.Println("Assemble finished")
 
 		// start download
 		header := c.GetSolutionStatus(solution)
@@ -172,10 +199,11 @@ var commandPackageAssemble = cli.Command{
 			output = fmt.Sprintf("%v_V%v(%v).zip", outputID, downloadVersion, header.SolutionName)
 		}
 
-		log.Printf("downloading package %v(%v)", solutionName, downloadVersion)
+		log.Printf("Downloading package %v(%v)", solutionName, downloadVersion)
 		err, content := c.DownloadSolution(solution, downloadVersion)
 
 		if err != nil {
+			log.Println("Download failed")
 			panic(err)
 		} else {
 			if len(content) != 0 {
@@ -188,13 +216,13 @@ var commandPackageAssemble = cli.Command{
 		}
 
 		// start create patch solution
-		log.Println("patch solution creating")
+		log.Println("Creating patch solution")
 
 		if err := c.CreatePatch(solution); err != nil {
 			panic(err)
 		}
 
-		log.Println("finished, everything works fine")
+		log.Println("Finished, everything works fine")
 
 	}),
 }

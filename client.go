@@ -30,6 +30,8 @@ type PDIClient struct {
 	sessionID string
 	// solution id map
 	solutionIDMap map[string]string
+	// in api mode, supress output from client
+	apiMode bool
 }
 
 // GetReleaseVersion for this tenant
@@ -167,7 +169,7 @@ func GetReleaseVersionForTenant(host string) (rt string, err error) {
 }
 
 // NewPDIClient instance
-func NewPDIClient(username, password, hostname, release string) (c *PDIClient, err error) {
+func NewPDIClient(username, password, hostname, release string, apiMode bool) (c *PDIClient, err error) {
 
 	ensure(username, "username")
 	ensure(password, "password")
@@ -180,7 +182,15 @@ func NewPDIClient(username, password, hostname, release string) (c *PDIClient, e
 		}
 	}
 
-	c = &PDIClient{username: username, password: password, hostname: hostname, release: release, exitCode: 0, solutionIDMap: map[string]string{}}
+	c = &PDIClient{
+		username:      username,
+		password:      password,
+		hostname:      hostname,
+		release:       release,
+		exitCode:      0,
+		solutionIDMap: map[string]string{},
+		apiMode:       apiMode,
+	}
 
 	_, err = c.login()
 

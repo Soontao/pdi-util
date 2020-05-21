@@ -30,7 +30,7 @@ func (c *PDIClient) CheckBacOutOfDate(solution string) (isOutOfDate bool, errors
 		// like Y7NLADCSY_TE0102E9D042E2B0E15F
 		if _, found := bacMap[i.PROXYNAME]; !found {
 			// not found in bac file
-			e := fmt.Errorf("Not found BO %v in BAC file", i.NAME)
+			e := fmt.Errorf("Not found business object '%v' in BAC file", i.NAME)
 			errors = append(errors, e)
 			isOutOfDate = true
 		}

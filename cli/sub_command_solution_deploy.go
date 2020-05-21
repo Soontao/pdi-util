@@ -52,6 +52,7 @@ var commandSolutionDeploy = cli.Command{
 			ctx.String("targetpassword"),
 			ctx.String("target"),
 			ctx.GlobalString("release"),
+			true,
 		)
 
 		// create target tenant client failed

@@ -142,10 +142,15 @@ func (c *PDIClient) fetchSources(xrepPathes []string, concurrent int) []*XrepFil
 
 	rt := make([]*XrepFile, len(xrepPathes))
 
+	var bar *pb.ProgressBar
+
 	if count > 0 { // with something need to be download
 		log.Printf("Downloading %v items from repository", count)
 
-		bar := pb.StartNew(len(xrepPathes))
+		if !c.apiMode {
+			bar = pb.StartNew(len(xrepPathes))
+			defer bar.Finish()
+		}
 
 		var wg sync.WaitGroup
 
@@ -162,13 +167,14 @@ func (c *PDIClient) fetchSources(xrepPathes []string, concurrent int) []*XrepFil
 				defer wg.Done()
 				rt[payloadIndex] = c.DownloadFileSource(i)
 				s.Release(1)
-				bar.Increment()
+				if bar != nil {
+					bar.Increment()
+				}
 
 			}(xrepPath, sem, &wg, idx)
 		}
 
 		wg.Wait() // wait all requests finished
-		bar.Finish()
 		log.Println("Download Finished")
 	}
 	return rt

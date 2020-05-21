@@ -43,8 +43,9 @@ func PDIAction(action func(pdiClient *pdiutil.PDIClient, c *cli.Context)) func(c
 
 		hostname = strings.TrimPrefix(hostname, "https://") // remove hostname schema
 		hostname = strings.TrimPrefix(hostname, "http://")  // remove hostname schema
+		hostname = strings.TrimSuffix(hostname, "/")
 
-		pdiClient, err := pdiutil.NewPDIClient(username, password, hostname, release)
+		pdiClient, err := pdiutil.NewPDIClient(username, password, hostname, release, true)
 
 		if err != nil {
 			return err
