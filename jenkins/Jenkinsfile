@@ -11,17 +11,16 @@
 // This pipeline will assemble a new package in the source tenant and popup a new version (create patch)
 // This pipeline will deploy the assembled package to target tenant and activate it after uploading
 
-def cliVersion = "v2.0.13"
+def cliVersion = "v2.0.17"
 
-// depends on the jenkins server OS
+// def os = "darwin" // MacOS
+// def os = "windows" // windows
+def os = "linux" // linux
 
-def os = "darwin" // MacOS
-// def os = "windows" // windows, for windows, please make sure the utilDownloadURI & cliName has .exe suffix 
-// def os = "linux" // linux
+def cliName = "pdiutil-${cliVersion}-${os}-amd64" // linux, macos
+// def cliName = "pdiutil-${cliVersion}-${os}-amd64.exe" // for windows
 
-def utilDownloadURI = "https://oss-theo.oss-cn-shenzhen.aliyuncs.com/download/pdiutil-${cliVersion}-${os}-amd64.zip"
-
-def cliName = "pdiutil-${cliVersion}-darwin-amd64"
+def utilDownloadURI = "https://github.com/Soontao/pdi-util/releases/download/${cliVersion}/${cliName}.zip"
 
 def utilZipFileName = "pdiutil.zip"
 

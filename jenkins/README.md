@@ -32,7 +32,7 @@ If you only want to build/assemble, just comment the `Deploy` stage.
 
 ## Jenkins Guide
 
-Please use this `BuildDeploy.Jenkinsfile` pipeline after the `first-time deployment`, because the `first-time deployment` is not tested by the [pdi-util](https://github.com/Soontao/pdi-util) project by now
+Please use this `Jenkinsfile` pipeline after the `first-time deployment`, because the `first-time deployment` is not tested by the [pdi-util](https://github.com/Soontao/pdi-util) project by now
 
 Please setup this jenkinsfile as normal `Pipeline` (instead of `Multi Branch Pipeline`), so that you could control build/deployment flexible.
 
