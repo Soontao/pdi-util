@@ -5,8 +5,8 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)](https://github.com/Soontao/pdi-util/releases)
 [![](https://godoc.org/github.com/Soontao/pdi-util?status.svg)](http://godoc.org/github.com/Soontao/pdi-util)
 
-[![Docker Automated build](https://img.shields.io/docker/cloud/automated/theosun/pdiutil.svg)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
-[![Size](https://shields.beevelop.com/docker/image/image-size/theosun/pdiutil/latest.svg?style=flat-square)](https://cloud.docker.com/repository/docker/theosun/pdiutil)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/theosun/pdiutil)](https://hub.docker.com/repository/docker/theosun/pdiutil)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/theosun/pdiutil/latest)](https://hub.docker.com/repository/docker/theosun/pdiutil)
 
 Cli for SAP PDI.
 
