@@ -5,10 +5,11 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)](https://github.com/Soontao/pdi-util/releases)
 [![](https://godoc.org/github.com/Soontao/pdi-util?status.svg)](http://godoc.org/github.com/Soontao/pdi-util)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Soontao_pdi-util&metric=alert_status)](https://sonarcloud.io/dashboard?id=Soontao_pdi-util)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/theosun/pdiutil)](https://hub.docker.com/repository/docker/theosun/pdiutil)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/theosun/pdiutil/latest)](https://hub.docker.com/repository/docker/theosun/pdiutil)
 
-Cli for SAP PDI.
+Cli for SAP PDI, **an UN-OFFCIAL command line tool.**
 
 ## Latest Build
 
@@ -33,10 +34,6 @@ Just download latest binary files from the [Github Release](https://github.com/S
 run with `--help` to show command help
 
 Almost all options can be configured in the system environment variables.
-
-## To Do
-
-* [ ] Documents
 
 ## [CHANGELOG](./CHANGELOG.md)
 
