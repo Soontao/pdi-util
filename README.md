@@ -1,10 +1,8 @@
 # SAP PDI Util Tools
 
 [![CircleCI](https://circleci.com/gh/Soontao/pdi-util.svg?style=shield)](https://circleci.com/gh/Soontao/pdi-util)
-[![Snapshot Build](https://github.com/Soontao/pdi-util/workflows/Snapshot%20Build/badge.svg)](https://github.com/Soontao/pdi-util/actions?query=workflow%3A%22Snapshot+Build%22)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Soontao/pdi-util/Snapshot%20Build?label=workflow)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Soontao/pdi-util.svg)](https://github.com/Soontao/pdi-util/releases)
-[![](https://godoc.org/github.com/Soontao/pdi-util?status.svg)](http://godoc.org/github.com/Soontao/pdi-util)
-
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Soontao_pdi-util&metric=alert_status)](https://sonarcloud.io/dashboard?id=Soontao_pdi-util)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/theosun/pdiutil)](https://hub.docker.com/repository/docker/theosun/pdiutil)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/theosun/pdiutil/latest)](https://hub.docker.com/repository/docker/theosun/pdiutil)
