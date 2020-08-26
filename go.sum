@@ -39,6 +39,8 @@ github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65 h1:rQ229MBgvW68s1/g
 github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/unidoc/unioffice v1.2.1 h1:0mqnEl14WAGlfr6hqrWSsftrSJZGd46W06aEVjs52yE=
 github.com/unidoc/unioffice v1.2.1/go.mod h1:w96hj0WDRaikkRdFxQsmyLUdLOusl0yPDU/FMQfcWbM=
+github.com/unidoc/unioffice v1.5.0 h1:RxPbPMBgKJ7gbqVlq/gZ+zd0gWWfvDUhm2ODbyMdfZk=
+github.com/unidoc/unioffice v1.5.0/go.mod h1:7wl8btOkZW1TfqfpDWoujRXkUpowwisGRYDo7COHBiI=
 github.com/urfave/cli v1.20.0 h1:fDqGv3UG/4jbVl/QkFwEdddtEDjh/5Ov6X+0B/3bPaw=
 github.com/urfave/cli v1.20.0/go.mod h1:70zkFmudgCuE/ngEzBv17Jvp/497gISqfk5gWijbERA=
 golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e h1:vcxGaoTs7kV8m5Np9uUNQin4BrLOthgV7252N8V+FwY=
