@@ -8,7 +8,7 @@ require (
 	github.com/cheggaaa/pb v2.0.7+incompatible
 	github.com/deckarep/golang-set v1.7.1
 	github.com/google/go-cmp v0.2.0 // indirect
-	github.com/imroc/req v0.2.3
+	github.com/imroc/req v0.3.0
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/olekukonko/tablewriter v0.0.1
