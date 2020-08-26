@@ -18,8 +18,8 @@ Just download latest binary files from the [Github Release](https://github.com/S
 * [x] [list all solutions](https://github.com/Soontao/pdi-util/wiki/How-to-list-all-solutions)
 * [x] [static check & export results to excel](https://github.com/Soontao/pdi-util/wiki/How-to-do-static-check)
 * [x] download current sources in solution
-* [x] download assembled package (in history)
-* [x] view single file history (PDI from release 2002 has support this feature)
+* [x] download assembled package (PDI supported)
+* [x] view single file history (PDI supported)
 * [x] [activate, assemble and download assembled package](https://github.com/Soontao/pdi-util/wiki/How-to-assemble-solution)
 * [x] [deploy solution](https://github.com/Soontao/pdi-util/wiki/How-to-deploy-solution)
 * [x] static text spell check
