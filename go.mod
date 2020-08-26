@@ -16,9 +16,7 @@ require (
 	github.com/sergi/go-diff v1.0.0
 	github.com/spkg/bom v0.0.0-20160624110644-59b7046e48ad
 	github.com/stretchr/testify v1.3.0 // indirect
-	github.com/tidwall/gjson v1.2.1
-	github.com/tidwall/match v1.0.1 // indirect
-	github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65 // indirect
+	github.com/tidwall/gjson v1.6.0
 	github.com/unidoc/unioffice v1.2.1
 	github.com/urfave/cli v1.20.0
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
