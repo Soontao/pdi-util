@@ -10,8 +10,7 @@ require (
 	github.com/google/go-cmp v0.2.0 // indirect
 	github.com/imroc/req v0.2.3
 	github.com/mattn/go-colorable v0.1.2 // indirect
-	github.com/mattn/go-runewidth v0.0.4 // indirect
-	github.com/olekukonko/tablewriter v0.0.1
+	github.com/olekukonko/tablewriter v0.0.4
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/sergi/go-diff v1.0.0
 	github.com/spkg/bom v0.0.0-20160624110644-59b7046e48ad
