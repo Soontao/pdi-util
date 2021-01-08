@@ -1,9 +1,7 @@
-# github.com/Jeffail/tunny v0.0.0-20181108205650-4921fff29480
-github.com/Jeffail/tunny
-# github.com/beevik/etree v1.1.0
-github.com/beevik/etree
 # github.com/cheggaaa/pb v2.0.7+incompatible
 github.com/cheggaaa/pb
+# github.com/cpuguy83/go-md2man/v2 v2.0.0
+github.com/cpuguy83/go-md2man/v2/md2man
 # github.com/deckarep/golang-set v1.7.1
 github.com/deckarep/golang-set
 # github.com/google/go-cmp v0.2.0
@@ -11,36 +9,42 @@ github.com/google/go-cmp/cmp
 github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/imroc/req v0.2.3
+# github.com/imroc/req v0.3.0
 github.com/imroc/req
-# github.com/mattn/go-colorable v0.1.2
+# github.com/mattn/go-colorable v0.1.8
 github.com/mattn/go-colorable
-# github.com/mattn/go-isatty v0.0.8
+# github.com/mattn/go-isatty v0.0.12
 github.com/mattn/go-isatty
-# github.com/mattn/go-runewidth v0.0.4
+# github.com/mattn/go-runewidth v0.0.9
 github.com/mattn/go-runewidth
-# github.com/olekukonko/tablewriter v0.0.1
+# github.com/olekukonko/tablewriter v0.0.4
 github.com/olekukonko/tablewriter
 # github.com/pkg/errors v0.8.1
 github.com/pkg/errors
-# github.com/sergi/go-diff v1.0.0
+# github.com/russross/blackfriday/v2 v2.1.0
+github.com/russross/blackfriday/v2
+# github.com/sergi/go-diff v1.1.0
 github.com/sergi/go-diff/diffmatchpatch
-# github.com/spkg/bom v0.0.0-20160624110644-59b7046e48ad
+# github.com/spkg/bom v1.0.0
 github.com/spkg/bom
-# github.com/tidwall/gjson v1.2.1
+# github.com/tidwall/gjson v1.6.7
 github.com/tidwall/gjson
-# github.com/tidwall/match v1.0.1
+# github.com/tidwall/match v1.0.3
 github.com/tidwall/match
-# github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65
+# github.com/tidwall/pretty v1.0.2
 github.com/tidwall/pretty
-# github.com/unidoc/unioffice v1.2.1
+# github.com/unidoc/unioffice v1.8.0
 github.com/unidoc/unioffice
 github.com/unidoc/unioffice/algo
 github.com/unidoc/unioffice/chart
 github.com/unidoc/unioffice/color
 github.com/unidoc/unioffice/common
 github.com/unidoc/unioffice/common/license
+github.com/unidoc/unioffice/common/tempstorage
+github.com/unidoc/unioffice/common/tempstorage/diskstore
 github.com/unidoc/unioffice/drawing
+github.com/unidoc/unioffice/internal/mergesort
+github.com/unidoc/unioffice/internal/wildcard
 github.com/unidoc/unioffice/measurement
 github.com/unidoc/unioffice/schema/soo/dml
 github.com/unidoc/unioffice/schema/soo/dml/chart
@@ -66,13 +70,15 @@ github.com/unidoc/unioffice/spreadsheet
 github.com/unidoc/unioffice/spreadsheet/format
 github.com/unidoc/unioffice/spreadsheet/formula
 github.com/unidoc/unioffice/spreadsheet/reference
+github.com/unidoc/unioffice/spreadsheet/update
 github.com/unidoc/unioffice/vmldrawing
 github.com/unidoc/unioffice/zippkg
-# github.com/urfave/cli v1.20.0
+# github.com/urfave/cli v1.22.5
 github.com/urfave/cli
-# golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
+# golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223
+# golang.org/x/sys v0.0.0-20210105210732-16f7687f5001
+golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 # gopkg.in/VividCortex/ewma.v1 v1.1.1
 gopkg.in/VividCortex/ewma.v1
