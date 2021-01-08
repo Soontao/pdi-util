@@ -3,8 +3,6 @@ module github.com/Soontao/pdi-util
 go 1.12
 
 require (
-	github.com/Jeffail/tunny v0.0.0-20181108205650-4921fff29480 // indirect
-	github.com/beevik/etree v1.1.0 // indirect
 	github.com/cheggaaa/pb v2.0.7+incompatible
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/deckarep/golang-set v1.7.1
