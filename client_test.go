@@ -1,6 +1,11 @@
 package pdiutil
 
-import "testing"
+import (
+	"testing"
+	"time"
+
+	"github.com/imroc/req"
+)
 
 func TestGetReleaseVersionForTenant(t *testing.T) {
 	type args struct {
@@ -23,6 +28,9 @@ func TestGetReleaseVersionForTenant(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+
+		req.SetTimeout(60 * time.Second) // long timeout
+
 		t.Run(tt.name, func(t *testing.T) {
 			gotRt, err := GetReleaseVersionForTenant(tt.args.host)
 			t.Logf("Get release: %v for %v", gotRt, tt.args.host)
