@@ -15,7 +15,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.1.0
 	github.com/spkg/bom v1.0.0
-	github.com/tidwall/gjson v1.6.7
+	github.com/tidwall/gjson v1.6.8
 	github.com/unidoc/unioffice v1.8.0
 	github.com/urfave/cli v1.22.5
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
