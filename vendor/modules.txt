@@ -15,23 +15,25 @@ github.com/imroc/req
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.12
 github.com/mattn/go-isatty
-# github.com/mattn/go-runewidth v0.0.9
+# github.com/mattn/go-runewidth v0.0.10
 github.com/mattn/go-runewidth
-# github.com/olekukonko/tablewriter v0.0.4
+# github.com/olekukonko/tablewriter v0.0.5
 github.com/olekukonko/tablewriter
 # github.com/pkg/errors v0.8.1
 github.com/pkg/errors
+# github.com/rivo/uniseg v0.2.0
+github.com/rivo/uniseg
 # github.com/russross/blackfriday/v2 v2.1.0
 github.com/russross/blackfriday/v2
 # github.com/sergi/go-diff v1.1.0
 github.com/sergi/go-diff/diffmatchpatch
 # github.com/spkg/bom v1.0.0
 github.com/spkg/bom
-# github.com/tidwall/gjson v1.6.7
+# github.com/tidwall/gjson v1.6.8
 github.com/tidwall/gjson
 # github.com/tidwall/match v1.0.3
 github.com/tidwall/match
-# github.com/tidwall/pretty v1.0.2
+# github.com/tidwall/pretty v1.1.0
 github.com/tidwall/pretty
 # github.com/unidoc/unioffice v1.8.0
 github.com/unidoc/unioffice
@@ -75,9 +77,9 @@ github.com/unidoc/unioffice/vmldrawing
 github.com/unidoc/unioffice/zippkg
 # github.com/urfave/cli v1.22.5
 github.com/urfave/cli
-# golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
+# golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.0.0-20210105210732-16f7687f5001
+# golang.org/x/sys v0.0.0-20210305034016-7844c3c200c3
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 # gopkg.in/VividCortex/ewma.v1 v1.1.1
