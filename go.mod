@@ -14,7 +14,7 @@ require (
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/sergi/go-diff v1.1.0
+	github.com/sergi/go-diff v1.2.0
 	github.com/spkg/bom v1.0.0
 	github.com/tidwall/gjson v1.6.8
 	github.com/tidwall/pretty v1.1.0 // indirect
