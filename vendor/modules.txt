@@ -15,7 +15,7 @@ github.com/imroc/req
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.12
 github.com/mattn/go-isatty
-# github.com/mattn/go-runewidth v0.0.10
+# github.com/mattn/go-runewidth v0.0.12
 github.com/mattn/go-runewidth
 # github.com/olekukonko/tablewriter v0.0.5
 github.com/olekukonko/tablewriter
@@ -25,26 +25,26 @@ github.com/pkg/errors
 github.com/rivo/uniseg
 # github.com/russross/blackfriday/v2 v2.1.0
 github.com/russross/blackfriday/v2
-# github.com/sergi/go-diff v1.1.0
+# github.com/sergi/go-diff v1.2.0
 github.com/sergi/go-diff/diffmatchpatch
 # github.com/spkg/bom v1.0.0
 github.com/spkg/bom
-# github.com/tidwall/gjson v1.6.8
+# github.com/tidwall/gjson v1.7.5
 github.com/tidwall/gjson
 # github.com/tidwall/match v1.0.3
 github.com/tidwall/match
 # github.com/tidwall/pretty v1.1.0
 github.com/tidwall/pretty
-# github.com/unidoc/unioffice v1.8.0
+# github.com/unidoc/unioffice v1.9.0
 github.com/unidoc/unioffice
 github.com/unidoc/unioffice/algo
 github.com/unidoc/unioffice/chart
 github.com/unidoc/unioffice/color
 github.com/unidoc/unioffice/common
-github.com/unidoc/unioffice/common/license
 github.com/unidoc/unioffice/common/tempstorage
 github.com/unidoc/unioffice/common/tempstorage/diskstore
 github.com/unidoc/unioffice/drawing
+github.com/unidoc/unioffice/internal/license
 github.com/unidoc/unioffice/internal/mergesort
 github.com/unidoc/unioffice/internal/wildcard
 github.com/unidoc/unioffice/measurement
@@ -79,7 +79,7 @@ github.com/unidoc/unioffice/zippkg
 github.com/urfave/cli
 # golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.0.0-20210305034016-7844c3c200c3
+# golang.org/x/sys v0.0.0-20210421221651-33663a62ff08
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 # gopkg.in/VividCortex/ewma.v1 v1.1.1

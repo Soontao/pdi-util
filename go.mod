@@ -9,19 +9,19 @@ require (
 	github.com/google/go-cmp v0.2.0 // indirect
 	github.com/imroc/req v0.3.0
 	github.com/mattn/go-colorable v0.1.8 // indirect
-	github.com/mattn/go-runewidth v0.0.10 // indirect
+	github.com/mattn/go-runewidth v0.0.12 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/sergi/go-diff v1.1.0
+	github.com/sergi/go-diff v1.2.0
 	github.com/spkg/bom v1.0.0
-	github.com/tidwall/gjson v1.6.8
+	github.com/tidwall/gjson v1.7.5
 	github.com/tidwall/pretty v1.1.0 // indirect
 	github.com/unidoc/unioffice v1.9.0
 	github.com/urfave/cli v1.22.5
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210305034016-7844c3c200c3 // indirect
+	golang.org/x/sys v0.0.0-20210421221651-33663a62ff08 // indirect
 	gopkg.in/VividCortex/ewma.v1 v1.1.1 // indirect
 	gopkg.in/cheggaaa/pb.v2 v2.0.7 // indirect
 	gopkg.in/fatih/color.v1 v1.7.0 // indirect
