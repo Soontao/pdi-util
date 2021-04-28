@@ -18,7 +18,7 @@ require (
 	github.com/spkg/bom v1.0.0
 	github.com/tidwall/gjson v1.7.5
 	github.com/tidwall/pretty v1.1.0 // indirect
-	github.com/unidoc/unioffice v1.9.0
+	github.com/unidoc/unioffice v1.10.0
 	github.com/urfave/cli v1.22.5
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20210421221651-33663a62ff08 // indirect
