@@ -16,7 +16,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.2.0
 	github.com/spkg/bom v1.0.0
-	github.com/tidwall/gjson v1.7.5
+	github.com/tidwall/gjson v1.8.0
 	github.com/tidwall/pretty v1.1.0 // indirect
 	github.com/unidoc/unioffice v1.9.0
 	github.com/urfave/cli v1.22.5
